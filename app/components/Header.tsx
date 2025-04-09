@@ -7,6 +7,11 @@ import {
 } from '@shopify/hydrogen';
 import type {HeaderQuery, CartApiQueryFragment} from 'storefrontapi.generated';
 import {useAside} from '~/components/Aside';
+import {HiMiniMagnifyingGlass} from 'react-icons/hi2';
+import {HiOutlineShoppingBag} from 'react-icons/hi';
+import {BsPerson} from 'react-icons/bs';
+
+import EmployeeIcon from '../assets/icons/employee.svg';
 
 interface HeaderProps {
   header: HeaderQuery;
@@ -27,7 +32,8 @@ export function Header({
   return (
     <header className="header">
       <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-        <strong>{shop.name}</strong>
+        {/* change name of the company  */}
+        <strong className="text-xl font-main ">uncmfrt.com</strong>
       </NavLink>
       <HeaderMenu
         menu={menu}
@@ -67,6 +73,8 @@ export function HeaderMenu({
           Home
         </NavLink>
       )}
+      {/* added search link there */}
+      <SearchToggle />
       {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
         if (!item.url) return null;
 
@@ -77,14 +85,15 @@ export function HeaderMenu({
           item.url.includes(primaryDomainUrl)
             ? new URL(item.url).pathname
             : item.url;
+        console.log(item.title);
         return (
           <NavLink
-            className="header-menu-item"
+            className="header-menu-item hover:font-medium  underline-offset-10 gap-x-20 "
             end
             key={item.id}
             onClick={close}
             prefetch="intent"
-            style={activeLinkStyle}
+            // style={activeLinkStyle}
             to={url}
           >
             {item.title}
@@ -102,15 +111,32 @@ function HeaderCtas({
   return (
     <nav className="header-ctas" role="navigation">
       <HeaderMenuMobileToggle />
-      <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
-        <Suspense fallback="Sign in">
+      <NavLink
+        prefetch="intent"
+        to="/account"
+        style={activeLinkStyle}
+        className="gap-x-3 flex items-center"
+      >
+        <div className="font-main text-[14px] bg-main-gray w-24 h-11 rounded-lg flex flex-nowrap justify-center items-center font-medium gap-2.5 ">
+          Men <img src={EmployeeIcon} alt="employeeIcon" />
+        </div>
+        <div className="flex items-center justify-around gap-2.5 w-[250px]">
+          <div className=" font-main text-[14px] w-[140px] h-[45px] bg-main-blue text-white text-center flex flex-nowrap justify-center items-center rounded-lg font-medium ">
+            Take the quizz
+          </div>
+          <div>
+            <BsPerson size={16} />
+          </div>
+          {/* <Suspense fallback="Sign in">
           <Await resolve={isLoggedIn} errorElement="Sign in">
             {(isLoggedIn) => (isLoggedIn ? 'Account' : 'Sign in')}
           </Await>
-        </Suspense>
+        </Suspense> */}
+          <CartToggle cart={cart} />
+        </div>
       </NavLink>
-      <SearchToggle />
-      <CartToggle cart={cart} />
+      {/* i comment from here because i wanted in the group of links on the middle of nav */}
+      {/* <SearchToggle /> */}
     </nav>
   );
 }
@@ -131,7 +157,7 @@ function SearchToggle() {
   const {open} = useAside();
   return (
     <button className="reset" onClick={() => open('search')}>
-      Search
+      <HiMiniMagnifyingGlass />
     </button>
   );
 }
@@ -154,7 +180,9 @@ function CartBadge({count}: {count: number | null}) {
         } as CartViewPayload);
       }}
     >
-      Cart {count === null ? <span>&nbsp;</span> : count}
+      <span className="">
+        <HiOutlineShoppingBag size={16} />
+      </span>
     </a>
   );
 }
