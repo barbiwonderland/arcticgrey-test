@@ -72,7 +72,7 @@ function FeaturedCollection({
 }) {
   if (!collection) return null;
   const image = collection?.image;
-  console.log(collection)
+  console.log(collection);
   return (
     <Link
       className="featured-collection"
@@ -81,12 +81,22 @@ function FeaturedCollection({
       {image && (
         <div className="featured-collection-image relative">
           {/* <Image data={image} sizes="100vw" /> */}
-          <video width="100%" autoPlay muted loop src='https://cdn.shopify.com/videos/c/o/v/00895dae9f1948d08c6d42b6cf20e338.mp4' typeof='video/mp4'></video>
+          <video
+            width="100%"
+            autoPlay
+            muted
+            loop
+            src="https://cdn.shopify.com/videos/c/o/v/00895dae9f1948d08c6d42b6cf20e338.mp4"
+            typeof="video/mp4"
+          ></video>
         </div>
-
       )}
-     <h1 className='font-main text-white top-[600px] left-[400px]'>Great things never came from comfort zones.</h1>
-
+      <div className="w-[854px] !h-[264px]  absolute top-[550px] left-[40px] flex flex-wrap content-between flex-row">
+        <h1 className="font-main text-white font-semibold w-full !text-[70px] !m-0 !leading-none">
+          Great things never came from comfort zones.
+        </h1>
+        <div className="bg-white h-[50px] w-[160px] rounded-lg flex justify-center items-center ">Shop Now</div>
+      </div>
     </Link>
   );
 }

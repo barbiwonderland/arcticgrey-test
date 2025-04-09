@@ -122,7 +122,7 @@ function HeaderCtas({
         </div>
         <div className="flex items-center justify-around gap-2.5 w-[250px]">
           <div className=" font-main text-[14px] w-[140px] h-[45px] bg-main-blue text-white text-center flex flex-nowrap justify-center items-center rounded-lg font-medium ">
-            Take the quizz
+            Take the quiz
           </div>
           <div>
             <BsPerson size={16} />
