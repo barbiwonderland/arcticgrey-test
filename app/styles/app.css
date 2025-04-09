@@ -532,3 +532,16 @@ button.reset:hover:not(:has(> *)) {
 .account-logout {
   display: inline-block;
 }
+
+/*
+//Marque
+*/
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-20%); }
+}
+
+/* Enable animation */
+.enable-animation .marquee__content {
+  animation: scroll 10s linear infinite;
+}
