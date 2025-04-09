@@ -1,9 +1,24 @@
+/* custom font syles*/
+/*https://community.shopify.com/c/technical-q-a/how-to-implement-google-fonts-into-shopify-hydrogen/m-p/2878468*/
+
+@import '@fontsource-variable/rubik';
+
+@import "tailwindcss";     
+
+@theme {
+  --font-main: 'Rubik Variable', sans-serif;
+  --color-main-blue: #1B1F23;
+  --color-main-gray: #E4E4E4;
+}
 :root {
   --aside-width: 400px;
   --cart-aside-summary-height-with-discount: 300px;
   --cart-aside-summary-height: 250px;
   --grid-item-width: 355px;
-  --header-height: 64px;
+  /*
+  i edit this for less height navbar */
+   --header-height: 70px; 
+  
   --color-dark: #000;
   --color-light: #fff;
 }
@@ -159,13 +174,21 @@ button.reset:hover:not(:has(> *)) {
 */
 .header {
   align-items: center;
-  background: #fff;
+  background: white;
   display: flex;
   height: var(--header-height);
   padding: 0 1rem;
-  position: sticky;
+  /* position: sticky; */
   top: 0;
   z-index: 1;
+  /* styles added */
+  border-radius: 5px;
+  margin: auto;
+  width: 90%;
+  position: absolute;
+  align-self: center;
+  margin-top: 20px;
+  justify-content:space-between
 }
 
 .header-menu-mobile-toggle {
@@ -182,10 +205,10 @@ button.reset:hover:not(:has(> *)) {
 
 .header-menu-desktop {
   display: none;
-  grid-gap: 1rem;
+  grid-gap: 2.5rem;
   @media (min-width: 45em) {
     display: flex;
-    grid-gap: 1rem;
+    /* grid-gap: 1rem; */
     margin-left: 3rem;
   }
 }
@@ -198,7 +221,8 @@ button.reset:hover:not(:has(> *)) {
   align-items: center;
   display: flex;
   grid-gap: 1rem;
-  margin-left: auto;
+  /* i comment this to space between elements */
+  /* margin-left: auto; */
 }
 
 /*

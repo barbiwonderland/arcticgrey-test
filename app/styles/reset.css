@@ -78,9 +78,11 @@ body {
   min-height: 100vh;
 }
 
+/* 
+i comment for home video full size
 body > main {
   margin: 0 1rem 1rem 1rem;
-}
+} */
 
 section {
   padding: 1rem 0;
