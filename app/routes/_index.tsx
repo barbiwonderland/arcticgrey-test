@@ -72,17 +72,21 @@ function FeaturedCollection({
 }) {
   if (!collection) return null;
   const image = collection?.image;
+  console.log(collection)
   return (
     <Link
       className="featured-collection"
       to={`/collections/${collection.handle}`}
     >
       {image && (
-        <div className="featured-collection-image">
-          <Image data={image} sizes="100vw" />
+        <div className="featured-collection-image relative">
+          {/* <Image data={image} sizes="100vw" /> */}
+          <video width="100%" autoPlay muted loop src='https://cdn.shopify.com/videos/c/o/v/00895dae9f1948d08c6d42b6cf20e338.mp4' typeof='video/mp4'></video>
         </div>
+
       )}
-      <h1>{collection.title}</h1>
+     <h1 className='font-main text-white top-[600px] left-[400px]'>Great things never came from comfort zones.</h1>
+
     </Link>
   );
 }
