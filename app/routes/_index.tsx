@@ -7,6 +7,8 @@ import type {
   RecommendedProductsQuery,
 } from 'storefrontapi.generated';
 import Marquee from '~/components/Marquee';
+import Banner from '~/components/Banner';
+import GoalsSection from '~/components/GoalsSection';
 
 export const meta: MetaFunction = () => {
   return [{title: 'Hydrogen | Home'}];
@@ -61,6 +63,8 @@ export default function Homepage() {
   return (
     <div className="home">
       <FeaturedCollection collection={data.featuredCollection} />
+      <Banner/>
+      <GoalsSection/>
       <RecommendedProducts products={data.recommendedProducts} />
     </div>
   );
@@ -75,12 +79,11 @@ function FeaturedCollection({
   const image = collection?.image;
   console.log(collection);
   return (
-    <Link
-      className="featured-collection"
-      to={`/collections/${collection.handle}`}
+    <div
+      className="w-full"
     >
-      {image && (
-        <div className="featured-collection-image relative !h-screen w-screen ">
+      {/* {image && ( */}
+        <div className="relative !h-screen w-screen ">
           {/* <Image data={image} sizes="100vw" /> */}
           <video
             width="100%"
@@ -92,17 +95,17 @@ function FeaturedCollection({
             typeof="video/mp4"
           ></video>
         </div>
-      )}
-      <div className="md:w-[854px] md:!h-[264px]  md:absolute md:top-[550px] md:left-[40px] flex flex-wrap md:content-between flex-row sm:top-[322px] sm:left-[16px] sm:w-[95%] sm:content-around">
-        <h1 className="font-main text-white font-semibold w-full md:!text-[70px] !m-0 !leading-none sm:!text-xs">
+      {/* )} */}
+      <div className="md:w-[854px] md:!h-[264px]  absolute md:top-[550px] gap-10 md:gap-0 top-[650px] left-[30px] md:left-[40px] flex flex-wrap md:content-between flex-row sm:top-[322px] sm:left-[16px] sm:w-[95%] sm:content-around">
+        <h1 className="font-main text-white font-semibold w-full md:!text-[70px] !text-[18px] !m-0 !leading-none sm:!text-xs">
           Great things never came from comfort zones.
         </h1>
         <div className="bg-white h-[50px] w-[160px] rounded-lg flex justify-center items-center ">
           Shop Now
         </div>
       </div>
-      <Marquee />
-    </Link>
+       <Marquee /> 
+    </div>
   );
 }
 

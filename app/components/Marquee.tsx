@@ -9,7 +9,7 @@ const messages = [
 export default function Marquee() {
   return (
     <div className=" main__container w-full bg-black h-12 flex content-center flex-wrap absolute bottom-0">
-        <section className="enable-animation">
+        <section className="enable-animation overflow-x-hidden">
         <div className="marquee">      
           <ul className="marquee__content flex whitespace-nowrap w-max">
             {messages.map((message, index) => (

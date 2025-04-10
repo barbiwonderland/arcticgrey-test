@@ -117,10 +117,10 @@ function HeaderCtas({
         style={activeLinkStyle}
         className="gap-x-3 flex items-center"
       >
-        <div className="font-main text-[14px] bg-main-gray w-24 h-11 rounded-lg flex flex-nowrap justify-center items-center font-medium gap-2.5 ">
+        <div className="font-main text-[14px] hidden bg-main-gray w-24 h-11 rounded-lg md:flex flex-nowrap justify-center items-center font-medium gap-2.5 ">
           Men <img src={EmployeeIcon} alt="employeeIcon" />
         </div>
-        <div className="flex items-center justify-around gap-2.5 w-[250px]">
+        <div className="md:flex items-center justify-around gap-2.5 w-[250px] hidden">
           <div className=" font-main text-[14px] w-[140px] h-[45px] bg-main-blue text-white text-center flex flex-nowrap justify-center items-center rounded-lg font-medium ">
             Take the quiz
           </div>
