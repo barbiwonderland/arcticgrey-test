@@ -9,6 +9,8 @@ import type {
 import Marquee from '~/components/Marquee';
 import Banner from '~/components/Banner';
 import GoalsSection from '~/components/GoalsSection';
+import TrendingProducts from '~/components/TrendingProducts';
+import Collection from './collections.$handle';
 
 export const meta: MetaFunction = () => {
   return [{title: 'Hydrogen | Home'}];
@@ -21,13 +23,26 @@ export async function loader(args: LoaderFunctionArgs) {
   // Await the critical data required to render initial state of the page
   const criticalData = await loadCriticalData(args);
 
-  return {...deferredData, ...criticalData};
+  const getProducts = await loadProducts(args);
+
+  return {...deferredData, ...criticalData,...getProducts};
 }
 
 /**
  * Load data necessary for rendering content above the fold. This is the critical data
  * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
  */
+
+async function loadProducts({context}: LoaderFunctionArgs) {
+  const [{products}] = await Promise.all([
+    context.storefront.query(GET_PRODUCTS_QUERY),
+  ]);
+
+  return {
+    products: products.nodes, 
+  };
+}
+
 async function loadCriticalData({context}: LoaderFunctionArgs) {
   const [{collections}] = await Promise.all([
     context.storefront.query(FEATURED_COLLECTION_QUERY),
@@ -63,8 +78,9 @@ export default function Homepage() {
   return (
     <div className="home">
       <FeaturedCollection collection={data.featuredCollection} />
-      <Banner/>
-      <GoalsSection/>
+      <Banner />
+      <GoalsSection />
+       <TrendingProducts products={data.products} /> 
       <RecommendedProducts products={data.recommendedProducts} />
     </div>
   );
@@ -77,24 +93,22 @@ function FeaturedCollection({
 }) {
   if (!collection) return null;
   const image = collection?.image;
-  console.log(collection);
+  // console.log(collection);
   return (
-    <div
-      className="w-full"
-    >
+    <div className="w-full">
       {/* {image && ( */}
-        <div className="relative !h-screen w-screen ">
-          {/* <Image data={image} sizes="100vw" /> */}
-          <video
-            width="100%"
-            autoPlay
-            muted
-            loop
-            className="!h-screen object-cover"
-            src="https://cdn.shopify.com/videos/c/o/v/00895dae9f1948d08c6d42b6cf20e338.mp4"
-            typeof="video/mp4"
-          ></video>
-        </div>
+      <div className="relative !h-screen w-screen ">
+        {/* <Image data={image} sizes="100vw" /> */}
+        <video
+          width="100%"
+          autoPlay
+          muted
+          loop
+          className="!h-screen object-cover"
+          src="https://cdn.shopify.com/videos/c/o/v/00895dae9f1948d08c6d42b6cf20e338.mp4"
+          typeof="video/mp4"
+        ></video>
+      </div>
       {/* )} */}
       <div className="md:w-[854px] md:!h-[264px]  absolute md:top-[550px] gap-10 md:gap-0 top-[650px] left-[30px] md:left-[40px] flex flex-wrap md:content-between flex-row sm:top-[322px] sm:left-[16px] sm:w-[95%] sm:content-around">
         <h1 className="font-main text-white font-semibold w-full md:!text-[70px] !text-[18px] !m-0 !leading-none sm:!text-xs">
@@ -104,7 +118,7 @@ function FeaturedCollection({
           Shop Now
         </div>
       </div>
-       <Marquee /> 
+      <Marquee />
     </div>
   );
 }
@@ -198,6 +212,29 @@ const RECOMMENDED_PRODUCTS_QUERY = `#graphql
     products(first: 4, sortKey: UPDATED_AT, reverse: true) {
       nodes {
         ...RecommendedProduct
+      }
+    }
+  }
+` as const;
+
+
+const GET_PRODUCTS_QUERY = `#graphql
+  query GetProducts {
+    products(first: 10) {
+      nodes {
+        id
+        title
+        handle
+        description
+        images(first: 10) {
+          nodes {
+            id
+            url
+            altText
+            width
+            height
+          }
+        }
       }
     }
   }

@@ -85,7 +85,7 @@ export function HeaderMenu({
           item.url.includes(primaryDomainUrl)
             ? new URL(item.url).pathname
             : item.url;
-        console.log(item.title);
+        // console.log(item.title);
         return (
           <NavLink
             className="header-menu-item hover:font-medium  underline-offset-10 gap-x-20 "
