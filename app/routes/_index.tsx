@@ -219,23 +219,30 @@ const RECOMMENDED_PRODUCTS_QUERY = `#graphql
 
 
 const GET_PRODUCTS_QUERY = `#graphql
-  query GetProducts {
-    products(first: 10) {
-      nodes {
-        id
-        title
-        handle
-        description
-        images(first: 10) {
-          nodes {
-            id
-            url
-            altText
-            width
-            height
+query GetProducts {
+  products(first: 10) {
+    nodes {
+      id
+      title
+      handle
+      description
+      images(first: 10) {
+        nodes {
+          id
+          url
+          altText
+          width
+          height
+        }
+      }
+      variants(first: 10) {
+        nodes {
+          price {
+            amount
           }
         }
       }
     }
   }
+}
 ` as const;

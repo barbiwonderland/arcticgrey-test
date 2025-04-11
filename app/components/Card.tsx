@@ -16,15 +16,22 @@ export type SimpleProduct = {
       height: number;
     }[];
   };
+  variants: {
+    nodes: {
+      price: {
+        amount: string;
+      };
+    }[];
+  };
 };
 
-function Card({item,index}: {item: SimpleProduct,index:number}) {
+function Card({item,index,price}: {item: SimpleProduct,index:number,price:boolean}) {
   const [selectedOption, setSelectedOption] = useState('one');
 
   return (
     < >
 
-      <div key={index} className={`group card w-[80%]! shrink-0 md:shrink-1 md:w-[365px] h-[350px] md:h-[560px] m-2 p-5 md:pd-0 bg-white rounded-lg font-main flex flex-col justify-center`}>
+      <div key={index} className={`group card w-[80%]! shrink-0 md:shrink-1 md:w-[365px] h-[350px] md:h-[560px] m-2 p-5 md:pd-0 bg-white rounded-lg font-main flex flex-col justify-center `}>
       {/* its appears on the image */}
       {/* {true && (
               <div className=" bg-[#FFED92] py-1.5 px-2.5 w-fit stamp text-[12px] ml-2 mt-2">
@@ -54,7 +61,7 @@ function Card({item,index}: {item: SimpleProduct,index:number}) {
             ))}
           </div>
           <div className="add-button p-1  md:p-1.5 md:w-28 w-18 bg-black rounded-lg text-white font-main md:text-xs text-[9px] text-center">
-            Add • $49.95
+            {price ? ` Add • ${item.variants.nodes[0].price.amount}` : "Add to Cart"}
           </div>
         </div>
       </div>
@@ -77,7 +84,7 @@ function Card({item,index}: {item: SimpleProduct,index:number}) {
               </span>
               <span>One-Time Purchase</span>
             </div>
-            <div className="price font-medium pl-6">$49.95</div>
+            <div className="price font-medium pl-6">{item.variants.nodes[0].price.amount}</div>
             <input
               type="radio"
               name="purchaseOption"
@@ -116,7 +123,7 @@ function Card({item,index}: {item: SimpleProduct,index:number}) {
           </label>
         </div>
         <div className="add-btn w-[325px] h-[45px] bg-black round-lg text-white text-[14px] rounded-lg flex content-center flex-wrap justify-center mb-2">
-          Add to Cart - <span className="price">$49.95</span>
+          Add to Cart - <span className="price">${item.variants.nodes[0].price.amount}</span>
         </div>
         <div className="full-details text-xs">View Full Details</div>
       </div>

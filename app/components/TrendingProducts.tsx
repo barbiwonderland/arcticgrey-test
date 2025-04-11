@@ -45,12 +45,12 @@ const handleScrollLeft = () => {
         </div>
       </div>
       <div className="carousel w-full py-7">
-        <div  className="cards w-full mt-5 flex justify-center md:gap-8 items-center flex-row flex-nowrap overflow-scroll" ref={scrollRef}>
+        <div  className="cards md:w-full w-[80%]  mt-5 flex justify-normal md:justify-center md:gap-8 items-center flex-row flex-nowrap overflow-x-scroll mx-auto md:mx-0" ref={scrollRef}>
         
           {products && products.map((product, index)=>{
             console.log(product,"indiviaul")
             return(
-              <Card item ={product} index = {index} />
+              <Card item ={product} index = {index} price={true}/>
             )
           })}
          
