@@ -382,6 +382,9 @@ export type GetProductsQuery = {
             >
           >;
         };
+        variants: {
+          nodes: Array<{price: Pick<StorefrontAPI.MoneyV2, 'amount'>}>;
+        };
       }
     >;
   };
@@ -1206,7 +1209,7 @@ interface GeneratedQueryTypes {
     return: RecommendedProductsQuery;
     variables: RecommendedProductsQueryVariables;
   };
-  '#graphql\n  query GetProducts {\n    products(first: 10) {\n      nodes {\n        id\n        title\n        handle\n        description\n        images(first: 10) {\n          nodes {\n            id\n            url\n            altText\n            width\n            height\n          }\n        }\n      }\n    }\n  }\n': {
+  '#graphql\nquery GetProducts {\n  products(first: 10) {\n    nodes {\n      id\n      title\n      handle\n      description\n      images(first: 10) {\n        nodes {\n          id\n          url\n          altText\n          width\n          height\n        }\n      }\n      variants(first: 10) {\n        nodes {\n          price {\n            amount\n          }\n        }\n      }\n    }\n  }\n}\n': {
     return: GetProductsQuery;
     variables: GetProductsQueryVariables;
   };
