@@ -30,7 +30,7 @@ const handleScrollLeft = () => {
   }
 };
   return (
-    <div className="trending-section h-auto w-full bg-[#F6F6F5] p-10">
+    <div className="trending-section h-auto w-screen bg-[#F6F6F5] md:p-10">
       <div className="titles flex flex-row justify-center text-center">
         <div className="left-arrow h-10 w-10 border-2 border-gray-300 rounded-lg text-center flex justify-center items-center" onClick={handleScrollLeft}>
           <AiOutlineArrowLeft   />
@@ -44,13 +44,13 @@ const handleScrollLeft = () => {
           <AiOutlineArrowRight />
         </div>
       </div>
-      <div className="carousel group">
-        <div  className="cards w-full mt-5 flex justify-center gap-8 items-center overflow-x-scroll scrollbar-hide scroll-smooth" ref={scrollRef}>
+      <div className="carousel w-full py-7">
+        <div  className="cards w-full mt-5 flex justify-center md:gap-8 items-center flex-row flex-nowrap overflow-scroll" ref={scrollRef}>
         
           {products && products.map((product, index)=>{
             console.log(product,"indiviaul")
             return(
-              <Card item ={product} key = {index} />
+              <Card item ={product} index = {index} />
             )
           })}
          
