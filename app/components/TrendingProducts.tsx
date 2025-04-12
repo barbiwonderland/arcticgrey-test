@@ -30,7 +30,7 @@ const handleScrollLeft = () => {
   }
 };
   return (
-    <div className="trending-section h-auto w-screen bg-[#F6F6F5] md:p-10">
+    <div className="trending-section h-auto w-screen max-h-[950px] bg-[#F6F6F5] md:p-10">
       <div className="titles flex flex-row justify-center text-center">
         <div className="left-arrow h-10 w-10 border-2 border-gray-300 rounded-lg text-center flex justify-center items-center" onClick={handleScrollLeft}>
           <AiOutlineArrowLeft   />
