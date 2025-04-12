@@ -105,7 +105,7 @@ function Testimonials() {
           </div>
         </div>
 
-        <div className="slider-container flex flex-col justify-center ">
+        <div className="slider-container flex flex-col justify-center w-screen ">
         <div className="slider-content overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           <section className="flex flex-row gap-3 justify-center">
             {sampleProducts.map((item, index) => (
