@@ -14,6 +14,8 @@ import Collection from './collections.$handle';
 import About from '~/components/About';
 import Testimonials from '~/components/Testimonials';
 import Bundles from '~/components/Bundles';
+import ProductDetails from '~/components/ProductDetails';
+import News from '~/components/News';
 
 export const meta: MetaFunction = () => {
   return [{title: 'Hydrogen | Home'}];
@@ -88,6 +90,8 @@ export default function Homepage() {
              <Testimonials/>
       {/* <RecommendedProducts products={data.recommendedProducts} /> */}
       <Bundles products={data.products}/>
+      <ProductDetails/>
+      <News/>
     </div>
   );
 }
