@@ -3,7 +3,7 @@ import news from '../assets/images/news/news.png';
 function News() {
   return (
     <div className="news-container w-screen bg-white h-auto justify-center flex my-16 font-main">
-  <div className="news-image-container md:w-[80%] h-auto grid place-items-center">
+  <div className="news-image-container md:w-[90%] h-auto grid place-items-center">
     <div className="grid w-full items-center md:justify-items-start  ">
       <img className="col-start-1 row-start-1 w-full object-contain h-full" src={news} alt="" />
 

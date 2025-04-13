@@ -28,8 +28,8 @@ const articles: Article[] = [
 function Blog() {
   return (
     <>
-      <div className="h-[654px] flex flex-col justify-around font-main w-screen overflow-auto ">
-        <div className="heading flex flex-row justify-around w-full mb-8">
+      <div className="h-[700px]  flex flex-col justify-around font-main w-screen ">
+        <div className="heading flex flex-row justify-between  w-[90%] mb-8 mx-auto items-center">
           <div className="">
             <div className="eyebrow text-[16px]">✍️ Blogs</div>
             <div className="title font-medium text-[40px]">Latest Articles</div>
@@ -37,19 +37,19 @@ function Blog() {
           <div className="blog-action underline text-[16px]">View All</div>
         </div>
 
-        <div className="grid w-[80%] h-[654px] self-center ">
-          <div className="bog grid grid-cols-[8fr_7fr] gap-3 h-full">
+        <div className="grid w-[90%] h-[450px] self-center  ">
+          <div className="bog grid md:grid-cols-[800px_700px] gap-3 h-full">
             <div className="latest-news h-full">
               {articles[0] && (
-                <div className="container-card h-full relative text-white font-main">
+                <div className="container-card h-[450px]  relative text-white font-main">
                   <img
                     className="h-full object-cover rounded-2xl"
                     src={articles[0].image}
                     alt={articles[0].title}
                   />
-                  <div className="container-text absolute bottom-10 left-20 w-[370px]">
+                  <div className="container-text absolute bottom-10 md:left-20 left-10 w-[370px]">
                     <h3 className="text-[16px]!">{articles[0].description}</h3>
-                    <h2 className="text-[24px]! font-medium">
+                    <h2 className="md:text-[24px]! text-[18px]! font-medium">
                       {articles[0].title}
                     </h2>
                     <p className="text-[16px]!">
@@ -63,17 +63,17 @@ function Blog() {
               {articles.map((item, index) => (
                 <div
                   key={index}
-                  className="container-card w-full flex flex-row justify-around content-center flex-wrap text-[#1B1F23]"
+                  className="md_mb-0 mb-2 container-card w-full flex flex-row md:justify-around justify-start md:content-between flex-wrap text-[#1B1F23]"
                 >
                   <img
                     className=" w-[300px] h-[215px] object-cover rounded-2xl"
                     src={item.image}
                     alt={item.title}
                   />
-                  <div className="container-text w-[370px] flex flex-col justify-around">
-                    <h3 className="text-[16px]!">{item.description}</h3>
-                    <h2 className="text-[18px]! font-medium!">{item.title}</h2>
-                    <p className="text-[16px]!">
+                  <div className="container-text w-[370px] flex flex-col justify-around whitespace-normal break-normal">
+                    <h3 className="md:text-[16px]! text-[14px]!">{item.description}</h3>
+                    <h2 className="md:text-[18px]! text-[15px]! font-medium!">{item.title}</h2>
+                    <p className="md:text-[16px]! text-[12px]!">
                       {item.autor} | {item.date}
                     </p>
                   </div>
