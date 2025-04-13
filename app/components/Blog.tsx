@@ -28,8 +28,8 @@ const articles: Article[] = [
 function Blog() {
   return (
     <>
-      <div className="h-[700px]  flex flex-col justify-around font-main w-screen ">
-        <div className="heading flex flex-row justify-between  w-[90%] mb-8 mx-auto items-center">
+      <div className="md:h-[700px] h-auto flex flex-col justify-around font-main w-screen mb-10">
+        <div className="heading flex flex-row justify-between   w-[90%] mb-8 mx-auto items-center">
           <div className="">
             <div className="eyebrow text-[16px]">✍️ Blogs</div>
             <div className="title font-medium text-[40px]">Latest Articles</div>
@@ -37,7 +37,7 @@ function Blog() {
           <div className="blog-action underline text-[16px]">View All</div>
         </div>
 
-        <div className="grid w-[90%] h-[450px] self-center  ">
+        <div className="grid w-[90%] md:h-[450px] h-full self-center  ">
           <div className="bog grid md:grid-cols-[800px_700px] gap-3 h-full">
             <div className="latest-news h-full">
               {articles[0] && (
@@ -59,18 +59,18 @@ function Blog() {
                 </div>
               )}
             </div>
-            <div className="news grid grid-rows-[1fr_1fr] font-main w-full">
+            <div className="news grid grid-rows-[1fr_1fr] font-main w-full ">
               {articles.map((item, index) => (
                 <div
                   key={index}
-                  className="md_mb-0 mb-2 container-card w-full flex flex-row md:justify-around justify-start md:content-between flex-wrap text-[#1B1F23]"
+                  className="md_mb-0 mb-2 container-card w-full flex flex-row md:justify-around justify-center md:content-between flex-wrap text-[#1B1F23]"
                 >
                   <img
                     className=" w-[300px] h-[215px] object-cover rounded-2xl"
                     src={item.image}
                     alt={item.title}
                   />
-                  <div className="container-text w-[370px] flex flex-col justify-around whitespace-normal break-normal">
+                  <div className="container-text w-[370px] flex flex-col md:justify-around items-center md:items-start whitespace-normal break-normal">
                     <h3 className="md:text-[16px]! text-[14px]!">{item.description}</h3>
                     <h2 className="md:text-[18px]! text-[15px]! font-medium!">{item.title}</h2>
                     <p className="md:text-[16px]! text-[12px]!">
