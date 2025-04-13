@@ -17,6 +17,7 @@ import Bundles from '~/components/Bundles';
 import ProductDetails from '~/components/ProductDetails';
 import News from '~/components/News';
 import Blog from '~/components/Blog';
+import SocialMedia from '~/components/SocialMedia';
 
 export const meta: MetaFunction = () => {
   return [{title: 'Hydrogen | Home'}];
@@ -94,6 +95,7 @@ export default function Homepage() {
       <ProductDetails/>
       <News/>
       <Blog/>
+      <SocialMedia/>
     </div>
   );
 }
