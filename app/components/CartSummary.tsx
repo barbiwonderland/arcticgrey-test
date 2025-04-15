@@ -2,7 +2,7 @@ import type {CartApiQueryFragment} from 'storefrontapi.generated';
 import type {CartLayout} from '~/components/CartMain';
 import {CartForm, Money, type OptimisticCart} from '@shopify/hydrogen';
 import {useRef} from 'react';
-import {FetcherWithComponents} from '@remix-run/react';
+import {FetcherWithComponents, Link} from '@remix-run/react';
 
 type CartSummaryProps = {
   cart: OptimisticCart<CartApiQueryFragment | null>;
@@ -37,9 +37,9 @@ function CartCheckoutActions({checkoutUrl}: {checkoutUrl?: string}) {
 
   return (
     <div>
-      <a href={checkoutUrl} target="_self">
+      <Link to={checkoutUrl} target="_self">
         <p>Continue to Checkout &rarr;</p>
-      </a>
+      </Link>
       <br />
     </div>
   );

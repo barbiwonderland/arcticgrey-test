@@ -43,9 +43,8 @@ function About() {
       <div className="benefits mt-12 flex flex-row w-full gap-8 flex-wrap  ">
         {features.map((item, index) => {
           return (
-            <>
+            <div key={index}>
               <div
-                key={index}
                 className="container flex flex-col w-[350px] h-auto"
               >
                 <div className="icon bg-black h-10 w-10 md:w-12 md:h-12 rounded-full mb-6 text-white flex items-center justify-center"><img src={item.icon} alt={item.title} /></div>
@@ -54,7 +53,8 @@ function About() {
                 </div>
                 <div className="subtitle text-[12px] md:text-[16px] text-gray-700">{item.subtitle}</div>
               </div>
-            </>
+              </div>
+          
           );
         })}
       </div>

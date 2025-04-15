@@ -1,5 +1,5 @@
 import {Suspense} from 'react';
-import {Await, NavLink} from '@remix-run/react';
+import {Await, Link, NavLink} from '@remix-run/react';
 import type {FooterQuery, HeaderQuery} from 'storefrontapi.generated';
 
 interface FooterProps {
@@ -54,9 +54,9 @@ function FooterMenu({
             : item.url;
         const isExternal = !url.startsWith('/');
         return isExternal ? (
-          <a href={url} key={item.id} rel="noopener noreferrer" target="_blank">
+          <Link to={url} key={item.id} rel="noopener noreferrer" target="_blank">
             {item.title}
-          </a>
+          </Link>
         ) : (
           <NavLink
             end

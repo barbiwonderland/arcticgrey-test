@@ -1,4 +1,3 @@
-
 import {useRef, useState} from 'react';
 import {AiOutlineArrowLeft, AiOutlineArrowRight} from 'react-icons/ai';
 import Product from '../assets/images/products/product1.png';
@@ -16,7 +15,6 @@ type Product = {
 };
 
 export const sampleProducts: Product[] = [
-
   {
     image: Testimonial1,
     title: 'Magnesium L-Threonate',
@@ -57,30 +55,36 @@ export const sampleProducts: Product[] = [
 
 function Testimonials() {
   const scrollRef = useRef<HTMLDivElement>(null);
+  let [aciveIndex, setAciveIndex] = useState(2);
+
+  const scrollToIndex = (index: number) => {
+    if (scrollRef.current) {
+      const scrollContainer = scrollRef.current;
+      const cardWidth = 300 + 12; 
+      const centerOffset = (scrollContainer.offsetWidth - cardWidth) / 2;
+      scrollContainer.scrollTo({
+        left: index * cardWidth - centerOffset,
+        behavior: 'smooth',
+      });
+    }
+  };
 
   const handleScrollRight = () => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({left: 400, behavior: 'smooth'});
-    }
+    const nextIndex=(aciveIndex == sampleProducts.length ? 0 : aciveIndex + 1);
+    setAciveIndex(nextIndex)
+    scrollToIndex(nextIndex)
+
   };
 
   const handleScrollLeft = () => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({left: -400, behavior: 'smooth'});
-    }
+    const prevIndex=(aciveIndex == 0 ? sampleProducts.length : aciveIndex - 1);
+    setAciveIndex(prevIndex)
+    scrollToIndex(prevIndex)
   };
 
-  const settings = {
-    className: 'center',
-    centerMode: true,
-    infinite: true,
-    centerPadding: '80px',
-    slidesToShow: 3,
-    speed: 500,
-  };
   return (
     <>
-      <div className="h-[923px] bg-[#F6F6F5] flex flex-col flex-wrap justify-center">
+      <div className="h-[923px] md:h-auto bg-[#F6F6F5] flex flex-col flex-wrap justify-center py-10">
         <div className="titles flex flex-row justify-center text-center">
           <div className="text font-main text-[16px]">
             <div className="main-titles flex flex-col justify-content relative">
@@ -105,40 +109,47 @@ function Testimonials() {
           </div>
         </div>
 
-        <div className="slider-container flex flex-col justify-center w-screen ">
-        <div className="slider-content overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-          <section className="flex flex-row gap-3 justify-center">
-            {sampleProducts.map((item, index) => (
-              <>
-                <div key={index} className="product-container flex flex-col h-[516px] hover:min-h-[600px] transition-all duration-300 ease-in-out  w-[300px] group  pb-3">
-                  <div className="w-full ">
-                    <img
-                      className="object-cover w-full mb-5 h-[420px] group-hover:h-[500px]"
-                      src={item.image}
-                      alt=""
-                    />
-                  </div>
-                  <div className="product-details font-main w-[300px] h-[80px] rounded-lg flex flex-row justify-around items-center bg-white ">
-                  <img className="product-image h-12 w-12" src={item.icon} alt="" />
-                    <div className="text flex flex-col">
-                      <div className="title text[13px]">{item.title}</div>
-                      <div className="price text-xs font-medium">
-                        {item.price}
+        <div className="slider-container flex flex-col justify-center w-screen h-auto ">
+          <div  ref={scrollRef} className="slider-content overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] h-full pb-10">
+            <section className="flex flex-row gap-3 justify-center h-full">
+              {sampleProducts.map((item, indx) => (
+               
+                <div key={indx}>
+                  <div
+                    key={indx}
+                    className="product-container flex flex-col h-[516px]   w-[300px]   pb-3"
+                  >
+                    <div className="w-full ">
+                      <img
+                        className={`object-cover w-full mb-5 ${indx === aciveIndex ? 'h-[500px]' : 'h-[420px]'}`}
+                        src={item.image}
+                        alt=""
+                      />
+                    </div>
+                    <div className="product-details font-main w-[300px] h-[80px] rounded-lg flex flex-row justify-around items-center bg-white ">
+                      <img
+                        className="product-image h-12 w-12"
+                        src={item.icon}
+                        alt=""
+                      />
+                      <div className="text flex flex-col">
+                        <div className="title text[13px]">{item.title}</div>
+                        <div className="price text-xs font-medium">
+                          {item.price}
+                        </div>
+                      </div>
+                      <div className="button w-[32px] h-[32px] rounded-full flex justify-center bg-black text-white font-medium content-center flex-wrap ">
+                        +
                       </div>
                     </div>
-                    <div className="button w-[32px] h-[32px] rounded-full flex justify-center bg-black text-white font-medium content-center flex-wrap ">
-                      +
-                    </div>
                   </div>
-                </div>
-              </>
-            ))}
-          </section>
+                  </div>
+                
+              ))}
+            </section>
+          </div>
         </div>
       </div>
-      </div>
-
-     
     </>
   );
 }

@@ -2,10 +2,6 @@ import {type LoaderFunctionArgs} from '@shopify/remix-oxygen';
 import {Await, useLoaderData, Link, type MetaFunction} from '@remix-run/react';
 import {Suspense} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
-import type {
-  FeaturedCollectionFragment,
-  RecommendedProductsQuery,
-} from 'storefrontapi.generated';
 import Marquee from '~/components/Marquee';
 import Banner from '~/components/Banner';
 import GoalsSection from '~/components/GoalsSection';
@@ -18,6 +14,13 @@ import ProductDetails from '~/components/ProductDetails';
 import News from '~/components/News';
 import Blog from '~/components/Blog';
 import SocialMedia from '~/components/SocialMedia';
+import {GET_ARTICLES} from '~/graphql/blogs';
+import {
+  FEATURED_COLLECTION_QUERY,
+  GET_PRODUCTS_QUERY,
+  RECOMMENDED_PRODUCTS_QUERY,
+} from '~/graphql/products-queries/products';
+import { GET_HOME_MEDIA } from '~/graphql/files';
 
 export const meta: MetaFunction = () => {
   return [{title: 'Hydrogen | Home'}];
@@ -32,7 +35,11 @@ export async function loader(args: LoaderFunctionArgs) {
 
   const getProducts = await loadProducts(args);
 
-  return {...deferredData, ...criticalData,...getProducts};
+  const getBlogs = await loadBlogData(args);
+
+  // const getHomeMedia = await loadHomeVideo(args);
+
+  return {...deferredData, ...criticalData, ...getProducts, ...getBlogs};
 }
 
 /**
@@ -46,8 +53,20 @@ async function loadProducts({context}: LoaderFunctionArgs) {
   ]);
 
   return {
-    products: products.nodes, 
+    products: products.nodes,
   };
+}
+
+async function loadBlogData({context}: LoaderFunctionArgs) {
+  const {result} = await context.storefront.query(GET_ARTICLES).catch((error) => {
+    console.error(error, 'error en la query');
+    return null;
+  });
+
+  console.log(JSON.stringify(result), 'resiltado real');
+  if (!result) return null;
+
+  return {articles: result.listArticles};
 }
 
 async function loadCriticalData({context}: LoaderFunctionArgs) {
@@ -58,6 +77,17 @@ async function loadCriticalData({context}: LoaderFunctionArgs) {
 
   return {
     featuredCollection: collections.nodes[0],
+  };
+}
+
+async function loadHomeVideo({context}: LoaderFunctionArgs) {
+  const result = await Promise.all([
+    context.storefront.query(GET_HOME_MEDIA),
+    // Add other queries here, so that they are loaded in parallel
+  ]);
+
+  return {
+    result,
   };
 }
 
@@ -80,34 +110,33 @@ function loadDeferredData({context}: LoaderFunctionArgs) {
   };
 }
 
+
+
+
 export default function Homepage() {
   const data = useLoaderData<typeof loader>();
+  console.log(data, 'data');
+  console.log(data.products, 'prudctos');
   return (
     <div className="home">
-      <FeaturedCollection collection={data.featuredCollection} />
+      <Home  />
       <Banner />
       <GoalsSection />
-       <TrendingProducts products={data.products} /> 
-             <About/>
-             <Testimonials/>
+      <TrendingProducts products={data.products} />
+      <About />
+      <Testimonials />
       {/* <RecommendedProducts products={data.recommendedProducts} /> */}
-      <Bundles products={data.products}/>
-      <ProductDetails/>
-      <News/>
-      <Blog/>
-      <SocialMedia/>
+      <Bundles products={data.products} />
+      <ProductDetails />
+      <News />
+      <Blog blogs={data.articles} />
+      <SocialMedia />
     </div>
   );
 }
 
-function FeaturedCollection({
-  collection,
-}: {
-  collection: FeaturedCollectionFragment;
-}) {
-  if (!collection) return null;
-  const image = collection?.image;
-  // console.log(collection);
+function Home() {
+
   return (
     <div className="w-full">
       {/* {image && ( */}
@@ -137,126 +166,42 @@ function FeaturedCollection({
   );
 }
 
-function RecommendedProducts({
-  products,
-}: {
-  products: Promise<RecommendedProductsQuery | null>;
-}) {
-  return (
-    <div className="recommended-products">
-      <h2>Recommended Products</h2>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Await resolve={products}>
-          {(response) => (
-            <div className="recommended-products-grid">
-              {response
-                ? response.products.nodes.map((product) => (
-                    <Link
-                      key={product.id}
-                      className="recommended-product"
-                      to={`/products/${product.handle}`}
-                    >
-                      <Image
-                        data={product.images.nodes[0]}
-                        aspectRatio="1/1"
-                        sizes="(min-width: 45em) 20vw, 50vw"
-                      />
-                      <h4>{product.title}</h4>
-                      <small>
-                        <Money data={product.priceRange.minVariantPrice} />
-                      </small>
-                    </Link>
-                  ))
-                : null}
-            </div>
-          )}
-        </Await>
-      </Suspense>
-      <br />
-    </div>
-  );
-}
-
-const FEATURED_COLLECTION_QUERY = `#graphql
-  fragment FeaturedCollection on Collection {
-    id
-    title
-    image {
-      id
-      url
-      altText
-      width
-      height
-    }
-    handle
-  }
-  query FeaturedCollection($country: CountryCode, $language: LanguageCode)
-    @inContext(country: $country, language: $language) {
-    collections(first: 1, sortKey: UPDATED_AT, reverse: true) {
-      nodes {
-        ...FeaturedCollection
-      }
-    }
-  }
-` as const;
-
-const RECOMMENDED_PRODUCTS_QUERY = `#graphql
-  fragment RecommendedProduct on Product {
-    id
-    title
-    handle
-    priceRange {
-      minVariantPrice {
-        amount
-        currencyCode
-      }
-    }
-    images(first: 1) {
-      nodes {
-        id
-        url
-        altText
-        width
-        height
-      }
-    }
-  }
-  query RecommendedProducts ($country: CountryCode, $language: LanguageCode)
-    @inContext(country: $country, language: $language) {
-    products(first: 4, sortKey: UPDATED_AT, reverse: true) {
-      nodes {
-        ...RecommendedProduct
-      }
-    }
-  }
-` as const;
-
-
-const GET_PRODUCTS_QUERY = `#graphql
-query GetProducts {
-  products(first: 10) {
-    nodes {
-      id
-      title
-      handle
-      description
-      images(first: 10) {
-        nodes {
-          id
-          url
-          altText
-          width
-          height
-        }
-      }
-      variants(first: 10) {
-        nodes {
-          price {
-            amount
-          }
-        }
-      }
-    }
-  }
-}
-` as const;
+// function RecommendedProducts({
+//   products,
+// }: {
+//   products: Promise<RecommendedProductsQuery | null>;
+// }) {
+//   return (
+//     <div className="recommended-products">
+//       <h2>Recommended Products</h2>
+//       <Suspense fallback={<div>Loading...</div>}>
+//         <Await resolve={products}>
+//           {(response) => (
+//             <div className="recommended-products-grid">
+//               {response
+//                 ? response.products.nodes.map((product) => (
+//                     <Link
+//                       key={product.id}
+//                       className="recommended-product"
+//                       to={`/products/${product.handle}`}
+//                     >
+//                       <Image
+//                         data={product.images.nodes[0]}
+//                         aspectRatio="1/1"
+//                         sizes="(min-width: 45em) 20vw, 50vw"
+//                       />
+//                       <h4>{product.title}</h4>
+//                       <small>
+//                         <Money data={product.priceRange.minVariantPrice} />
+//                       </small>
+//                     </Link>
+//                   ))
+//                 : null}
+//             </div>
+//           )}
+//         </Await>
+//       </Suspense>
+//       <br />
+//     </div>
+//   );
+// }

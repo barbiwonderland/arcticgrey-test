@@ -10,6 +10,7 @@ import {useAside} from '~/components/Aside';
 import {HiMiniMagnifyingGlass} from 'react-icons/hi2';
 import {HiOutlineShoppingBag} from 'react-icons/hi';
 import {BsPerson} from 'react-icons/bs';
+import { Link } from '@remix-run/react';
 
 import EmployeeIcon from '../assets/icons/employee.svg';
 
@@ -167,8 +168,8 @@ function CartBadge({count}: {count: number | null}) {
   const {publish, shop, cart, prevCart} = useAnalytics();
 
   return (
-    <a
-      href="/cart"
+    <Link
+      to="/cart"
       onClick={(e) => {
         e.preventDefault();
         open('cart');
@@ -183,7 +184,7 @@ function CartBadge({count}: {count: number | null}) {
       <span className="">
         <HiOutlineShoppingBag size={16} />
       </span>
-    </a>
+    </Link>
   );
 }
 

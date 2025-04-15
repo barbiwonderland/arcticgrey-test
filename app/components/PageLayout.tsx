@@ -9,12 +9,12 @@ import {Aside} from '~/components/Aside';
 
 import {Header, HeaderMenu} from '~/components/Header';
 import {CartMain} from '~/components/CartMain';
-import Footer from "./Footer"
 import {
   SEARCH_ENDPOINT,
   SearchFormPredictive,
 } from '~/components/SearchFormPredictive';
 import {SearchResultsPredictive} from '~/components/SearchResultsPredictive';
+import Footer from "../components/Footer"
 
 interface PageLayoutProps {
   cart: Promise<CartApiQueryFragment | null>;

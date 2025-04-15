@@ -13,12 +13,10 @@ function TrendingProducts({
   products: SimpleProduct[];
 }) {
 
-console.log(products, "productos")
+// console.log(products, "productos")
 const scrollRef = useRef<HTMLDivElement>(null);
 
 const handleScrollRight = () => {
-  console.log("hola")
-  console.log(scrollRef.current)
   if (scrollRef.current) {
     scrollRef.current.scrollBy({ left: 400, behavior: 'smooth' }); 
   }
@@ -48,9 +46,9 @@ const handleScrollLeft = () => {
         <div  className="cards md:w-full w-[80%]  mt-5 flex justify-normal md:justify-center md:gap-8 items-center flex-row flex-nowrap overflow-x-scroll [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] mx-auto md:mx-0" ref={scrollRef}>
         
           {products && products.map((product, index)=>{
-            console.log(product,"indiviaul")
+            // console.log(product,"indiviaul")
             return(
-              <Card item ={product} index = {index} price={true}/>
+              <Card item ={product} key={index} index = {index} price={true}/>
             )
           })}
          
