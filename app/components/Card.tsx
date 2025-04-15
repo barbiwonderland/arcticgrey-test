@@ -1,29 +1,9 @@
 import {useState} from 'react';
 import product from '../assets/images/products/product1.png';
 import {BsStarFill} from 'react-icons/bs';
+import { SimpleProduct } from '~/types/product-types';
 
-export type SimpleProduct = {
-  id: string;
-  title: string;
-  handle: string;
-  description: string;
-  images: {
-    nodes: {
-      id: string;
-      url: string;
-      altText: string | null;
-      width: number;
-      height: number;
-    }[];
-  };
-  variants: {
-    nodes: {
-      price: {
-        amount: string;
-      };
-    }[];
-  };
-};
+
 
 function Card({item,index,price}: {item: SimpleProduct,index:number,price:boolean}) {
   const [selectedOption, setSelectedOption] = useState('one');

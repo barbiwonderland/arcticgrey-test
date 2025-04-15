@@ -17,6 +17,7 @@ import SocialMedia from '~/components/SocialMedia';
 import {GET_ARTICLES} from '~/graphql/blogs';
 import {
   FEATURED_COLLECTION_QUERY,
+  GET_BUNDLES_QUERY,
   GET_PRODUCTS_QUERY,
   RECOMMENDED_PRODUCTS_QUERY,
 } from '~/graphql/products-queries/products';
@@ -37,9 +38,11 @@ export async function loader(args: LoaderFunctionArgs) {
 
   const getBlogs = await loadBlogData(args);
 
+  const getBundles = await loadBundles(args);
+
   // const getHomeMedia = await loadHomeVideo(args);
 
-  return {...deferredData, ...criticalData, ...getProducts, ...getBlogs};
+  return {...deferredData, ...criticalData, ...getProducts, ...getBlogs,...getBundles};
 }
 
 /**
@@ -48,12 +51,24 @@ export async function loader(args: LoaderFunctionArgs) {
  */
 
 async function loadProducts({context}: LoaderFunctionArgs) {
-  const [{products}] = await Promise.all([
+  const products = await Promise.all([
     context.storefront.query(GET_PRODUCTS_QUERY),
   ]);
 
+
   return {
-    products: products.nodes,
+    products: products[0].collection.products.nodes,
+  };
+}
+
+async function loadBundles({context}: LoaderFunctionArgs) {
+  const products = await Promise.all([
+    context.storefront.query(GET_BUNDLES_QUERY),
+  ]);
+
+
+  return {
+    bundles:  products[0].collection.products.nodes,
   };
 }
 
@@ -63,7 +78,6 @@ async function loadBlogData({context}: LoaderFunctionArgs) {
     return null;
   });
 
-  console.log(JSON.stringify(result), 'resiltado real');
   if (!result) return null;
 
   return {articles: result.listArticles};
@@ -116,17 +130,16 @@ function loadDeferredData({context}: LoaderFunctionArgs) {
 export default function Homepage() {
   const data = useLoaderData<typeof loader>();
   console.log(data, 'data');
-  console.log(data.products, 'prudctos');
   return (
     <div className="home">
       <Home  />
       <Banner />
       <GoalsSection />
-      <TrendingProducts products={data.products} />
+       <TrendingProducts products={data.products} /> 
       <About />
       <Testimonials />
       {/* <RecommendedProducts products={data.recommendedProducts} /> */}
-      <Bundles products={data.products} />
+      <Bundles bundles={data.bundles} /> 
       <ProductDetails />
       <News />
       <Blog blogs={data.articles} />

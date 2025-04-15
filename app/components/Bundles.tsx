@@ -1,12 +1,13 @@
 import { Link } from '@remix-run/react';
 import {AiOutlineArrowLeft, AiOutlineArrowRight} from 'react-icons/ai';
-import Card, { SimpleProduct } from './Card';
+import Card  from './Card';
 import { useRef } from 'react';
+import { SimpleProduct } from '~/types/product-types';
 
 function Bundles({
-    products,
+    bundles,
   }: {
-    products: SimpleProduct[];
+    bundles: SimpleProduct[];
   }) {
   const menuItems = [
     {name: 'Sleep', path: '/sleep'},
@@ -58,7 +59,7 @@ function Bundles({
       <div className="carousel w-full py-7">
         <div  className="cards md:w-full w-[80%]  mt-5 flex justify-normal md:justify-center md:gap-8 items-center flex-row flex-nowrap overflow-x-scroll [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] mx-auto md:mx-0 " ref={scrollRef}>
         
-          {products && products.map((product, index)=>{
+          {bundles && bundles.map((product, index)=>{
             // console.log(product,"indiviaul")
             return(
               <Card item ={product} key={index} index = {index} price={false}/>

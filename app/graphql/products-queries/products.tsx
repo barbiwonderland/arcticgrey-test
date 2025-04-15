@@ -97,25 +97,60 @@ export const RECOMMENDED_PRODUCTS_QUERY = `#graphql
 
 export const GET_PRODUCTS_QUERY = `#graphql
 query GetProducts {
-  products(first: 10) {
-    nodes {
-      id
-      title
-      handle
-      description
-      images(first: 10) {
-        nodes {
-          id
-          url
-          altText
-          width
-          height
+  collection(handle: "products") {
+    products(first: 10) {
+      nodes {
+        id
+        title
+        handle
+        description
+        images(first: 10) {
+          nodes {
+            id
+            url
+            altText
+            width
+            height
+          }
+        }
+        variants(first: 10) {
+          nodes {
+            price {
+              amount
+            }
+          }
         }
       }
-      variants(first: 10) {
-        nodes {
-          price {
-            amount
+    }
+  }
+}
+` as const;
+
+
+
+export const GET_BUNDLES_QUERY = `#graphql
+query GetProducts {
+  collection(handle: "Bundles") {
+    products(first: 10) {
+      nodes {
+        id
+        title
+        handle
+        description
+        images(first: 10) {
+          nodes {
+            id
+            url
+            altText
+            width
+            height
+          }
+        }
+        variants(first: 10) {
+          nodes {
+            price {
+              amount
+            }
           }
         }
       }

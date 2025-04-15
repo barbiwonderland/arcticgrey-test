@@ -2,8 +2,9 @@
 import {AiOutlineArrowRight} from 'react-icons/ai';
 import {AiOutlineArrowLeft} from 'react-icons/ai';
 // import { RecommendedProductsQuery } from 'storefrontapi.generated';
-import Card, { SimpleProduct } from './Card';
+import Card from './Card';
 import { useRef } from 'react';
+import { SimpleProduct } from '~/types/product-types';
 
 
 
