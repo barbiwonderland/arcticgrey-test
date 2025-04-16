@@ -1,141 +1,135 @@
-import {GiLindenLeaf} from 'react-icons/gi';
-import product from '../assets/images/products/product1.png';
-import ArrowLeft from './ArrowLeft';
-import ArrowRight from './ArrowRight';
-
+import {AiOutlineInfoCircle} from 'react-icons/ai';
+import {AiFillStar} from 'react-icons/ai';
+import img from '../assets/images/products/product1.png';
+import PurchaseButtons from './PurchaseButtons';
 function ProductDetails() {
-  interface ActiveIngredient {
-    name: string;
-    description: string;
-  }
-  interface ActiveIngredientsData {
-    title: string;
-    ingredients: ActiveIngredient[];
-  }
-
-  interface Blend {
-    title: string;
-    benefits: string[];
-  }
-
-  interface Product {
-    name: string;
-    image: string; // O podrías usar un tipo más específico para la imagen, como URL o Buffer
-  }
-
-  interface ProductData {
-    eyebrow: string;
-    title: string;
-    blend: Blend;
-    ingredients: ActiveIngredientsData;
-    action: string;
-    product: Product;
-  }
-
-  const productData: ProductData[] = [
+  const products = [
     {
-      eyebrow: 'Simple & Effective Ingredients',
-      title: 'Customized Protein Powder',
-      blend: {
-        title: 'The Blend',
-        benefits: ['Whey Based', 'Build Muscle', 'Clean Ingredients'],
-      },
-      ingredients: {
-        title: 'Active Ingredients',
-        ingredients: [
-          {
-            name: 'Whey Protein Isolate',
-            description:
-              'Low Calorie With Virtually No Fat or Lactose, Quickly Absorbed To Maximize Muscle Building & Rep',
-          },
-          {
-            name: 'Whey Protein Isolate',
-            description:
-              'Low Calorie With Virtually No Fat or Lactose, Quickly Absorbed To Maximize Muscle Building & Rep',
-          },
-          {
-            name: 'Whey Protein Isolate',
-            description:
-              'Low Calorie With Virtually No Fat or Lactose, Quickly Absorbed To Maximize Muscle Building & Rep',
-          },
-        ],
-      },
-      action: 'Customize This Blend',
-      product: {
-        name: 'Momentous Essential Grass-Fed Whey Protein Isolate',
-        image: 'product image', // Aquí iría la ruta o el objeto de la imagen
-      },
+      id: 1,
+      name: 'Small',
+      capsules: '30 Capsules',
+      quantity: 0,
+      price: 49.95,
+      discount: '0%',
+      total: '$0.00',
+    },
+    {
+      id: 2,
+      name: 'Medium',
+      capsules: '60 Capsules',
+      quantity: 7,
+      price: 49.95,
+      discount: '5%',
+      total: '$249.95',
+    },
+    {
+      id: 3,
+      name: 'Large',
+      capsules: '90 Capsules',
+      quantity: 8,
+      price: 49.95,
+      discount: '5%',
+      total: '$249.95',
     },
   ];
+
   return (
-    <div className="h-[834px] w-screen bg-[#F6F6F5] flex flex-col justify-center ">
-      <div className="heading font-main flex flex-col justify-center text-center">
-        <div className="eyebrowtext[16px]">{productData[0].eyebrow}</div>
-        <div className="title text-[40px] font-medium">
-          {productData[0].title}
+    <div className="product-detail container flex flex-col w-auto  h-auto">
+      <img
+        src={img}
+        className=" h[300px] w-[300px] object-cover flex justify-center align-center flex-wrap"
+        alt=""
+      />
+      <div className="text flex flex-col font-main">
+        <div className="title font-medium text-[26px]">
+          Magnesium L-Threonate
+        </div>
+        <div className="subtitle text-xs text-gray-400">
+          Enhances the quality of sleep.
+        </div>
+        <div className="tags flex flex-row justify-between mt-5">
+          <div className="metafields flex flex-row gap-3 ">
+            <div className="metafield bg-[#F6F6F5] px-3.5 py-1.5 w-[94px] h-[27px] text-[12px] rounded-xs text-center ">
+              GMO Free
+            </div>
+            <div className="metafield bg-[#F6F6F5] px-3.5 py-1.5 w-[94px] h-[27px] text-[12px] rounded-xs text-center  ">
+              Gluten Free
+            </div>
+          </div>
+          <div className="reviews flex flex-row ">
+            <AiFillStar /> <AiFillStar /> <AiFillStar /> <AiFillStar />{' '}
+            <AiFillStar />
+          </div>
         </div>
       </div>
 
-      <div className="product-container flex flex-row justify-around items-center">
-        <ArrowLeft/>
-        <div className="product-content  grid md:grid-cols-2 md:grid-rows-none grid-rows-2 grid-cols-none  justify-items-center font-main mt-12 h-[548px] w-[85%] rounded-xl border-2 justify-center self-center border-gray-200">
-          <div className="img-container bg-white w-full flex justify-center h-full">
-            <img className=" object-contain" src={product} alt="" />
+      <div className="w-auto mx-auto p-4">
+        <div className="flex justify-between font-bold border-b-2 border-gray-300 pb-2 mb-2 text-sm">
+          <div>Variant</div>
+          <div className="flex flex-row">
+            Quantity{' '}
+            <span>
+              <AiOutlineInfoCircle color="gray" />
+            </span>{' '}
           </div>
-          <div className="grid grid-rows-[182px_1fr] w-full border-l-2 border-gray-200 overflow-auto h-full  ">
-            <div className="product flex! flex-col justify-center bg-[#1B1F23] text-white w-full gap-3 ">
-              <div className="title text-center text-[24px] font-medium">
-                {productData[0].blend.title}
-              </div>
-              <div className="product-description flex flex-row justify-around content-center flex-wrap  text-white w-full ">
-                {productData[0].blend.benefits.map((item, index) => {
-                  return (
-                    <div
-                      key={index}
-                      className="features flex flex-row flex-wrap md:gap-5 content-center text-white font-main h-[50px] justify-between items-center w-auto p-2.5"
-                    >
-                      <div className="feature-icon bg-[#252A2F] h-8 w-8 md:h-12 md:w-12 rounded-full flex justify-center items-center">
-                        <GiLindenLeaf  color="#E8DFB4" />
-                      </div>
-                      <div className="feature-text text-[10px] md:text-[18px]">{item}</div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-            <div className="active-ingredients flex flex-col justify-around flex-wrap content-center bg-white md:my-0 my-5">
-              <div className="ingredients-title text-center text-[18px] font-medium">
-                {productData[0].ingredients.title}
-              </div>
-              <div className="ingredients-container flex flex-row flex-wrap justify-around content-center w-full items-center ">
-                {productData[0].ingredients.ingredients.map((item, index) => {
-                  return (
-                    <div
-                      key={index}
-                      className="ingredient flex flex-col w-[168px] gap-4"
-                    >
-                      <div className="icon  flex w-8 h-8 md:w-[45px] md:h-[45px] justify-center items-center rounded-full bg-gray-200">
-                        <GiLindenLeaf />
-                      </div>
-                      <div className="ingredient-title font-medium text-[16px]">
-                        {item.name}
-                      </div>
-                      <div className="ingredient-description text-[14px] text-gray-400">
-                        {item.description}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-              <div className="ingredient-button bg-[#1B1F23] text-white w-[80%] mx-auto rounded-lg h-[50px] text-center items-center flex justify-center font-medium">
-                Customize This Blend
-              </div>
-            </div>
-          </div>
-      
+          <div>Price</div>
+          <div>Discount</div>
+          <div>Total</div>
         </div>
-        <ArrowRight/>
+
+        {products.map((product) => (
+          <div
+            key={product.id}
+            className="flex justify-between items-center py-4 text-sm"
+          >
+            <div className=" flex items-center gap-3">
+              <img src={img} alt={product.name} className="w-12 h-auto" />
+              <div>
+                {product.name}
+                <br />
+                <span className="text-gray-500 text-xs">
+                  {product.capsules}
+                </span>
+              </div>
+            </div>
+
+            <div className=" flex items-center gap-2">
+              <button className="bg-gray-200 px-2 py-1 rounded hover:bg-gray-300">
+                -
+              </button>
+              <span>{product.quantity}</span>
+              <button className="bg-gray-200 px-2 py-1 rounded hover:bg-gray-300">
+                +
+              </button>
+            </div>
+
+            <div>${product.price.toFixed(2)} / Each</div>
+
+            <div className="discount">{product.discount}</div>
+
+            <div className="unit-total">
+              <div className="w-1/6">
+                {(product.price * product.quantity).toFixed(2)}
+              </div>
+            </div>
+          </div>
+        ))}
+        <div className="total flex flex-row flex-wrap justify-between text-[10px] content-center items-center border-t-2 border-gray-300 mb-1.5 ">
+          <div className="button-cart w-[77px] h-[25px] border-1  border-gray-300 rounded-xl flex justify-center items-center font-medium">
+            View Cart
+          </div>
+          <div className="total-items flex flex-col">
+            <span>20</span>
+            Total Items
+          </div>
+          <div className="subtotal text-end text-[10px] max-w-[140px] break-words whitespace-normal ">
+            <div className="price font-medium text-[14px] ">$249.95</div>
+            <div className="">Product Subtotal</div>
+            <div className="">Taxes & shipping calculated at checkout</div>
+          </div>
+        </div>
       </div>
+      <PurchaseButtons active={true} price={false} />
     </div>
   );
 }

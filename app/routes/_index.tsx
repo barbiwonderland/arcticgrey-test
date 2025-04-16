@@ -10,7 +10,6 @@ import Collection from './collections.$handle';
 import About from '~/components/About';
 import Testimonials from '~/components/Testimonials';
 import Bundles from '~/components/Bundles';
-import ProductDetails from '~/components/ProductDetails';
 import News from '~/components/News';
 import Blog from '~/components/Blog';
 import SocialMedia from '~/components/SocialMedia';
@@ -22,6 +21,9 @@ import {
   RECOMMENDED_PRODUCTS_QUERY,
 } from '~/graphql/products-queries/products';
 import { GET_HOME_MEDIA } from '~/graphql/files';
+import { Aside } from '~/components/Aside';
+import CustomProduct from '~/components/CustomProduct';
+import ProductDetails from '~/components/ProductDetails';
 
 export const meta: MetaFunction = () => {
   return [{title: 'Hydrogen | Home'}];
@@ -138,9 +140,8 @@ export default function Homepage() {
        <TrendingProducts products={data.products} /> 
       <About />
       <Testimonials />
-      {/* <RecommendedProducts products={data.recommendedProducts} /> */}
       <Bundles bundles={data.bundles} /> 
-      <ProductDetails />
+      <CustomProduct />
       <News />
       <Blog blogs={data.articles} />
       <SocialMedia />
