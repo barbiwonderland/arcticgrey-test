@@ -6,7 +6,7 @@ import {
   useState,
 } from 'react';
 
-type AsideType = 'search' | 'cart' | 'mobile' | 'closed';
+type AsideType = 'search' | 'cart' | 'mobile' | 'closed' | 'product-detail';
 type AsideContextValue = {
   type: AsideType;
   open: (mode: AsideType) => void;
@@ -51,7 +51,6 @@ export function Aside({
     }
     return () => abortController.abort();
   }, [close, expanded]);
-
   return (
     <div
       aria-modal
@@ -60,7 +59,7 @@ export function Aside({
     >
       <button className="close-outside" onClick={close} />
       <aside>
-        <header>
+        <header className={expanded && type === 'product-detail' ? 'border-0!' : ''}>
           <h3>{heading}</h3>
           <button className="close reset" onClick={close} aria-label="Close">
             &times;
