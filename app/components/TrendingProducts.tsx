@@ -16,7 +16,6 @@ function TrendingProducts({
 
 // console.log(products, "productos")
 const scrollRef = useRef<HTMLDivElement>(null);
-
 const handleScrollRight = () => {
   if (scrollRef.current) {
     scrollRef.current.scrollBy({ left: 400, behavior: 'smooth' }); 
@@ -49,7 +48,7 @@ const handleScrollLeft = () => {
           {products && products.map((product, index)=>{
             // console.log(product,"indiviaul")
             return(
-              <Card item ={product} key={index} index = {index} price={true}/>
+              <Card  item ={product} key={index} index = {index} price={true}/>
             )
           })}
          
