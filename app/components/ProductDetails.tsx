@@ -2,6 +2,7 @@ import {AiOutlineInfoCircle} from 'react-icons/ai';
 import {AiFillStar} from 'react-icons/ai';
 import img from '../assets/images/products/product1.png';
 import PurchaseButtons from './PurchaseButtons';
+import Tooltip from './Tooltip';
 function ProductDetails() {
   const products = [
     {
@@ -66,12 +67,15 @@ function ProductDetails() {
       <div className="w-auto mx-auto p-4">
         <div className="flex justify-between font-bold border-b-2 border-gray-300 pb-2 mb-2 text-sm">
           <div>Variant</div>
-          <div className="flex flex-row">
+          <div className="flex flex-row relative group ">
             Quantity{' '}
-            <span>
-              <AiOutlineInfoCircle color="gray" />
-            </span>{' '}
+            <AiOutlineInfoCircle color="gray" />
+          
+        <Tooltip/>
+   
+         
           </div>
+         
           <div>Price</div>
           <div>Discount</div>
           <div>Total</div>
