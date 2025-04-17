@@ -13,6 +13,7 @@ function ProductDetails() {
       price: 49.95,
       discount: '0%',
       total: '$0.00',
+      stock:"10"
     },
     {
       id: 2,
@@ -22,6 +23,8 @@ function ProductDetails() {
       price: 49.95,
       discount: '5%',
       total: '$249.95',
+      stock:"10"
+
     },
     {
       id: 3,
@@ -31,30 +34,32 @@ function ProductDetails() {
       price: 49.95,
       discount: '5%',
       total: '$249.95',
+      stock:"10"
+
     },
   ];
 
   return (
-    <div className="product-detail container flex flex-col w-auto  h-auto">
+    <div className="product-detail container flex flex-col w-auto  h-full font-main">
       <img
         src={img}
-        className=" h[300px] w-[300px] object-cover flex justify-center align-center flex-wrap"
+        className=" w-[150px] h-[150px] md:h-[300px] md:w-[300px] object-cover flex self-center align-center flex-wrap"
         alt=""
       />
-      <div className="text flex flex-col font-main">
-        <div className="title font-medium text-[26px]">
+      <div className="text flex flex-col font-main h-auto">
+        <div className="title font-medium text-[18px] md:text-[26px]">
           Magnesium L-Threonate
         </div>
         <div className="subtitle text-xs text-gray-400">
           Enhances the quality of sleep.
         </div>
-        <div className="tags flex flex-row justify-between mt-5">
+        <div className="tags flex flex-row justify-between mt-3 mb-4">
           <div className="metafields flex flex-row gap-3 ">
-            <div className="metafield bg-[#F6F6F5] px-3.5 py-1.5 w-[94px] h-[27px] text-[12px] rounded-xs text-center ">
+            <div className="metafield bg-[#F6F6F5] px-3.5 md:py-1.5 py-0.5 md:w-[94px] md:h-[27px] w-auto h-auto text-[12px] rounded-xs text-center ">
               GMO Free
             </div>
-            <div className="metafield bg-[#F6F6F5] px-3.5 py-1.5 w-[94px] h-[27px] text-[12px] rounded-xs text-center  ">
-              Gluten Free
+            <div className="metafield bg-[#F6F6F5] px-3.5 md:py-1.5 py-0.5 md:w-[94px] md:h-[27px] w-auto h-auto text-[12px] rounded-xs text-center ">
+              GMO Free
             </div>
           </div>
           <div className="reviews flex flex-row ">
@@ -64,73 +69,86 @@ function ProductDetails() {
         </div>
       </div>
 
-      <div className="w-auto mx-auto p-4">
-        <div className="flex justify-between font-bold border-b-2 border-gray-300 pb-2 mb-2 text-sm">
-          <div>Variant</div>
-          <div className="flex flex-row relative group ">
-            Quantity{' '}
-            <AiOutlineInfoCircle color="gray" />
-          
-        <Tooltip/>
-   
-         
-          </div>
-         
-          <div>Price</div>
-          <div>Discount</div>
-          <div>Total</div>
+      <table className="table-auto h-[210px] mb-3   ">
+        <thead>
+          <tr className="font-bold  pb-2 mb-2 text-[12px] ">
+            {' '}
+            <th className="text-left p-4">Variant</th>
+            <th className="text-center p-4">
+              <div className="flex flex-row relative group justify-center">
+                Quantity <AiOutlineInfoCircle color="gray" />
+                <Tooltip />
+              </div>
+            </th>
+            <th className="text-center p-4">Price</th>
+            <th className="text-center p-4">Discount</th>
+            <th className="text-right p-4">Total</th>
+          </tr>
+        </thead>
+        <tbody className="border-y border-slate-300">
+          {products.map((product) => (
+            <tr key={product.id} className="align-top text-center  ">
+              <td className="p-3">
+                <div className=" flex items-center gap-3 text-[10px] text-[#1B1F23] text-left">
+                  <div className="md:w-[44px] md:h-[44px] w-[25px] h-[25px] border-gray-300 border-1 rounded-xl flex justify-center">
+                    <img
+                      src={img}
+                      alt={product.name}
+                      className="object-contain w-[60%] h-auto"
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className=" font-semibold">{product.name}</span>
+
+                    <span>{product.capsules}</span>
+                  </div>
+                </div>
+              </td>
+              <td className="p-3">
+                <div className=" flex items-center gap-2 border-1 border-gray-200 rounded-xs text-[#1B1F23] text-[10px] font-main justify-center text-center">
+                  <button className=" px-2 py-1 rounded hover:bg-gray-300 text-xs">
+                    -
+                  </button>
+                  <span>{product.quantity}</span>
+                  <button className=" px-2 py-1 rounded hover:bg-gray-300 text-xs">
+                    +
+                  </button>
+                </div>
+              </td>
+              <td>
+                <div className="font-main text-[12px] p-2">
+                  ${product.price.toFixed(2)} / Each
+                </div>
+              </td>
+              <td className="p-3">
+                {' '}
+                <div className="discount font-main text-[12px]">
+                  {product.discount}
+                </div>
+              </td>
+              <td className="p-3">
+                <div className="unit-total font-main text-[12px] text-right">
+                  <div className="">
+                    {((product.price * product.quantity)-((product.price*product.quantity)*5/100)).toFixed(2)}
+                  </div>
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <div className="flex flex-row flex-wrap justify-between">
+        <div className="button-cart w-[77px] h-[25px] rounded-xl border-gray-200 font-medium text-xs text-[#1B1F23] border-1 flex justify-center content-center flex-wrap">
+          View Cart
         </div>
-
-        {products.map((product) => (
-          <div
-            key={product.id}
-            className="flex justify-between items-center py-4 text-sm"
-          >
-            <div className=" flex items-center gap-3">
-              <img src={img} alt={product.name} className="w-12 h-auto" />
-              <div>
-                {product.name}
-                <br />
-                <span className="text-gray-500 text-xs">
-                  {product.capsules}
-                </span>
-              </div>
-            </div>
-
-            <div className=" flex items-center gap-2">
-              <button className="bg-gray-200 px-2 py-1 rounded hover:bg-gray-300">
-                -
-              </button>
-              <span>{product.quantity}</span>
-              <button className="bg-gray-200 px-2 py-1 rounded hover:bg-gray-300">
-                +
-              </button>
-            </div>
-
-            <div>${product.price.toFixed(2)} / Each</div>
-
-            <div className="discount">{product.discount}</div>
-
-            <div className="unit-total">
-              <div className="w-1/6">
-                {(product.price * product.quantity).toFixed(2)}
-              </div>
-            </div>
-          </div>
-        ))}
-        <div className="total flex flex-row flex-wrap justify-between text-[10px] content-center items-center border-t-2 border-gray-300 mb-1.5 ">
-          <div className="button-cart w-[77px] h-[25px] border-1  border-gray-300 rounded-xl flex justify-center items-center font-medium">
-            View Cart
-          </div>
-          <div className="total-items flex flex-col">
-            <span>20</span>
-            Total Items
-          </div>
-          <div className="subtotal text-end text-[10px] max-w-[140px] break-words whitespace-normal ">
-            <div className="price font-medium text-[14px] ">$249.95</div>
-            <div className="">Product Subtotal</div>
-            <div className="">Taxes & shipping calculated at checkout</div>
-          </div>
+        <div className="total-items flex flex-col text-[10px]">
+          <div className="total">20</div>
+          <span>Total Items</span>
+        </div>
+        <div className="subtotal flex flex-col text-[10px] text-end">
+          <div className="price tex-[14px] font-medium">$249.95</div>
+          <span>Product Subtotal</span>
+          <span>Taxes & shipping calculated at checkout</span>
         </div>
       </div>
       <PurchaseButtons active={true} price={false} />

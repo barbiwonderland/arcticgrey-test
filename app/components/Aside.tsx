@@ -1,3 +1,4 @@
+import { CgClose } from "react-icons/cg"; 
 import {
   createContext,
   type ReactNode,
@@ -27,10 +28,12 @@ export function Aside({
   children,
   heading,
   type,
+  width,
 }: {
   children?: React.ReactNode;
   type: AsideType;
   heading: React.ReactNode;
+  width: number;
 }) {
   const {type: activeType, close} = useAside();
   const expanded = type === activeType;
@@ -54,15 +57,21 @@ export function Aside({
   return (
     <div
       aria-modal
-      className={`overlay ${expanded ? 'expanded' : ''}`}
+      className={`overlay${expanded ? ' expanded' : ''}`}
       role="dialog"
     >
-      <button className="close-outside" onClick={close} />
-      <aside>
-        <header className={expanded && type === 'product-detail' ? 'border-0!' : ''}>
+      <button className="close-outside " onClick={close} />
+      <aside style={{ ['--aside-width' as any]: `${width}px` }}>
+        <header
+          className={
+            expanded && type === 'product-detail'
+              ? 'border-0! md:h-[30px]! w-full h-full'
+              : ''
+          }
+        >
           <h3>{heading}</h3>
-          <button className="close reset" onClick={close} aria-label="Close">
-            &times;
+          <button className="close reset " onClick={close} aria-label="Close">
+           <CgClose size={24} />
           </button>
         </header>
         <main>{children}</main>

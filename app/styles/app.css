@@ -3,12 +3,12 @@
 
 @import '@fontsource-variable/rubik';
 
-@import "tailwindcss";     
+@import 'tailwindcss';
 
 @theme {
   --font-main: 'Rubik Variable', sans-serif;
-  --color-main-blue: #1B1F23;
-  --color-main-gray: #E4E4E4;
+  --color-main-blue: #1b1f23;
+  --color-main-gray: #e4e4e4;
 }
 :root {
   --aside-width: 400px;
@@ -17,10 +17,18 @@
   --grid-item-width: 355px;
   /*
   i edit this for less height navbar */
-   --header-height: 70px; 
-  
+  --header-height: 70px;
+
   --color-dark: #000;
   --color-light: #fff;
+}
+
+body,
+html {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
 img {
@@ -113,6 +121,7 @@ aside li {
   transition: opacity 400ms;
   visibility: hidden;
   z-index: 10;
+  width: 100%!important;
 }
 
 .overlay .close-outside {
@@ -124,6 +133,7 @@ aside li {
   position: absolute;
   top: 0;
   width: calc(100% - var(--aside-width));
+ 
 }
 
 .overlay .light {
@@ -188,7 +198,7 @@ button.reset:hover:not(:has(> *)) {
   position: absolute;
   align-self: center;
   margin-top: 20px;
-  justify-content:space-between
+  justify-content: space-between;
 }
 
 .header-menu-mobile-toggle {
@@ -537,8 +547,12 @@ button.reset:hover:not(:has(> *)) {
 //Marque
 */
 @keyframes scroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-20%); }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-20%);
+  }
 }
 
 /* Enable animation */

@@ -6,7 +6,7 @@ function ProductAside() {
   if (type !== 'product-detail') return null;
 
   return (
-    <Aside type="product-detail" heading="">
+    <Aside type="product-detail" heading="" width={540}>
       <ProductDetails />
     </Aside>
   );
