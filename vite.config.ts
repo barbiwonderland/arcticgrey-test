@@ -1,5 +1,4 @@
 import {defineConfig} from 'vite';
-import {netlifyPlugin} from '@netlify/remix-edge-adapter/plugin'
 import {hydrogen} from '@shopify/hydrogen/vite';
 import {oxygen} from '@shopify/mini-oxygen/vite';
 import {vitePlugin as remix} from '@remix-run/dev';
@@ -17,7 +16,6 @@ export default defineConfig({
     tailwindcss(),
     hydrogen(),
     oxygen(),
-    netlifyPlugin(),
     remix({
       presets: [hydrogen.v3preset()],
       future: {
