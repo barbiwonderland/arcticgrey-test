@@ -1,5 +1,28 @@
-import { CgInstagram } from "react-icons/cg"; 
-import ig from '../assets/images/instagram/Instagram.png';
+import {CgInstagram} from 'react-icons/cg';
+import Image1 from '../assets/images/instagram/Image-1.png';
+import Image2 from '../assets/images/instagram/Image-2.png';
+import Image3 from '../assets/images/instagram/Image-3.png';
+import Image4 from '../assets/images/instagram/Image-4.png';
+import Image5 from '../assets/images/instagram/Image-5.png';
+import Image6 from '../assets/images/instagram/Image-6.png';
+import Image7 from '../assets/images/instagram/Image-7.png';
+import Image8 from '../assets/images/instagram/Image-8.png';
+import Instagram0 from '../assets/images/instagram/Instagram-0.png';
+import Instagram9 from '../assets/images/instagram/Instagram-9.png';
+
+const images = [
+  Instagram0,
+  Image1,
+  Image2,
+  Image3,
+  Image4,
+  Instagram9,
+  Image5,
+  Image6,
+  Image7,
+  Image8,
+
+];
 function SocialMedia() {
   return (
     <div className="w-screen mb-10 h-100vh">
@@ -18,68 +41,21 @@ function SocialMedia() {
               Follow Us on Instagram
             </div>
           </div>
-          <div className="relative group w-[150px] h-[150px] md:w-[245px] md:h-[255px] ">
-            <img src={ig} alt="" />
-            <div className="absolute hidden inset-0 bg-black opacity-50 group-hover:flex"></div>
+          {images.map((item, index) => {
+            return (
+              <div
+                key={index}
+                className="relative group w-[150px] h-[150px] md:w-[245px] md:h-[255px] "
+              >
+                <img src={item} alt="" />
+                <div className="absolute hidden inset-0 bg-black opacity-50 group-hover:flex"></div>
 
-            <div className="absolute hidden inset-0 group-hover:flex items-center justify-center text-white text-xl"><CgInstagram size={30} /></div>
-          </div>
-          <div className="relative group w-[150px] h-[150px] md:w-[245px] md:h-[255px] ">
-            <img src={ig} alt="" />
-            <div className="absolute hidden inset-0 bg-black opacity-50 group-hover:flex"></div>
-
-            <div className="absolute hidden inset-0 group-hover:flex items-center justify-center text-white text-xl"><CgInstagram size={30} /></div>
-          </div>
-          <div className="relative group w-[150px] h-[150px] md:w-[245px] md:h-[255px] ">
-            <img src={ig} alt="" />
-            <div className="absolute hidden inset-0 bg-black opacity-50 group-hover:flex"></div>
-
-            <div className="absolute hidden inset-0 group-hover:flex items-center justify-center text-white text-xl"><CgInstagram size={30} /></div>
-          </div>
-          <div className="relative group w-[150px] h-[150px] md:w-[245px] md:h-[255px] ">
-            <img src={ig} alt="" />
-            <div className="absolute hidden inset-0 bg-black opacity-50 group-hover:flex"></div>
-
-            <div className="absolute hidden inset-0 group-hover:flex items-center justify-center text-white text-xl"><CgInstagram size={30} /></div>
-          </div>
-          <div className="relative group w-[150px] h-[150px] md:w-[245px] md:h-[255px] ">
-            <img src={ig} alt="" />
-            <div className="absolute hidden inset-0 bg-black opacity-50 group-hover:flex"></div>
-
-            <div className="absolute hidden inset-0 group-hover:flex items-center justify-center text-white text-xl"><CgInstagram size={30} /></div>
-          </div>
-          <div className="relative group w-[150px] h-[150px] md:w-[245px] md:h-[255px] ">
-            <img src={ig} alt="" />
-            <div className="absolute hidden inset-0 bg-black opacity-50 group-hover:flex"></div>
-
-            <div className="absolute hidden inset-0 group-hover:flex items-center justify-center text-white text-xl"><CgInstagram size={30} /></div>
-          </div>
-          <div className="relative group w-[150px] h-[150px] md:w-[245px] md:h-[255px] ">
-            <img src={ig} alt="" />
-            <div className="absolute hidden inset-0 bg-black opacity-50 group-hover:flex"></div>
-
-            <div className="absolute hidden inset-0 group-hover:flex items-center justify-center text-white text-xl"><CgInstagram size={30} /></div>
-          </div>
-          <div className="relative group w-[150px] h-[150px] md:w-[245px] md:h-[255px] ">
-            <img src={ig} alt="" />
-            <div className="absolute hidden inset-0 bg-black opacity-50 group-hover:flex"></div>
-
-            <div className="absolute hidden inset-0 group-hover:flex items-center justify-center text-white text-xl"><CgInstagram size={30} /></div>
-          </div>
-          <div className="relative group w-[150px] h-[150px] md:w-[245px] md:h-[255px] ">
-            <img src={ig} alt="" />
-            <div className="absolute hidden inset-0 bg-black opacity-50 group-hover:flex"></div>
-
-            <div className="absolute hidden inset-0 group-hover:flex items-center justify-center text-white text-xl"><CgInstagram size={30} /></div>
-          </div>
-          <div className="relative group w-[150px] h-[150px] md:w-[245px] md:h-[255px] ">
-            <img src={ig} alt="" />
-            <div className="absolute hidden inset-0 bg-black opacity-50 group-hover:flex"></div>
-
-            <div className="absolute hidden inset-0 group-hover:flex items-center justify-center text-white text-xl"><CgInstagram size={30} /></div>
-          </div>
-
-
+                <div className="absolute hidden inset-0 group-hover:flex items-center justify-center text-white text-xl">
+                  <CgInstagram size={30} />
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
