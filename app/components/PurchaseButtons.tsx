@@ -6,12 +6,14 @@ function PurchaseButtons({
   item,
   index,
   price,
-  active
+  active,
+  quantityButton,
 }: {
   item?: SimpleProduct;
   index?: number;
   price?: boolean;
-  active:boolean;
+  active: boolean;
+  quantityButton: boolean;
 }) {
   const [selectedOption, setSelectedOption] = useState('one');
   const {open} = useAside();
@@ -34,9 +36,7 @@ function PurchaseButtons({
             </span>
             <span>One-Time Purchase</span>
           </div>
-          <div className="price font-medium pl-6">
-            55
-          </div>
+          <div className="price font-medium pl-6">55</div>
           <input
             type="radio"
             name="purchaseOption"
@@ -75,11 +75,22 @@ function PurchaseButtons({
         </label>
       </div>
       <div
-        className="add-btn w-[325px] h-[45px] bg-black round-lg text-white text-[14px] rounded-lg flex content-center flex-wrap justify-center mb-2"
+        className={`add-btn w-[90%] h-[65px] bg-black text-white text-[14px] rounded-lg flex content-center flex-wrap mb-2 ${quantityButton ? 'justify-around' : 'justify-center'}`}
         onClick={() => open('product-detail')}
       >
-        Add to Cart -{' '}
-        <span className="price">$55</span>
+        {quantityButton && (
+          <div className="quantity-button bg-white w-[140px] h-[53px] font-main text-[18px] rounded-xl flex flex-row text-black justify-center gap-9 font-light items-center">
+            <div className="decrease ">-</div>
+            <div>1</div>
+            <div className="increase">+</div>
+          </div>
+        )}
+
+        <span className="flex items-center font-normal text-[16px]">
+          {' '}
+          Add to Cart - $55
+        </span>
+        <div className=""></div>
       </div>
       <div className="full-details text-xs">View Full Details</div>
     </div>

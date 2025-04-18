@@ -74,7 +74,7 @@ export function Aside({
            <CgClose size={24} />
           </button>
         </header>
-        <main>{children}</main>
+        <main className="h-full">{children}</main>
       </aside>
     </div>
   );

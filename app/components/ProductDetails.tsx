@@ -40,10 +40,10 @@ function ProductDetails() {
   ];
 
   return (
-    <div className="product-detail container flex flex-col w-auto  h-full font-main">
+    <div className="product-detail container flex flex-col w-auto  h-full font-main justify-around  py-9">
       <img
         src={img}
-        className=" w-[150px] h-[150px] md:h-[300px] md:w-[300px] object-cover flex self-center align-center flex-wrap"
+        className=" w-[150px] h-[150px] md:h-[250px] md:w-[250px] object-cover flex self-center align-center flex-wrap"
         alt=""
       />
       <div className="text flex flex-col font-main h-auto">
@@ -53,7 +53,7 @@ function ProductDetails() {
         <div className="subtitle text-xs text-gray-400">
           Enhances the quality of sleep.
         </div>
-        <div className="tags flex flex-row justify-between mt-3 mb-4">
+        <div className="tags flex flex-row justify-between mt-1 mb-1">
           <div className="metafields flex flex-row gap-3 ">
             <div className="metafield bg-[#F6F6F5] px-3.5 md:py-1.5 py-0.5 md:w-[94px] md:h-[27px] w-auto h-auto text-[12px] rounded-xs text-center ">
               GMO Free
@@ -69,7 +69,7 @@ function ProductDetails() {
         </div>
       </div>
 
-      <table className="table-auto h-[210px] mb-3   ">
+      <table className="table-auto h-[210px] mb-1   ">
         <thead>
           <tr className="font-bold  pb-2 mb-2 text-[12px] ">
             {' '}
@@ -151,7 +151,7 @@ function ProductDetails() {
           <span>Taxes & shipping calculated at checkout</span>
         </div>
       </div>
-      <PurchaseButtons active={true} price={false} />
+      <PurchaseButtons active={true} price={false} quantityButton={true} />
     </div>
   );
 }

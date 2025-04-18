@@ -58,7 +58,7 @@ function Card({
               onClick={() => open('product-detail')}
             >
               {price
-                ? ` Add • ${item.variants.nodes[0].price.amount}`
+                ? ` Add • $${item.variants.nodes[0].price.amount}`
                 : 'Add to Cart'}
             </div>
           </div>
@@ -66,7 +66,7 @@ function Card({
 
         {/* hidden section, visible on hover */}
 
-        <PurchaseButtons active={false} item={item} index={index} price={price}/>
+        <PurchaseButtons active={false} item={item} index={index} price={price} quantityButton={false}/>
       </div>
     </>
   );
