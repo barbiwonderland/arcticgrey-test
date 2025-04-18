@@ -4,6 +4,7 @@ import {oxygen} from '@shopify/mini-oxygen/vite';
 import {vitePlugin as remix} from '@remix-run/dev';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import tailwindcss from '@tailwindcss/vite';
+import {netlifyPlugin} from '@netlify/remix-edge-adapter/plugin';
 
 declare module '@remix-run/server-runtime' {
   interface Future {
@@ -16,6 +17,7 @@ export default defineConfig({
     tailwindcss(),
     hydrogen(),
     oxygen(),
+    netlifyPlugin(),
     remix({
       presets: [hydrogen.v3preset()],
       future: {
@@ -46,7 +48,7 @@ export default defineConfig({
        * Include 'example-dep' in the array below.
        * @see https://vitejs.dev/config/dep-optimization-options
        */
-      include: [],
+      include: ['@netlify/remix-edge-adapter'],
     },
   },
 });
