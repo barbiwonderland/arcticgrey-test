@@ -20,13 +20,21 @@ import {
   GET_PRODUCTS_QUERY,
   RECOMMENDED_PRODUCTS_QUERY,
 } from '~/graphql/products-queries/products';
-import { GET_HOME_MEDIA } from '~/graphql/files';
-import { Aside } from '~/components/Aside';
+import {GET_HOME_MEDIA} from '~/graphql/files';
+import {Aside} from '~/components/Aside';
 import CustomProduct from '~/components/CustomProduct';
 import ProductDetails from '~/components/ProductDetails';
 
 export const meta: MetaFunction = () => {
-  return [{title: 'Hydrogen | Home'}];
+  return [
+    {title: 'Barbara Bottazzi Full stack Assessment. Portfolio personal:https://barbarabottazzi.netlify.app/'},
+    {
+      name: 'description',
+      content:
+        'This a e-commerce in Hydrogen to test my knowloadge in full stack development',
+    },
+    { rel: 'canonical', href: 'artic-grey-test.netlify.app' }
+  ];
 };
 
 export async function loader(args: LoaderFunctionArgs) {
@@ -44,7 +52,13 @@ export async function loader(args: LoaderFunctionArgs) {
 
   // const getHomeMedia = await loadHomeVideo(args);
 
-  return {...deferredData, ...criticalData, ...getProducts, ...getBlogs,...getBundles};
+  return {
+    ...deferredData,
+    ...criticalData,
+    ...getProducts,
+    ...getBlogs,
+    ...getBundles,
+  };
 }
 
 /**
@@ -57,7 +71,6 @@ async function loadProducts({context}: LoaderFunctionArgs) {
     context.storefront.query(GET_PRODUCTS_QUERY),
   ]);
 
-
   return {
     products: products[0].collection.products.nodes,
   };
@@ -68,17 +81,18 @@ async function loadBundles({context}: LoaderFunctionArgs) {
     context.storefront.query(GET_BUNDLES_QUERY),
   ]);
 
-
   return {
-    bundles:  products[0].collection.products.nodes,
+    bundles: products[0].collection.products.nodes,
   };
 }
 
 async function loadBlogData({context}: LoaderFunctionArgs) {
-  const {result} = await context.storefront.query(GET_ARTICLES).catch((error) => {
-    console.error(error, 'error en la query');
-    return null;
-  });
+  const {result} = await context.storefront
+    .query(GET_ARTICLES)
+    .catch((error) => {
+      console.error(error, 'error en la query');
+      return null;
+    });
 
   if (!result) return null;
 
@@ -126,21 +140,18 @@ function loadDeferredData({context}: LoaderFunctionArgs) {
   };
 }
 
-
-
-
 export default function Homepage() {
   const data = useLoaderData<typeof loader>();
   console.log(data, 'data');
   return (
     <div className="home">
-      <Home  />
+      <Home />
       <Banner />
       <GoalsSection />
-       <TrendingProducts products={data.products} /> 
+      <TrendingProducts products={data.products} />
       <About />
       <Testimonials />
-      <Bundles bundles={data.bundles} /> 
+      <Bundles bundles={data.bundles} />
       <CustomProduct />
       <News />
       <Blog blogs={data.articles} />
@@ -150,7 +161,6 @@ export default function Homepage() {
 }
 
 function Home() {
-
   return (
     <div className="w-full">
       {/* {image && ( */}
