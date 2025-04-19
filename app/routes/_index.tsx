@@ -16,6 +16,7 @@ import SocialMedia from '~/components/SocialMedia';
 import {GET_ARTICLES} from '~/graphql/blogs';
 import {
  
+  COLLECTION_BUNDLES_QUERY,
   COLLECTION_PRODUCTS_QUERY,
   FEATURED_COLLECTION_QUERY,
   GET_BUNDLES_QUERY,
@@ -84,7 +85,7 @@ async function loadProducts({context}: LoaderFunctionArgs) {
 
 async function loadBundles({context}: LoaderFunctionArgs) {
   const products = await Promise.all([
-    context.storefront.query(GET_BUNDLES_QUERY),
+    context.storefront.query(COLLECTION_BUNDLES_QUERY),
   ]);
 
   return {
@@ -157,7 +158,7 @@ export default function Homepage() {
       <TrendingProducts products={data.products} />
       <About />
       <Testimonials />
-      <Bundles bundles={data.bundles} />
+      <Bundles bundles={data.bundles} /> 
       <CustomProduct />
       <News />
        <Blog blogs={data.articles} /> 

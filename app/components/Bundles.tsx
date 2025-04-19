@@ -1,14 +1,11 @@
-import { Link } from '@remix-run/react';
+import {Await, Link} from '@remix-run/react';
 import {AiOutlineArrowLeft, AiOutlineArrowRight} from 'react-icons/ai';
-import Card  from './Card';
-import { useRef } from 'react';
-import { SimpleProduct } from '~/types/product-types';
+import Card from './Card';
+import {Suspense, useRef} from 'react';
+import {Product} from '@shopify/hydrogen/storefront-api-types';
+import {ProductProvider, useProduct} from '@shopify/hydrogen-react';
 
-function Bundles({
-    bundles,
-  }: {
-    bundles: SimpleProduct[];
-  }) {
+function Bundles({bundles}: {bundles: Promise<Product[]>}) {
   const menuItems = [
     {name: 'Sleep', path: '/sleep'},
     {name: 'Cognitive Function', path: '/cognitive-function'},
@@ -27,7 +24,7 @@ function Bundles({
           </div>
         </div>
         <div className="menu flex flex-row justify-center ">
-          <nav className=' gap-5 flex'>
+          <nav className=" gap-5 flex">
             {menuItems.map((item) => (
               <Link
                 key={item.path}
@@ -57,18 +54,24 @@ function Bundles({
       </div>
 
       <div className="carousel w-full py-7">
-        <div  className="cards md:w-full w-[80%]  mt-5 flex justify-normal md:justify-center md:gap-8 items-center flex-row flex-nowrap overflow-x-scroll [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] mx-auto md:mx-0 " ref={scrollRef}>
-        
-          {bundles && bundles.map((product, index)=>{
-            // console.log(product,"indiviaul")
-            return(
-              <Card item ={product} key={index} index = {index} price={false}/>
-            )
-          })}
-         
+        <div
+          className="cards md:w-full w-[80%]  mt-5 flex justify-normal md:justify-center md:gap-8 items-center flex-row flex-nowrap overflow-x-scroll [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] mx-auto md:mx-0 "
+          ref={scrollRef}
+        >
+          <Suspense fallback={<div>Loading...</div>}></Suspense>
+          <Await resolve={bundles}>
+            {(response) =>
+              response.map((product, key) => {
+                return (
+                  <ProductProvider data={product} key={key}>
+                    <Card price={true} />
+                  </ProductProvider>
+                );
+              })
+            }
+          </Await>
         </div>
       </div>
-
     </div>
   );
 }
