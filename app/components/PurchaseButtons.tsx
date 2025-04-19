@@ -1,6 +1,6 @@
 import {useState} from 'react';
-import {SimpleProduct} from '~/types/product-types';
 import {useAside} from './Aside';
+import { Product } from '@shopify/hydrogen/storefront-api-types';
 
 function PurchaseButtons({
   item,
@@ -9,7 +9,7 @@ function PurchaseButtons({
   active,
   quantityButton,
 }: {
-  item?: SimpleProduct;
+  item?: Product;
   index?: number;
   price?: boolean;
   active: boolean;

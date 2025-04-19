@@ -1,4 +1,4 @@
-import {Article, Blog} from '~/types/blog-types';
+import {Article} from '~/types/blog-types';
 import news from '../assets/images/news/news.png';
 import {Suspense, useEffect, useState} from 'react';
 import {Await} from '@remix-run/react';
@@ -23,7 +23,6 @@ import {Await} from '@remix-run/react';
 // ];
 function Blog({blogs}: {blogs: Promise< Article[] >}) {
 
-  console.log(blogs, "blog uno")
 
 
 
@@ -42,7 +41,6 @@ function Blog({blogs}: {blogs: Promise< Article[] >}) {
           <Suspense fallback={<div>Loading...</div>}>
             <Await resolve={blogs}>
               {(response) => {
-                console.log(response, 'rta');
                 const firstArticle = response[0]
 
                 return (

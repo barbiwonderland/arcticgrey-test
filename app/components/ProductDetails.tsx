@@ -3,6 +3,11 @@ import {AiFillStar} from 'react-icons/ai';
 import img from '../assets/images/products/product1.png';
 import PurchaseButtons from './PurchaseButtons';
 import Tooltip from './Tooltip';
+import type {CartApiQueryFragment} from 'storefrontapi.generated';
+import {CartForm, OptimisticCartLine} from '@shopify/hydrogen';
+
+type CartLine = OptimisticCartLine<CartApiQueryFragment>;
+
 function ProductDetails() {
   const products = [
     {
@@ -13,7 +18,7 @@ function ProductDetails() {
       price: 49.95,
       discount: '0%',
       total: '$0.00',
-      stock:"10"
+      stock: '10',
     },
     {
       id: 2,
@@ -23,8 +28,7 @@ function ProductDetails() {
       price: 49.95,
       discount: '5%',
       total: '$249.95',
-      stock:"10"
-
+      stock: '10',
     },
     {
       id: 3,
@@ -34,8 +38,7 @@ function ProductDetails() {
       price: 49.95,
       discount: '5%',
       total: '$249.95',
-      stock:"10"
-
+      stock: '10',
     },
   ];
 
@@ -47,12 +50,8 @@ function ProductDetails() {
         alt=""
       />
       <div className="text flex flex-col font-main h-auto">
-        <div className="title font-medium text-[18px] md:text-[26px]">
-          Magnesium L-Threonate
-        </div>
-        <div className="subtitle text-xs text-gray-400">
-          Enhances the quality of sleep.
-        </div>
+        <div className="title font-medium text-[18px] md:text-[26px]">gg</div>
+        <div className="subtitle text-xs text-gray-400">gg</div>
         <div className="tags flex flex-row justify-between mt-1 mb-1">
           <div className="metafields flex flex-row gap-3 ">
             <div className="metafield bg-[#F6F6F5] px-3.5 md:py-1.5 py-0.5 md:w-[94px] md:h-[27px] w-auto h-auto text-[12px] rounded-xs text-center ">
@@ -105,15 +104,31 @@ function ProductDetails() {
                 </div>
               </td>
               <td className="p-3">
-                <div className=" flex items-center gap-2 border-1 border-gray-200 rounded-xs text-[#1B1F23] text-[10px] font-main justify-center text-center">
-                  <button className=" px-2 py-1 rounded hover:bg-gray-300 text-xs">
-                    -
-                  </button>
-                  <span>{product.quantity}</span>
-                  <button className=" px-2 py-1 rounded hover:bg-gray-300 text-xs">
-                    +
-                  </button>
-                </div>
+{/*                 
+                <CartForm
+                  route="/cart"
+                  action={CartForm.ACTIONS.LinesUpdate}
+                  inputs={{
+                    lines: [
+                      {
+                        id: "gid://shopify/ProductVariant/51150405042490",
+                        quantity: 0,
+                      },
+
+                    ],
+                    other: 'data',
+                  }}
+                > */}
+                  <div className=" flex items-center gap-2 border-1 border-gray-200 rounded-xs text-[#1B1F23] text-[10px] font-main justify-center text-center">
+                    <button className=" px-2 py-1 rounded hover:bg-gray-300 text-xs">
+                      -
+                    </button>
+                    <span>{product.quantity}</span>
+                    <button className=" px-2 py-1 rounded hover:bg-gray-300 text-xs">
+                      +
+                    </button>
+                  </div>
+                {/* </CartForm> */}
               </td>
               <td>
                 <div className="font-main text-[12px] p-2">
@@ -129,7 +144,10 @@ function ProductDetails() {
               <td className="p-3">
                 <div className="unit-total font-main text-[12px] text-right">
                   <div className="">
-                    {((product.price * product.quantity)-((product.price*product.quantity)*5/100)).toFixed(2)}
+                    {(
+                      product.price * product.quantity -
+                      (product.price * product.quantity * 5) / 100
+                    ).toFixed(2)}
                   </div>
                 </div>
               </td>

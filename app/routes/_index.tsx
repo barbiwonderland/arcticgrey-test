@@ -15,25 +15,29 @@ import Blog from '~/components/Blog';
 import SocialMedia from '~/components/SocialMedia';
 import {GET_ARTICLES} from '~/graphql/blogs';
 import {
+ 
+  COLLECTION_PRODUCTS_QUERY,
   FEATURED_COLLECTION_QUERY,
   GET_BUNDLES_QUERY,
   GET_PRODUCTS_QUERY,
   RECOMMENDED_PRODUCTS_QUERY,
 } from '~/graphql/products-queries/products';
 import {GET_HOME_MEDIA} from '~/graphql/files';
-import {Aside} from '~/components/Aside';
 import CustomProduct from '~/components/CustomProduct';
-import ProductDetails from '~/components/ProductDetails';
+import {CartProvider} from '@shopify/hydrogen-react';
 
 export const meta: MetaFunction = () => {
   return [
-    {title: 'Barbara Bottazzi Full stack Assessment. Portfolio personal:https://barbarabottazzi.netlify.app/'},
+    {
+      title:
+        'Barbara Bottazzi Full stack Assessment. Portfolio personal:https://barbarabottazzi.netlify.app/',
+    },
     {
       name: 'description',
       content:
         'This a e-commerce in Hydrogen to test my knowloadge in full stack development',
     },
-    { rel: 'canonical', href: 'artic-grey-test.netlify.app' }
+    {rel: 'canonical', href: 'artic-grey-test.netlify.app'},
   ];
 };
 
@@ -67,12 +71,14 @@ export async function loader(args: LoaderFunctionArgs) {
  */
 
 async function loadProducts({context}: LoaderFunctionArgs) {
+
   const products = await Promise.all([
-    context.storefront.query(GET_PRODUCTS_QUERY),
+    context.storefront.query(COLLECTION_PRODUCTS_QUERY),
   ]);
 
   return {
-    products: products[0].collection.products.nodes,
+    products: products[0].collection.products.nodes
+    //products: response.products.edges,
   };
 }
 
@@ -154,7 +160,7 @@ export default function Homepage() {
       <Bundles bundles={data.bundles} />
       <CustomProduct />
       <News />
-      <Blog blogs={data.articles} />
+       <Blog blogs={data.articles} /> 
       <SocialMedia />
     </div>
   );

@@ -8,6 +8,7 @@ import {
 } from '@remix-run/react';
 import favicon from '~/assets/favicon.svg';
 import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
+import { ShopifyProvider, CartProvider } from '@shopify/hydrogen-react';
 
 export type RootLoader = typeof loader;
 
@@ -134,7 +135,19 @@ function loadDeferredData({context}: LoaderFunctionArgs) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <ShopifyProvider
+    storeDomain="arctic-greytest.myshopify.com"
+    storefrontToken="091797e8a0d63511007f2cb9dad8ee00"
+    storefrontApiVersion="2025-01"
+    countryIsoCode="CA"
+    languageIsoCode="EN"
+    >
+      <CartProvider>
+        <Outlet />
+      </CartProvider>
+    </ShopifyProvider>
+  ); 
 }
 
 export function ErrorBoundary() {

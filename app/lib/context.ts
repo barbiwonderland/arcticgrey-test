@@ -1,4 +1,4 @@
-import {createHydrogenContext} from '@shopify/hydrogen';
+import {cartGetIdDefault, cartSetIdDefault, createHydrogenContext} from '@shopify/hydrogen';
 import {AppSession} from '~/lib/session';
 import {CART_QUERY_FRAGMENT} from '~/lib/fragments';
 
@@ -33,6 +33,10 @@ export async function createAppLoadContext(
     i18n: {language: 'EN', country: 'US'},
     cart: {
       queryFragment: CART_QUERY_FRAGMENT,
+      getId: cartGetIdDefault(request.headers),
+      setId: cartSetIdDefault({
+        maxage: 60 * 60 * 24 * 365, // One year expiry
+      }),
     },
   });
 
