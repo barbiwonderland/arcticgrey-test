@@ -17,7 +17,7 @@ import {SearchResultsPredictive} from '~/components/SearchResultsPredictive';
 import Footer from "../components/Footer"
 import ProductAside from './ProductAside';
 
-interface PageLayoutProps {
+export interface PageLayoutProps {
   cart: Promise<CartApiQueryFragment | null>;
   footer: Promise<FooterQuery | null>;
   header: HeaderQuery;
@@ -38,8 +38,8 @@ export function PageLayout({
     <Aside.Provider>
       <CartAside cart={cart} />
       <SearchAside />
-      <ProductAside/>
-      <MobileMenuAside header={header} publicStoreDomain={publicStoreDomain} />
+      <ProductAside cart={cart}/>
+      <MobileMenuAside header={header} publicStoreDomain={publicStoreDomain}  />
       {header && (
         <Header
           header={header}
@@ -165,7 +165,7 @@ function MobileMenuAside({
   return (
     header.menu &&
     header.shop.primaryDomain?.url && (
-      <Aside type="mobile" heading="MENU" width={500}>
+      <Aside type="mobile" heading="MENU" width={350}>
         <HeaderMenu
           menu={header.menu}
           viewport="mobile"

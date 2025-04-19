@@ -2,8 +2,8 @@ import {AiOutlineArrowRight} from 'react-icons/ai';
 import {AiOutlineArrowLeft} from 'react-icons/ai';
 import Card from './Card';
 import {Suspense, useRef} from 'react';
-import {Product, CurrencyCode} from '@shopify/hydrogen/storefront-api-types';
-import {ProductProvider, useProduct} from '@shopify/hydrogen-react';
+import {Product} from '@shopify/hydrogen/storefront-api-types';
+import {ProductProvider} from '@shopify/hydrogen-react';
 import {Await} from '@remix-run/react';
 
 function TrendingProducts({products}: {products: Promise<Product[]>}) {
@@ -19,7 +19,7 @@ function TrendingProducts({products}: {products: Promise<Product[]>}) {
       scrollRef.current.scrollBy({left: -400, behavior: 'smooth'});
     }
   };
-  console.log(products, 'productos desde trending page');
+  // console.log(products, 'products from trending page');
 
   return (
     <div className="trending-section h-auto w-screen max-h-[950px] bg-[#F6F6F5] md:p-10">
@@ -53,7 +53,7 @@ function TrendingProducts({products}: {products: Promise<Product[]>}) {
               response.map((product, key) => {
                 return (
                   <ProductProvider data={product} key={key}>
-                    <Card item={product} index={key}  price={true} />
+                    <Card price={true} />
                   </ProductProvider>
                 );
               })

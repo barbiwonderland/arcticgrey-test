@@ -4,11 +4,24 @@ import img from '../assets/images/products/product1.png';
 import PurchaseButtons from './PurchaseButtons';
 import Tooltip from './Tooltip';
 import type {CartApiQueryFragment} from 'storefrontapi.generated';
-import {CartForm, OptimisticCartLine} from '@shopify/hydrogen';
+import {
+  CartForm,
+  OptimisticCartLine,
+  useOptimisticCart,
+} from '@shopify/hydrogen';
+import {CartMainProps} from './CartMain';
 
 type CartLine = OptimisticCartLine<CartApiQueryFragment>;
 
-function ProductDetails() {
+function ProductDetails({
+  layout,
+  cart: originalCart,
+}: {
+  layout: string;
+  cart: any;
+
+}) {
+  const cart = useOptimisticCart(originalCart);
   const products = [
     {
       id: 1,
@@ -50,8 +63,8 @@ function ProductDetails() {
         alt=""
       />
       <div className="text flex flex-col font-main h-auto">
-        <div className="title font-medium text-[18px] md:text-[26px]">gg</div>
-        <div className="subtitle text-xs text-gray-400">gg</div>
+        <div className="title font-medium text-[18px] md:text-[26px]">Omega-3</div>
+        <div className="subtitle text-xs text-gray-400">Enhances the quality of sleep.</div>
         <div className="tags flex flex-row justify-between mt-1 mb-1">
           <div className="metafields flex flex-row gap-3 ">
             <div className="metafield bg-[#F6F6F5] px-3.5 md:py-1.5 py-0.5 md:w-[94px] md:h-[27px] w-auto h-auto text-[12px] rounded-xs text-center ">
@@ -104,8 +117,12 @@ function ProductDetails() {
                 </div>
               </td>
               <td className="p-3">
-{/*                 
-                <CartForm
+                
+                {/*  
+                funcionality to update quantities of variant in cart, i have to get the select variant first to use it , now is working with a default variant that have to be in the cart
+                i comment the line to avoid errors.     
+                */}         
+                {/* <CartForm
                   route="/cart"
                   action={CartForm.ACTIONS.LinesUpdate}
                   inputs={{
@@ -118,17 +135,17 @@ function ProductDetails() {
                     ],
                     other: 'data',
                   }}
-                > */}
-                  <div className=" flex items-center gap-2 border-1 border-gray-200 rounded-xs text-[#1B1F23] text-[10px] font-main justify-center text-center">
-                    <button className=" px-2 py-1 rounded hover:bg-gray-300 text-xs">
-                      -
-                    </button>
-                    <span>{product.quantity}</span>
-                    <button className=" px-2 py-1 rounded hover:bg-gray-300 text-xs">
-                      +
-                    </button>
-                  </div>
-                {/* </CartForm> */}
+                >  */}
+                <div className=" flex items-center gap-2 border-1 border-gray-200 rounded-xs text-[#1B1F23] text-[10px] font-main justify-center text-center">
+                  <button className=" px-2 py-1 rounded hover:bg-gray-300 text-xs">
+                    -
+                  </button>
+                  <span>{product.quantity}</span>
+                  <button className=" px-2 py-1 rounded hover:bg-gray-300 text-xs">
+                    +
+                  </button>
+                </div>
+                {/* </CartForm>  */}
               </td>
               <td>
                 <div className="font-main text-[12px] p-2">
