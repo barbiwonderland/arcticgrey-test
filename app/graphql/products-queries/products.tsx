@@ -410,3 +410,19 @@ export const COLLECTION_PRODUCTS_QUERY = `#graphql
   }
   ${PRODUCT_FRAGMENT}
 ` as const;
+
+export const COLLECTION_BUNDLES_QUERY = `#graphql
+  query CollectionProducts @inContext(country: US, language: EN) {
+    collection(handle: "Bundles") {
+      id
+      title
+      description
+      products(first: 50) {
+        nodes {
+          ...Product
+        }
+      }
+    }
+  }
+  ${PRODUCT_FRAGMENT}
+` as const;
