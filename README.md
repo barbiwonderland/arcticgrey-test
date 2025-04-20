@@ -60,3 +60,6 @@ npm install
 ```bash
 npm run dev
 ```
+
+**Live version**
+- [https://artic-grey-test.netlify.app/](https://artic-grey-test.netlify.app/)
