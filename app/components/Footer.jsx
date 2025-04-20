@@ -1,4 +1,3 @@
-import { Link } from '@remix-run/react';
 import {AiFillYoutube} from 'react-icons/ai';
 import {BsTwitter} from 'react-icons/bs';
 import {CgFacebook} from 'react-icons/cg';
@@ -6,7 +5,7 @@ import {FaInstagram} from 'react-icons/fa';
 export default function Footer() {
   return (
     <footer className="bg-[#F6F6F5] w-screen text-sm text-[#1B1F23] py-10 px-6 h-auto">
-      <div className="w-full mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 justify-items-end">
+      <div className="w-full mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 md:justify-items-end justify-items-center">
         <div>
           <h3 className="font-bold mb-2 md:text-[24px] text-[18px]">
             Be a Part of Our Journey
@@ -57,7 +56,7 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        <div>
+        <div className='text-center'>
           <h4 className="font-semibold mb-2 text-[18px]">Contact Us</h4>
           <p className="mb-2 text-[16px]">Let Us Help You</p>
           <p className="font-bold mb-4 text-[24px]!">(888) 860-0572</p>
@@ -71,9 +70,9 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="text-xs text-gray-500 mt-8 text-center flex flex-row justify-between">
-        <p>© uncmfrt.com. All rights reserved.</p>
-        <p className="mt-1">Made with ❤️ and 🧊 by <Link className='text-gray-500!' to="https://github.com/barbiwonderland/">Barbara Bottazzi</Link>  for Arctic Grey Challenge</p>
+      <div className="  md:text-xs text-gray-500 mt-8 text-center flex md:flex-row flex-col justify-between">
+        <p className=" text-[11px]! md:text-xs">© uncmfrt.com. All rights reserved.</p>
+        <p className="mt-1 md:text-xs text-[14px]!">Made with ❤️ and 🧊 by barbiwonderland for Arctic Grey Challenge</p>
       </div>
     </footer>
   );
