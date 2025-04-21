@@ -1,4 +1,4 @@
-# 🐺 Hydrogen Challenge – Artict Grey 
+# 🐺 Hydrogen Challenge – Arctic Grey 
 
 This project is a **technical challenge** built with [Hydrogen](https://shopify.dev/custom-storefronts/hydrogen), Shopify’s stack for headless commerce. It's designed as part of a technical interview process.
 
