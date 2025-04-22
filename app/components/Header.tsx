@@ -10,7 +10,7 @@ import {useAside} from '~/components/Aside';
 import {HiMiniMagnifyingGlass} from 'react-icons/hi2';
 import {HiOutlineShoppingBag} from 'react-icons/hi';
 import {BsPerson} from 'react-icons/bs';
-import { Link } from '@remix-run/react';
+import {Link} from '@remix-run/react';
 
 import EmployeeIcon from '../assets/icons/employee.svg';
 
@@ -105,37 +105,33 @@ export function HeaderMenu({
   );
 }
 
-function HeaderCtas({
-  isLoggedIn,
-  cart,
-}: Pick<HeaderProps, 'isLoggedIn' | 'cart'>) {
+function HeaderCtas({cart}: Pick<HeaderProps, 'isLoggedIn' | 'cart'>) {
   return (
     <nav className="header-ctas" role="navigation">
       <HeaderMenuMobileToggle />
-      <NavLink
-        prefetch="intent"
-        to="/account"
-        style={activeLinkStyle}
-        className="gap-x-3 flex items-center"
-      >
-        <div className="font-main text-[14px] hidden bg-main-gray w-24 h-11 rounded-lg md:flex flex-nowrap justify-center items-center font-medium gap-2.5 ">
-          Men <img src={EmployeeIcon} alt="employeeIcon" />
+      <div className="font-main text-[14px] hidden bg-main-gray w-24 h-11 rounded-lg md:flex flex-nowrap justify-center items-center font-medium gap-2.5 ">
+        Men <img src={EmployeeIcon} alt="employeeIcon" />
+      </div>
+      <div className="md:flex items-center justify-around gap-2.5 w-[250px] hidden">
+        <div className=" font-main text-[14px] w-[140px] h-[45px] bg-main-blue text-white text-center flex flex-nowrap justify-center items-center rounded-lg font-medium ">
+          Take the quiz
         </div>
-        <div className="md:flex items-center justify-around gap-2.5 w-[250px] hidden">
-          <div className=" font-main text-[14px] w-[140px] h-[45px] bg-main-blue text-white text-center flex flex-nowrap justify-center items-center rounded-lg font-medium ">
-            Take the quiz
-          </div>
-          <div>
-            <BsPerson size={16} />
-          </div>
-          {/* <Suspense fallback="Sign in">
+        <div>
+          <BsPerson size={16} />
+        </div>
+        {/* <Suspense fallback="Sign in">
           <Await resolve={isLoggedIn} errorElement="Sign in">
             {(isLoggedIn) => (isLoggedIn ? 'Account' : 'Sign in')}
           </Await>
         </Suspense> */}
+        <div
+
+          className="gap-x-3 flex items-center"
+        >
           <CartToggle cart={cart} />
         </div>
-      </NavLink>
+      </div>
+
       {/* i comment from here because i wanted in the group of links on the middle of nav */}
       {/* <SearchToggle /> */}
     </nav>
@@ -181,9 +177,14 @@ function CartBadge({count}: {count: number | null}) {
         } as CartViewPayload);
       }}
     >
+      <div className="cart-container relative   w-10 h-10  inline-flex items-center justify-center ">
       <span className="">
-        <HiOutlineShoppingBag size={16} />
+        <HiOutlineShoppingBag  size={16} />
       </span>
+      <div className="cart-badge flex  bg-black px-1.5  rounded-xl text-white justify-center content-center flex-wrap absolute top-0 right-0 text-xs ">0</div>
+
+      </div>
+    
     </Link>
   );
 }
