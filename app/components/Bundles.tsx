@@ -5,7 +5,7 @@ import {Suspense, useRef} from 'react';
 import {Product} from '@shopify/hydrogen/storefront-api-types';
 import {ProductProvider, useProduct} from '@shopify/hydrogen-react';
 
-function Bundles({bundles}: {bundles: Promise<Product[]>}) {
+function Bundles({bundles}: {bundles: Product[]}) {
   const menuItems = [
     {name: 'Sleep', path: '/sleep'},
     {name: 'Cognitive Function', path: '/cognitive-function'},
@@ -58,18 +58,14 @@ function Bundles({bundles}: {bundles: Promise<Product[]>}) {
           className="cards md:w-full w-[80%]  mt-5 flex justify-normal md:justify-center md:gap-8 items-center flex-row flex-nowrap overflow-x-scroll [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] mx-auto md:mx-0 "
           ref={scrollRef}
         >
-          <Suspense fallback={<div>Loading...</div>}></Suspense>
-          <Await resolve={bundles}>
-            {(response) =>
-              response.map((product, key) => {
-                return (
-                  <ProductProvider data={product} key={key}>
-                    <Card price={true} />
-                  </ProductProvider>
-                );
-              })
-            }
-          </Await>
+          {bundles &&
+            bundles.map((product, key) => {
+              return (
+                <ProductProvider data={product} key={key}>
+                  <Card price={true} />
+                </ProductProvider>
+              );
+            })}
         </div>
       </div>
     </div>

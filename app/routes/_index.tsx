@@ -1,4 +1,4 @@
-import {type LoaderFunctionArgs} from '@shopify/remix-oxygen';
+import {defer, type LoaderFunctionArgs} from '@shopify/remix-oxygen';
 import {Await, useLoaderData, Link, type MetaFunction} from '@remix-run/react';
 import {Suspense} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
@@ -15,7 +15,6 @@ import Blog from '~/components/Blog';
 import SocialMedia from '~/components/SocialMedia';
 import {GET_ARTICLES} from '~/graphql/blogs';
 import {
- 
   COLLECTION_BUNDLES_QUERY,
   COLLECTION_PRODUCTS_QUERY,
   FEATURED_COLLECTION_QUERY,
@@ -45,25 +44,12 @@ export const meta: MetaFunction = () => {
 export async function loader(args: LoaderFunctionArgs) {
   // Start fetching non-critical data without blocking time to first byte
   const deferredData = loadDeferredData(args);
-
   // Await the critical data required to render initial state of the page
   const criticalData = await loadCriticalData(args);
 
-  const getProducts = await loadProducts(args);
-
-  const getBlogs = await loadBlogData(args);
-
-  const getBundles = await loadBundles(args);
-
   // const getHomeMedia = await loadHomeVideo(args);
 
-  return {
-    ...deferredData,
-    ...criticalData,
-    ...getProducts,
-    ...getBlogs,
-    ...getBundles,
-  };
+  return defer({...deferredData, ...criticalData});
 }
 
 /**
@@ -71,49 +57,54 @@ export async function loader(args: LoaderFunctionArgs) {
  * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
  */
 
-async function loadProducts({context}: LoaderFunctionArgs) {
+// async function loadProducts({context}: LoaderFunctionArgs) {
 
-  const products = await Promise.all([
+//   const products = await Promise.all([
+//     context.storefront.query(COLLECTION_PRODUCTS_QUERY),
+//   ]);
+
+//   return {
+//     products: products[0].collection.products.nodes
+//     //products: response.products.edges,
+//   };
+// }
+
+// async function loadBundles({context}: LoaderFunctionArgs) {
+//   const products = await Promise.all([
+//     context.storefront.query(COLLECTION_BUNDLES_QUERY),
+//   ]);
+
+//   return {
+//     bundles: products[0].collection.products.nodes,
+//   };
+// }
+
+// async function loadBlogData({context}: LoaderFunctionArgs) {
+//   const {result} = await context.storefront
+//     .query(GET_ARTICLES)
+//     .catch((error) => {
+//       console.error(error, 'error en la query');
+//       return null;
+//     });
+
+//   if (!result) return null;
+
+//   return {articles: result.listArticles};
+// }
+
+async function loadCriticalData({context}: LoaderFunctionArgs) {
+  const [{collections}, trendingProducts, bundlesProducts] = await Promise.all([
+    context.storefront.query(FEATURED_COLLECTION_QUERY),
+    //products query
     context.storefront.query(COLLECTION_PRODUCTS_QUERY),
-  ]);
-
-  return {
-    products: products[0].collection.products.nodes
-    //products: response.products.edges,
-  };
-}
-
-async function loadBundles({context}: LoaderFunctionArgs) {
-  const products = await Promise.all([
+    //Bundles query
     context.storefront.query(COLLECTION_BUNDLES_QUERY),
   ]);
 
   return {
-    bundles: products[0].collection.products.nodes,
-  };
-}
-
-async function loadBlogData({context}: LoaderFunctionArgs) {
-  const {result} = await context.storefront
-    .query(GET_ARTICLES)
-    .catch((error) => {
-      console.error(error, 'error en la query');
-      return null;
-    });
-
-  if (!result) return null;
-
-  return {articles: result.listArticles};
-}
-
-async function loadCriticalData({context}: LoaderFunctionArgs) {
-  const [{collections}] = await Promise.all([
-    context.storefront.query(FEATURED_COLLECTION_QUERY),
-    // Add other queries here, so that they are loaded in parallel
-  ]);
-
-  return {
     featuredCollection: collections.nodes[0],
+    trendingProducts: trendingProducts.collection.products.nodes,
+    bundles: bundlesProducts.collection.products.nodes,
   };
 }
 
@@ -133,17 +124,15 @@ async function loadHomeVideo({context}: LoaderFunctionArgs) {
  * fetched after the initial page load. If it's unavailable, the page should still 200.
  * Make sure to not throw any errors here, as it will cause the page to 500.
  */
-function loadDeferredData({context}: LoaderFunctionArgs) {
-  const recommendedProducts = context.storefront
-    .query(RECOMMENDED_PRODUCTS_QUERY)
-    .catch((error) => {
-      // Log query errors, but don't throw them so the page can still render
-      console.error(error);
-      return null;
-    });
+async function loadDeferredData({context}: LoaderFunctionArgs) {
+  const articles = context.storefront.query(GET_ARTICLES).catch((error) => {
+    // Log query errors, but don't throw them so the page can still render
+    console.error(error);
+    return null;
+  });
 
   return {
-    recommendedProducts,
+    articles,
   };
 }
 
@@ -155,13 +144,13 @@ export default function Homepage() {
       <Home />
       <Banner />
       <GoalsSection />
-      <TrendingProducts products={data.products} />
+      <TrendingProducts products={data.trendingProducts} />
       <About />
       <Testimonials />
-      <Bundles bundles={data.bundles} /> 
+      <Bundles bundles={data.bundles} />
       <CustomProduct />
       <News />
-       <Blog blogs={data.articles} /> 
+      {/* <Blog blogs={data.articles} />   */}
       <SocialMedia />
     </div>
   );
