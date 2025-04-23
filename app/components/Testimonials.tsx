@@ -1,4 +1,4 @@
-import {useRef, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {AiOutlineArrowLeft, AiOutlineArrowRight} from 'react-icons/ai';
 import Product from '../assets/images/products/product1.png';
 import Testimonial1 from '../assets/images/testimonials/Rectangle-1.png';
@@ -6,7 +6,10 @@ import Testimonial2 from '../assets/images/testimonials/Rectangle-2.png';
 import Testimonial3 from '../assets/images/testimonials/Rectangle-3.png';
 import Testimonial4 from '../assets/images/testimonials/Rectangle-4.png';
 import Testimonial5 from '../assets/images/testimonials/Rectangle-5.png';
-
+import {Swiper, SwiperSlide, useSwiper, useSwiperSlide} from 'swiper/react';
+import 'swiper/css/navigation';
+import 'swiper/css';
+import {Navigation} from 'swiper/modules';
 type Product = {
   image: string;
   title: string;
@@ -51,36 +54,51 @@ export const sampleProducts: Product[] = [
     price: '$49.95',
     icon: Product,
   },
+  {
+    image: Testimonial1,
+    title: 'Magnesium L-Threonate',
+    price: '$49.95',
+    icon: Product,
+  },
+  {
+    image: Testimonial2,
+    title: 'Magnesium L-Threonate',
+    price: '$49.95',
+    icon: Product,
+  },
+  {
+    image: Testimonial3,
+    title: 'Magnesium L-Threonate',
+    price: '$49.95',
+    icon: Product,
+  },
+  {
+    image: Testimonial4,
+    title: 'Magnesium L-Threonate',
+    price: '$49.95',
+    icon: Product,
+  },
+  {
+    image: Testimonial5,
+    title: 'Magnesium L-Threonate',
+    price: '$49.95',
+    icon: Product,
+  },
 ];
 
 function Testimonials() {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  let [aciveIndex, setAciveIndex] = useState(2);
-
-  const scrollToIndex = (index: number) => {
-    if (scrollRef.current) {
-      const scrollContainer = scrollRef.current;
-      const cardWidth = 300 + 12; 
-      const centerOffset = (scrollContainer.offsetWidth - cardWidth) / 2;
-      scrollContainer.scrollTo({
-        left: index * cardWidth - centerOffset,
-        behavior: 'smooth',
-      });
-    }
-  };
+  //Swipper
+  const swiperRef = useRef<any>(null); 
 
   const handleScrollRight = () => {
-    const nextIndex=(aciveIndex == sampleProducts.length ? 0 : aciveIndex + 1);
-    setAciveIndex(nextIndex)
-    scrollToIndex(nextIndex)
-
+  swiperRef.current?.slideNext();
   };
 
   const handleScrollLeft = () => {
-    const prevIndex=(aciveIndex == 0 ? sampleProducts.length : aciveIndex - 1);
-    setAciveIndex(prevIndex)
-    scrollToIndex(prevIndex)
+  swiperRef.current?.slidePrev();
   };
+
+  const middleSlide = Math.floor(sampleProducts.length / 2);
 
   return (
     <>
@@ -110,42 +128,75 @@ function Testimonials() {
         </div>
 
         <div className="slider-container flex flex-col justify-center w-screen h-auto ">
-          <div  ref={scrollRef} className="slider-content overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] h-full pb-10">
+          <div className="slider-content h-full pb-10">
             <section className="flex flex-row gap-3 justify-center h-full">
-              {sampleProducts.map((item, indx) => (
-               
-                <div key={indx}>
-                  <div
-                    key={indx}
-                    className="product-container flex flex-col h-[516px]   w-[300px]   pb-3"
-                  >
-                    <div className="w-full ">
-                      <img
-                        className={`object-cover w-full mb-5 ${indx === aciveIndex ? 'h-[500px]' : 'h-[420px]'}`}
-                        src={item.image}
-                        alt=""
-                      />
-                    </div>
-                    <div className="product-details font-main w-[300px] h-[80px] rounded-lg flex flex-row justify-around items-center bg-white ">
-                      <img
-                        className="product-image h-12 w-12"
-                        src={item.icon}
-                        alt=""
-                      />
-                      <div className="text flex flex-col">
-                        <div className="title text[13px]">{item.title}</div>
-                        <div className="price text-xs font-medium">
-                          {item.price}
+              <Swiper
+                onSlideChange={() => console.log('slide change')}
+                onSwiper={(swiper) => (swiperRef.current = swiper)}
+                modules={[Navigation]}
+                simulateTouch={true}
+                initialSlide={middleSlide}
+                centeredSlides={true}
+                className="w-full"
+                breakpoints={{
+                  375: {
+                    slidesPerView: 1,
+                    spaceBetween: 10,
+                  },
+                  640: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                  },
+                  768: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                  },
+                  1024: {
+                    slidesPerView: 5,
+                    spaceBetween: 5,
+                  },
+                }}
+              >
+                {sampleProducts &&
+                  sampleProducts.map((item, indx) => (
+                    <SwiperSlide>
+                      {({isActive}) => (
+                        <div key={indx}>
+                          <div
+                            key={indx}
+                            className="product-container flex flex-col h-full  w-[300px] pb-3"
+                          >
+                            <div className="w-full ">
+                              <img
+                                className={`object-cover w-full mb-5 ${isActive ? 'h-[500px]' : 'h-[420px]'}`}
+                                src={item.image}
+                                alt=""
+                              />
+                            </div>
+                            <div className="product-details font-main w-[300px] h-[80px] rounded-lg flex flex-row justify-around items-center bg-white ">
+                              <img
+                                className="product-image h-12 w-12"
+                                src={item.icon}
+                                alt=""
+                              />
+                              <div className="text flex flex-col">
+                                <div className="title text[13px]">
+                                  {item.title}
+                                </div>
+                                <div className="price text-xs font-medium">
+                                  {item.price}
+                                </div>
+                              </div>
+                              <div className="button w-[32px] h-[32px] rounded-full flex justify-center bg-black text-white font-medium content-center flex-wrap ">
+                                +
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                      <div className="button w-[32px] h-[32px] rounded-full flex justify-center bg-black text-white font-medium content-center flex-wrap ">
-                        +
-                      </div>
-                    </div>
-                  </div>
-                  </div>
-                
-              ))}
+                      )}
+                    </SwiperSlide>
+                  ))}
+              </Swiper>
             </section>
           </div>
         </div>
