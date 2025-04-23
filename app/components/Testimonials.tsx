@@ -86,19 +86,24 @@ export const sampleProducts: Product[] = [
   },
 ];
 
+
+
+
 function Testimonials() {
   //Swipper
-  const swiperRef = useRef<any>(null); 
+  const swiperRef = useRef<any>(null);
 
   const handleScrollRight = () => {
-  swiperRef.current?.slideNext();
+    swiperRef.current?.slideNext();
   };
 
   const handleScrollLeft = () => {
-  swiperRef.current?.slidePrev();
+    swiperRef.current?.slidePrev();
   };
 
   const middleSlide = Math.floor(sampleProducts.length / 2);
+
+
 
   return (
     <>
@@ -159,13 +164,10 @@ function Testimonials() {
               >
                 {sampleProducts &&
                   sampleProducts.map((item, indx) => (
-                    <SwiperSlide>
+                    <SwiperSlide key={indx}>
                       {({isActive}) => (
-                        <div key={indx}>
-                          <div
-                            key={indx}
-                            className="product-container flex flex-col h-full  w-[300px] pb-3"
-                          >
+                        <div>
+                          <div className="product-container flex flex-col h-full  w-[300px] pb-3">
                             <div className="w-full ">
                               <img
                                 className={`object-cover w-full mb-5 ${isActive ? 'h-[500px]' : 'h-[420px]'}`}
@@ -173,7 +175,7 @@ function Testimonials() {
                                 alt=""
                               />
                             </div>
-                            <div className="product-details font-main w-[300px] h-[80px] rounded-lg flex flex-row justify-around items-center bg-white ">
+                            <div className="product-details font-main w-auto h-[80px] rounded-lg flex flex-row justify-around items-center bg-white ">
                               <img
                                 className="product-image h-12 w-12"
                                 src={item.icon}
