@@ -1,32 +1,36 @@
 import {AiOutlineArrowRight} from 'react-icons/ai';
 import {AiOutlineArrowLeft} from 'react-icons/ai';
 import Card from './Card';
-import { useRef} from 'react';
 import {Product} from '@shopify/hydrogen/storefront-api-types';
 import {ProductProvider} from '@shopify/hydrogen-react';
-import {Await} from '@remix-run/react';
+// Import Swiper React components
+import {Swiper, SwiperSlide} from 'swiper/react';
+// Import Swiper styles
+import 'swiper/css';
+import {useEffect} from 'react';
 
 function TrendingProducts({products}: {products: Product[]}) {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const handleScrollRight = () => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({left: 400, behavior: 'smooth'});
-    }
-  };
+  // const scrollRef = useRef<HTMLDivElement>(null);
+  // const handleScrollRight = () => {
+  //   if (scrollRef.current) {
+  //     scrollRef.current.scrollBy({left: 400, behavior: 'smooth'});
+  //   }
+  // };
 
-  const handleScrollLeft = () => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({left: -400, behavior: 'smooth'});
-    }
-  };
+  // const handleScrollLeft = () => {
+  //   if (scrollRef.current) {
+  //     scrollRef.current.scrollBy({left: -400, behavior: 'smooth'});
+  //   }
+  // };
   // console.log(products, 'products from trending page');
 
+
   return (
-    <div className="trending-section h-auto w-screen max-h-[950px] bg-[#F6F6F5] md:p-10">
+    <div className="trending-section h-auto w-full max-h-[950px] bg-[#F6F6F5] md:p-10 p-0">
       <div className="titles flex flex-row justify-center text-center">
         <div
           className="left-arrow h-10 w-10 border-2 border-gray-300 rounded-lg text-center flex justify-center items-center"
-          onClick={handleScrollLeft}
+          // onClick={handleScrollLeft}
         >
           <AiOutlineArrowLeft />
         </div>
@@ -37,27 +41,46 @@ function TrendingProducts({products}: {products: Product[]}) {
         </div>
         <div
           className="right-arrow h-10 w-10 border-2 border-gray-300 rounded-lg text-center flex justify-center items-center"
-          onClick={handleScrollRight}
+          // onClick={handleScrollRight}
         >
           <AiOutlineArrowRight />
         </div>
       </div>
-      <div className="carousel w-full py-7">
-        <div
-          className="cards md:w-full w-[80%]  mt-5 flex justify-normal md:justify-center md:gap-8 items-center flex-row flex-nowrap overflow-x-scroll [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] mx-auto md:mx-0"
-          ref={scrollRef}
+      <div className="carousel w-full py-7 ">
+        {/* <div className="cards w-full flex flex-row flex-nowrap overflow-x-auto  md:gap-8 md:px-0"> */}
+        <Swiper
+          spaceBetween={20}
+          className="w-full"
+          breakpoints={{
+            375: {
+              slidesPerView: 1,
+              spaceBetween: 10,
+            },
+            640: {
+              slidesPerView: 2,
+              spaceBetween: 20,
+            },
+            768: {
+              slidesPerView: 3,
+              spaceBetween: 30,
+            },
+            1024: {
+              slidesPerView: 4,
+              spaceBetween: 40,
+            },
+          }}
         >
-          {products &&
-            products.map((product, key) => {
-              return (
-                <ProductProvider data={product} key={key}>
-                  <Card price={true} />
-                </ProductProvider>
-              );
-            })}
-        </div>
+          {products.map((product, key) => (
+            <SwiperSlide key={key}>
+              <ProductProvider data={product}>
+                <Card price={true} />
+              </ProductProvider>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
     </div>
+    // </div>
   );
 }
 

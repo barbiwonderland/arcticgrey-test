@@ -4,6 +4,7 @@ import Card from './Card';
 import {Suspense, useRef} from 'react';
 import {Product} from '@shopify/hydrogen/storefront-api-types';
 import {ProductProvider, useProduct} from '@shopify/hydrogen-react';
+import {Swiper, SwiperSlide} from 'swiper/react';
 
 function Bundles({bundles}: {bundles: Product[]}) {
   const menuItems = [
@@ -13,9 +14,9 @@ function Bundles({bundles}: {bundles: Product[]}) {
     {name: 'Athletic Performance', path: '/athletic-performance'},
     {name: 'Hormone Support', path: '/hormone-support'},
   ];
-  const scrollRef = useRef<HTMLDivElement>(null);
+  // const scrollRef = useRef<HTMLDivElement>(null);
   return (
-    <div className="h-[789px] flex flex-col font-main px-5">
+    <div className="h-[789px] w-full flex flex-col font-main px-5">
       <div className="flex flex-row flex-wrap justify-between items-center">
         <div className="bundles-header flex flex-row flex-wrap  ">
           <div className="titles flex flex-col">
@@ -55,17 +56,40 @@ function Bundles({bundles}: {bundles: Product[]}) {
 
       <div className="carousel w-full py-7">
         <div
-          className="cards md:w-full w-[80%]  mt-5 flex justify-normal md:justify-center md:gap-8 items-center flex-row flex-nowrap overflow-x-scroll [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] mx-auto md:mx-0 "
-          ref={scrollRef}
+          className="cards md:w-full w-[80%]  mt-5 flex justify-normal md:justify-center md:gap-8 items-center flex-row flex-nowrap  mx-auto md:mx-0 "
+          // ref={scrollRef}
         >
-          {bundles &&
-            bundles.map((product, key) => {
-              return (
-                <ProductProvider data={product} key={key}>
-                  <Card price={true} />
-                </ProductProvider>
-              );
-            })}
+          <Swiper
+            spaceBetween={20}
+            className="w-full"
+            breakpoints={{
+              375: {
+                slidesPerView: 1,
+                spaceBetween: 10,
+              },
+              640: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+              },
+              768: {
+                slidesPerView: 3,
+                spaceBetween: 30,
+              },
+              1024: {
+                slidesPerView: 4,
+                spaceBetween: 40,
+              },
+            }}
+          >
+            {bundles &&
+              bundles.map((bundle, key) => (
+                <SwiperSlide key={key}>
+                  <ProductProvider data={bundle}>
+                    <Card price={true} />
+                  </ProductProvider>
+                </SwiperSlide>
+              ))}
+          </Swiper>
         </div>
       </div>
     </div>

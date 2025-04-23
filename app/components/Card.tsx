@@ -5,12 +5,11 @@ import {Product} from '@shopify/hydrogen/storefront-api-types';
 import {AddToCartButton, useProduct} from '@shopify/hydrogen-react';
 
 function Card(price: {price: boolean}) {
-
   const {product, variants, setSelectedVariant} = useProduct();
   // console.log("variant",product?.options?.[0]?.optionValues?.[0]?.firstSelectableVariant?.id)
   return (
     <div
-      className={`group card w-[80%]! shrink-0 md:shrink-1 md:w-[365px] h-[350px] md:h-[560px] m-2 p-5 md:pd-0 bg-white rounded-lg font-main flex flex-col justify-center `}
+      className={`group card w-[80%]! shrink-0 md:shrink-1 md:w-[365px] h-[350px] md:h-[560px] m-2 p-5 md:pd-0 bg-white rounded-lg font-main flex flex-col justify-center mx-auto `}
     >
       {/* its appears on the image */}
       {/* {true && (
@@ -57,7 +56,6 @@ function Card(price: {price: boolean}) {
             <div
               className="add-button p-1  md:p-1.5 md:w-28 w-18 bg-black rounded-lg text-white font-main md:text-xs text-[9px] text-center"
               onClick={() => {
-            
                 open('product-detail');
               }}
             >
