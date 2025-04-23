@@ -194,7 +194,9 @@ button.reset:hover:not(:has(> *)) {
   border-radius: 5px;
   margin: auto;
   width: 90%;
-  position: absolute;
+  /*to make the header sticky*/
+  position: fixed;
+  z-index: 9;
   align-self: center;
   margin-top: 20px;
   justify-content: space-between;
@@ -565,7 +567,6 @@ button.reset:hover:not(:has(> *)) {
     width: 640px;
   }
 }
-
 
 @media screen and (min-width: 1024px) {
   .swiper-container {
