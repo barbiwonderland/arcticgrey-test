@@ -7,30 +7,28 @@ import {ProductProvider} from '@shopify/hydrogen-react';
 import {Swiper, SwiperSlide} from 'swiper/react';
 // Import Swiper styles
 import 'swiper/css';
-import {useEffect} from 'react';
+import {useEffect, useRef} from 'react';
 
 function TrendingProducts({products}: {products: Product[]}) {
-  // const scrollRef = useRef<HTMLDivElement>(null);
-  // const handleScrollRight = () => {
-  //   if (scrollRef.current) {
-  //     scrollRef.current.scrollBy({left: 400, behavior: 'smooth'});
-  //   }
-  // };
+  //Swipper
+  const swiperRef = useRef<any>(null);
 
-  // const handleScrollLeft = () => {
-  //   if (scrollRef.current) {
-  //     scrollRef.current.scrollBy({left: -400, behavior: 'smooth'});
-  //   }
-  // };
-  // console.log(products, 'products from trending page');
+  const handleScrollRight = () => {
+    swiperRef.current?.slideNext();
+  };
 
+  const handleScrollLeft = () => {
+    swiperRef.current?.slidePrev();
+  };
+
+  const middleSlide = Math.floor(products.length / 2);
 
   return (
     <div className="trending-section h-auto w-full max-h-[950px] bg-[#F6F6F5] md:p-10 p-0">
       <div className="titles flex flex-row justify-center text-center">
         <div
           className="left-arrow h-10 w-10 border-2 border-gray-300 rounded-lg text-center flex justify-center items-center"
-          // onClick={handleScrollLeft}
+           onClick={handleScrollLeft}
         >
           <AiOutlineArrowLeft />
         </div>
@@ -41,7 +39,7 @@ function TrendingProducts({products}: {products: Product[]}) {
         </div>
         <div
           className="right-arrow h-10 w-10 border-2 border-gray-300 rounded-lg text-center flex justify-center items-center"
-          // onClick={handleScrollRight}
+           onClick={handleScrollRight}
         >
           <AiOutlineArrowRight />
         </div>
@@ -49,7 +47,9 @@ function TrendingProducts({products}: {products: Product[]}) {
       <div className="carousel w-full py-7 ">
         {/* <div className="cards w-full flex flex-row flex-nowrap overflow-x-auto  md:gap-8 md:px-0"> */}
         <Swiper
-          spaceBetween={20}
+          onSlideChange={() => console.log('slide change')}
+          onSwiper={(swiper) => (swiperRef.current = swiper)}
+          simulateTouch={true}
           className="w-full"
           breakpoints={{
             375: {
@@ -70,13 +70,13 @@ function TrendingProducts({products}: {products: Product[]}) {
             },
           }}
         >
-          {products.map((product, key) => (
+           {products.map((product, key) => (
             <SwiperSlide key={key}>
               <ProductProvider data={product}>
                 <Card price={true} />
               </ProductProvider>
             </SwiperSlide>
-          ))}
+          ))} 
         </Swiper>
       </div>
     </div>

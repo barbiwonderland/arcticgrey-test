@@ -55,9 +55,7 @@ function Card(price: {price: boolean}) {
           >
             <div
               className="add-button p-1  md:p-1.5 md:w-28 w-18 bg-black rounded-lg text-white font-main md:text-xs text-[9px] text-center"
-              onClick={() => {
-                open('product-detail');
-              }}
+              onClick={() => open('product-detail')}
             >
               {price
                 ? ` Add • $${product?.options?.[0]?.optionValues?.[0]?.firstSelectableVariant?.price?.amount || '0'}`

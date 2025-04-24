@@ -15,6 +15,7 @@ import Blog from '~/components/Blog';
 import SocialMedia from '~/components/SocialMedia';
 import {GET_ARTICLES} from '~/graphql/blogs';
 import {
+  ALL_PRODUCTS_QUERY,
   COLLECTION_BUNDLES_QUERY,
   COLLECTION_PRODUCTS_QUERY,
   FEATURED_COLLECTION_QUERY,
@@ -96,14 +97,14 @@ async function loadCriticalData({context}: LoaderFunctionArgs) {
   const [{collections}, trendingProducts, bundlesProducts] = await Promise.all([
     context.storefront.query(FEATURED_COLLECTION_QUERY),
     //products query
-    context.storefront.query(COLLECTION_PRODUCTS_QUERY),
+    context.storefront.query(ALL_PRODUCTS_QUERY),
     //Bundles query
     context.storefront.query(COLLECTION_BUNDLES_QUERY),
   ]);
 
   return {
     featuredCollection: collections.nodes[0],
-    trendingProducts: trendingProducts.collection.products.nodes,
+    trendingProducts: trendingProducts.products.nodes,
     bundles: bundlesProducts.collection.products.nodes,
   };
 }

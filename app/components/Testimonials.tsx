@@ -133,7 +133,7 @@ function Testimonials() {
             onSwiper={(swiper) => (swiperRef.current = swiper)}
             modules={[Navigation]}
             simulateTouch={true}
-            initialSlide={middleSlide}
+            initialSlide={middleSlide-1}
             centeredSlides={true}
             className="w-full"
             breakpoints={{
