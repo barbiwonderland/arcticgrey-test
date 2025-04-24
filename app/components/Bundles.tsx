@@ -14,7 +14,17 @@ function Bundles({bundles}: {bundles: Product[]}) {
     {name: 'Athletic Performance', path: '/athletic-performance'},
     {name: 'Hormone Support', path: '/hormone-support'},
   ];
-  // const scrollRef = useRef<HTMLDivElement>(null);
+  //Swipper
+  const swiperRef = useRef<any>(null);
+
+  const handleScrollRight = () => {
+    swiperRef.current?.slideNext();
+  };
+
+  const handleScrollLeft = () => {
+    swiperRef.current?.slidePrev();
+  };
+
   return (
     <div className="h-[789px] w-full flex flex-col font-main px-5">
       <div className="flex flex-row flex-wrap justify-between items-center">
@@ -41,13 +51,13 @@ function Bundles({bundles}: {bundles: Product[]}) {
           <div className="underline text-[18px] ">View All Bundles</div>
           <div
             className=" left-arrow h-10 w-10 border-2 border-gray-300 rounded-lg text-center flex justify-center items-center"
-            // onClick={handleScrollLeft}
+            onClick={handleScrollLeft}
           >
             <AiOutlineArrowLeft />
           </div>
           <div
             className="left-arrow h-10 w-10 border-2 border-gray-300 rounded-lg text-center flex justify-center items-center"
-            // onClick={handleScrollLeft}
+            onClick={handleScrollRight}
           >
             <AiOutlineArrowRight />
           </div>
@@ -55,12 +65,11 @@ function Bundles({bundles}: {bundles: Product[]}) {
       </div>
 
       <div className="carousel w-full py-7">
-        <div
-          className="cards md:w-full w-[80%]  mt-5 flex justify-normal md:justify-center md:gap-8 items-center flex-row flex-nowrap  mx-auto md:mx-0 "
-          // ref={scrollRef}
-        >
+        <div className="cards md:w-full w-[80%]  mt-5 flex justify-normal md:justify-center md:gap-8 items-center flex-row flex-nowrap  mx-auto md:mx-0 ">
           <Swiper
-            spaceBetween={20}
+            onSlideChange={() => console.log('slide change')}
+            onSwiper={(swiper) => (swiperRef.current = swiper)}
+            simulateTouch={true}
             className="w-full"
             breakpoints={{
               375: {
@@ -69,13 +78,13 @@ function Bundles({bundles}: {bundles: Product[]}) {
               },
               640: {
                 slidesPerView: 2,
-                spaceBetween: 20,
-              },
-              768: {
-                slidesPerView: 3,
-                spaceBetween: 30,
+                spaceBetween: 10,
               },
               1024: {
+                slidesPerView: 3,
+                spaceBetween: 40,
+              },
+              1500: {
                 slidesPerView: 4,
                 spaceBetween: 40,
               },

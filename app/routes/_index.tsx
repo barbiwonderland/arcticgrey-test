@@ -148,7 +148,7 @@ export default function Homepage() {
       <TrendingProducts products={data.trendingProducts} />
       <About />
       <Testimonials />
-      <Bundles bundles={data.bundles} />
+      <Bundles bundles={data.trendingProducts} />
       <CustomProduct />
       <News />
       {/* <Blog blogs={data.articles} />   */}
