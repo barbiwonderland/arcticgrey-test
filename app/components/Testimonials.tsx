@@ -167,7 +167,7 @@ function Testimonials() {
                           alt=""
                         />
                       </div>
-                      <div className="product-details font-main mx-auto w-auto h-[80px] rounded-lg flex flex-row justify-around items-center bg-white ">
+                      <div className="product-details font-main  w-auto h-[80px] rounded-lg flex flex-row justify-around items-center bg-white ">
                         <img
                           className="product-image h-12 w-12"
                           src={item.icon}
