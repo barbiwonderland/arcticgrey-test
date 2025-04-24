@@ -2,17 +2,17 @@ import {defer, type LoaderFunctionArgs} from '@shopify/remix-oxygen';
 import {Await, useLoaderData, Link, type MetaFunction} from '@remix-run/react';
 import {Suspense} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
-import Marquee from '~/components/Marquee';
-import Banner from '~/components/Banner';
-import GoalsSection from '~/components/GoalsSection';
-import TrendingProducts from '~/components/TrendingProducts';
+import Marquee from '~/components/Hero/Marquee';
+import BrandBanner from '~/components/BrandsBanner/BrandsBanner';
+import GoalsSection from '~/components/GoalSection/GoalsSection';
+import TrendingProducts from '~/components/TrendingProducts/TrendingProducts';
 import Collection from './collections.$handle';
-import About from '~/components/About';
-import Testimonials from '~/components/Testimonials';
-import Bundles from '~/components/Bundles';
-import News from '~/components/News';
-import Blog from '~/components/Blog';
-import SocialMedia from '~/components/SocialMedia';
+import About from '~/components/About/About';
+import Testimonials from '~/components/Testimonials/Testimonials';
+import Bundles from '~/components/Bundles/Bundles';
+import News from '~/components/News/News';
+import Blog from '~/components/Blog/Blog';
+import SocialMedia from '~/components/SocialMedia/SocialMedia';
 import {GET_ARTICLES} from '~/graphql/blogs';
 import {
   ALL_PRODUCTS_QUERY,
@@ -24,8 +24,9 @@ import {
   RECOMMENDED_PRODUCTS_QUERY,
 } from '~/graphql/products-queries/products';
 import {GET_HOME_MEDIA} from '~/graphql/files';
-import CustomProduct from '~/components/CustomProduct';
 import {CartProvider} from '@shopify/hydrogen-react';
+import Hero from '~/components/Hero/Index';
+import CustomProducts from '~/components/CustomProducts/CustomProducts';
 
 export const meta: MetaFunction = () => {
   return [
@@ -142,14 +143,14 @@ export default function Homepage() {
   console.log(data, 'data');
   return (
     <div className="home">
-      <Home />
-      <Banner />
+      <Hero />
+      <BrandBanner />
       <GoalsSection />
       <TrendingProducts products={data.trendingProducts} />
       <About />
       <Testimonials />
       <Bundles bundles={data.trendingProducts} />
-      <CustomProduct />
+      <CustomProducts />
       <News />
       {/* <Blog blogs={data.articles} />   */}
       <SocialMedia />
@@ -157,35 +158,6 @@ export default function Homepage() {
   );
 }
 
-function Home() {
-  return (
-    <div className="w-full">
-      {/* {image && ( */}
-      <div className="relative !h-screen w-screen ">
-        {/* <Image data={image} sizes="100vw" /> */}
-        <video
-          width="100%"
-          autoPlay
-          muted
-          loop
-          className="!h-screen object-cover"
-          src="https://cdn.shopify.com/videos/c/o/v/00895dae9f1948d08c6d42b6cf20e338.mp4"
-          typeof="video/mp4"
-        ></video>
-      </div>
-      {/* )} */}
-      <div className="lg:w-[854px] md-w-[454px] md:!h-[264px]  absolute md:bottom-52 gap-10 md:gap-0 bottom-[100px]  left-[30px] md:left-[40px] flex flex-wrap md:content-between flex-row  sm:left-[16px] sm:w-[50%] sm:content-center">
-        <h1 className="font-main text-white font-semibold w-full lg:!text-[70px] md:!text-[60px] sm:!text-[50px] !m-0 !leading-none sm:!text-xs">
-          Great things never came from comfort zones.
-        </h1>
-        <div className="bg-white h-[50px] w-[160px] rounded-lg flex justify-center items-center ">
-          Shop Now
-        </div>
-      </div>
-      <Marquee />
-    </div>
-  );
-}
 
 // function RecommendedProducts({
 //   products,
