@@ -173,8 +173,8 @@ function Home() {
         ></video>
       </div>
       {/* )} */}
-      <div className="md:w-[854px] md:!h-[264px]  absolute md:top-[550px] gap-10 md:gap-0 top-[650px] left-[30px] md:left-[40px] flex flex-wrap md:content-between flex-row sm:top-[322px] sm:left-[16px] sm:w-[95%] sm:content-around">
-        <h1 className="font-main text-white font-semibold w-full md:!text-[70px] !text-[18px] !m-0 !leading-none sm:!text-xs">
+      <div className="lg:w-[854px] md-w-[454px] md:!h-[264px]  absolute md:bottom-52 gap-10 md:gap-0 bottom-[100px]  left-[30px] md:left-[40px] flex flex-wrap md:content-between flex-row  sm:left-[16px] sm:w-[50%] sm:content-center">
+        <h1 className="font-main text-white font-semibold w-full lg:!text-[70px] md:!text-[60px] sm:!text-[50px] !m-0 !leading-none sm:!text-xs">
           Great things never came from comfort zones.
         </h1>
         <div className="bg-white h-[50px] w-[160px] rounded-lg flex justify-center items-center ">
