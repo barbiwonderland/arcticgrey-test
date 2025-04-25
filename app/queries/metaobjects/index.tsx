@@ -26,3 +26,24 @@ query GetMetaobjects($country: CountryCode, $language: LanguageCode,$type: Strin
     }
   }
 ` as const;
+
+
+export const GET_SOCIAL_MEDIA_QUERY = `#graphql
+query getInstagramMedia($country: CountryCode, $language: LanguageCode)
+@inContext(country: $country, language: $language){
+  metaobject(handle: {handle: "instagram-media", type: "instagram_media"}) {
+    fields {
+      references(first: 50) {
+        nodes {
+          ... on MediaImage {
+            id
+            image {
+              url
+            }
+          }
+        }
+      }
+    }
+  }
+  }
+` as const;

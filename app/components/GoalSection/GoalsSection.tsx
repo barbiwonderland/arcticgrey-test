@@ -1,8 +1,3 @@
-import Img0 from '../../assets/images/Goals-images/Image-0.png';
-import Img1 from '../../assets/images/Goals-images/Image-1.png';
-import Img2 from '../../assets/images/Goals-images/Image-2.png';
-import Img3 from '../../assets/images/Goals-images/Image-3.png';
-import Img4 from '../../assets/images/Goals-images/Image-4.png';
 import {BsArrowUpRightCircle} from 'react-icons/bs';
 import {GetMetaobjectsQuery} from 'storefrontapi.generated';
 
@@ -11,37 +6,6 @@ type CardItem = {
   description?: string;
   image?: string;
 };
-
-
-const CardImages: CardItem[] = [
-  {
-    title: 'Sleep',
-    description: 'Optimize your sleep patterns.',
-    image: Img0,
-  },
-  {
-    title: 'Cognitive Function',
-    description: "Enhance your brain's performance and connectivity",
-    image: Img1,
-  },
-  {
-    title: 'Foundational Health',
-    description: 'Promoting healthy, natural deep sleep day to day',
-    image: Img2,
-  },
-  {
-    title: 'Athletic Performance',
-    description: 'Increase your healthy tissue, muscle, and energy',
-    image: Img3,
-  },
-  {
-    title: 'Hormone Support',
-    description: 'Boost your mood, libido, and vitality',
-    image: Img4,
-  },
-];
-
-
 
 const GoalsSection = (goals: {goals: GetMetaobjectsQuery}) => {
 

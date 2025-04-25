@@ -26,9 +26,12 @@ import {
 import {CartProvider} from '@shopify/hydrogen-react';
 import Hero from '~/components/Hero/Index';
 import CustomProducts from '~/components/CustomProducts/CustomProducts';
-import { GET_METAOBJECTS_BY_TYPE } from '~/queries/metaobjects';
+import {
+  GET_METAOBJECTS_BY_TYPE,
+  GET_SOCIAL_MEDIA_QUERY,
+} from '~/queries/metaobjects';
 // import { GET_HOME_MEDIA } from '~/queries/files';
-import { GET_ARTICLES } from '~/queries/blogs';
+import {GET_ARTICLES} from '~/queries/blogs';
 
 export const meta: MetaFunction = () => {
   return [
@@ -97,9 +100,8 @@ export async function loader(args: LoaderFunctionArgs) {
 // }
 
 async function loadCriticalData({context}: LoaderFunctionArgs) {
-  const [{collections}, trendingProducts, bundlesProducts, goals] =
+  const [trendingProducts, bundlesProducts, goals, cleanSuplements,socialMedia] =
     await Promise.all([
-      context.storefront.query(FEATURED_COLLECTION_QUERY),
       //products query
       context.storefront.query(ALL_PRODUCTS_QUERY),
       //Bundles query
@@ -110,13 +112,22 @@ async function loadCriticalData({context}: LoaderFunctionArgs) {
           type: 'goals',
         },
       }),
+      //Clean suplements query
+      context.storefront.query(GET_METAOBJECTS_BY_TYPE, {
+        variables: {
+          type: 'clean_sumplements',
+        },
+      }),
+      //Social media query
+      context.storefront.query(GET_SOCIAL_MEDIA_QUERY),
     ]);
 
   return {
-    featuredCollection: collections.nodes[0],
     trendingProducts: trendingProducts.products.nodes,
     bundles: bundlesProducts.collection.products.nodes,
-    goals:goals
+    goals: goals,
+    cleanSuplements,
+    socialMedia
   };
 }
 
@@ -155,15 +166,15 @@ export default function Homepage() {
     <div className="home">
       <Hero />
       <BrandBanner />
-      <GoalsSection goals={data.goals}  />
+      <GoalsSection goals={data.goals} />
       <TrendingProducts products={data.trendingProducts} />
-      <About />
+      <About cleanSuplements={data.cleanSuplements} />
       <Testimonials />
       <Bundles bundles={data.trendingProducts} />
       <CustomProducts />
       <News />
       {/* <Blog blogs={data.articles} />   */}
-      <SocialMedia />
+      <SocialMedia media={data.socialMedia}/>
     </div>
   );
 }

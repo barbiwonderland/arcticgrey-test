@@ -331,6 +331,25 @@ export type GetMetaobjectsQuery = {
   };
 };
 
+export type GetInstagramMediaQueryVariables = StorefrontAPI.Exact<{
+  country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
+  language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
+}>;
+
+export type GetInstagramMediaQuery = {
+  metaobject?: StorefrontAPI.Maybe<{
+    fields: Array<{
+      references?: StorefrontAPI.Maybe<{
+        nodes: Array<
+          Pick<StorefrontAPI.MediaImage, 'id'> & {
+            image?: StorefrontAPI.Maybe<Pick<StorefrontAPI.Image, 'url'>>;
+          }
+        >;
+      }>;
+    }>;
+  }>;
+};
+
 export type StoreRobotsQueryVariables = StorefrontAPI.Exact<{
   country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
   language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
@@ -1152,6 +1171,10 @@ interface GeneratedQueryTypes {
   '#graphql\nquery GetMetaobjects($country: CountryCode, $language: LanguageCode,$type: String!)\n@inContext(country: $country, language: $language){\n    metaobjects(type: $type, first: 50) {\n      edges {\n        node {\n          id\n          type\n          fields {\n            key\n            value\n            reference {\n              ... on MediaImage {\n                id\n                image {\n                  url\n                  altText\n                  width\n                  height\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n': {
     return: GetMetaobjectsQuery;
     variables: GetMetaobjectsQueryVariables;
+  };
+  '#graphql\nquery getInstagramMedia($country: CountryCode, $language: LanguageCode)\n@inContext(country: $country, language: $language){\n  metaobject(handle: {handle: "instagram-media", type: "instagram_media"}) {\n    fields {\n      references(first: 50) {\n        nodes {\n          ... on MediaImage {\n            id\n            image {\n              url\n            }\n          }\n        }\n      }\n    }\n  }\n  }\n': {
+    return: GetInstagramMediaQuery;
+    variables: GetInstagramMediaQueryVariables;
   };
   '#graphql\n  query StoreRobots($country: CountryCode, $language: LanguageCode)\n   @inContext(country: $country, language: $language) {\n    shop {\n      id\n    }\n  }\n': {
     return: StoreRobotsQuery;
