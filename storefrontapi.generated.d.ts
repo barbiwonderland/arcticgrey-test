@@ -1149,7 +1149,7 @@ interface GeneratedQueryTypes {
     return: GetArticlesQuery;
     variables: GetArticlesQueryVariables;
   };
-  '#graphql\nquery  GetMetaobjects($country: CountryCode, $language: LanguageCode,$type: String!)\n@inContext(country: $country, language: $language){\n    metaobjects(type: $type, first: 50) {\n      edges {\n        node {\n          id\n          type\n          fields {\n            key\n            value\n            reference {\n              ... on MediaImage {\n                id\n                image {\n                  url\n                  altText\n                  width\n                  height\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n': {
+  '#graphql\nquery GetMetaobjects($country: CountryCode, $language: LanguageCode,$type: String!)\n@inContext(country: $country, language: $language){\n    metaobjects(type: $type, first: 50) {\n      edges {\n        node {\n          id\n          type\n          fields {\n            key\n            value\n            reference {\n              ... on MediaImage {\n                id\n                image {\n                  url\n                  altText\n                  width\n                  height\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n': {
     return: GetMetaobjectsQuery;
     variables: GetMetaobjectsQueryVariables;
   };

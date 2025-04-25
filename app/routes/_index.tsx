@@ -13,7 +13,6 @@ import Bundles from '~/components/Bundles/Bundles';
 import News from '~/components/News/News';
 import Blog from '~/components/Blog/Blog';
 import SocialMedia from '~/components/SocialMedia/SocialMedia';
-import {GET_ARTICLES} from '~/queries/blogs';
 import {
   ALL_PRODUCTS_QUERY,
   COLLECTION_BUNDLES_QUERY,
@@ -23,11 +22,13 @@ import {
   GET_PRODUCTS_QUERY,
   RECOMMENDED_PRODUCTS_QUERY,
 } from '~/graphql/products-queries/products';
-import {GET_HOME_MEDIA} from '~/queries/files';
+// import {GET_HOME_MEDIA} from '~/graphql/files';
 import {CartProvider} from '@shopify/hydrogen-react';
 import Hero from '~/components/Hero/Index';
 import CustomProducts from '~/components/CustomProducts/CustomProducts';
-import {GET_METAOBJECTS_BY_TYPE} from '~/queries/metaobjects';
+import { GET_METAOBJECTS_BY_TYPE } from '~/queries/metaobjects';
+// import { GET_HOME_MEDIA } from '~/queries/files';
+import { GET_ARTICLES } from '~/queries/blogs';
 
 export const meta: MetaFunction = () => {
   return [
@@ -115,20 +116,20 @@ async function loadCriticalData({context}: LoaderFunctionArgs) {
     featuredCollection: collections.nodes[0],
     trendingProducts: trendingProducts.products.nodes,
     bundles: bundlesProducts.collection.products.nodes,
-    goals:goals.metaobjects,
+    goals:goals
   };
 }
 
-async function loadHomeVideo({context}: LoaderFunctionArgs) {
-  const result = await Promise.all([
-    context.storefront.query(GET_HOME_MEDIA),
-    // Add other queries here, so that they are loaded in parallel
-  ]);
+// async function loadHomeVideo({context}: LoaderFunctionArgs) {
+//   const result = await Promise.all([
+//     context.storefront.query(GET_HOME_MEDIA),
+//     // Add other queries here, so that they are loaded in parallel
+//   ]);
 
-  return {
-    result,
-  };
-}
+//   return {
+//     result,
+//   };
+// }
 
 /**
  * Load data for rendering content below the fold. This data is deferred and will be
@@ -154,7 +155,7 @@ export default function Homepage() {
     <div className="home">
       <Hero />
       <BrandBanner />
-      <GoalsSection   />
+      <GoalsSection goals={data.goals}  />
       <TrendingProducts products={data.trendingProducts} />
       <About />
       <Testimonials />
