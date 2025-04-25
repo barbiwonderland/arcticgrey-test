@@ -27,6 +27,7 @@ import {CartProvider} from '@shopify/hydrogen-react';
 import Hero from '~/components/Hero/Index';
 import CustomProducts from '~/components/CustomProducts/CustomProducts';
 import {
+  GET_LIST_IMAGES,
   GET_METAOBJECTS_BY_TYPE,
   GET_SOCIAL_MEDIA_QUERY,
 } from '~/queries/metaobjects';
@@ -100,34 +101,52 @@ export async function loader(args: LoaderFunctionArgs) {
 // }
 
 async function loadCriticalData({context}: LoaderFunctionArgs) {
-  const [trendingProducts, bundlesProducts, goals, cleanSuplements,socialMedia] =
-    await Promise.all([
-      //products query
-      context.storefront.query(ALL_PRODUCTS_QUERY),
-      //Bundles query
-      context.storefront.query(COLLECTION_BUNDLES_QUERY),
-      //Goals query
-      context.storefront.query(GET_METAOBJECTS_BY_TYPE, {
-        variables: {
-          type: 'goals',
-        },
-      }),
-      //Clean suplements query
-      context.storefront.query(GET_METAOBJECTS_BY_TYPE, {
-        variables: {
-          type: 'clean_sumplements',
-        },
-      }),
-      //Social media query
-      context.storefront.query(GET_SOCIAL_MEDIA_QUERY),
-    ]);
+  const [
+    trendingProducts,
+    bundlesProducts,
+    goals,
+    cleanSuplements,
+    socialMedia,
+    brandIcons
+  ] = await Promise.all([
+    //products query
+    context.storefront.query(ALL_PRODUCTS_QUERY),
+    //Bundles query
+    context.storefront.query(COLLECTION_BUNDLES_QUERY),
+    //Goals query
+    context.storefront.query(GET_METAOBJECTS_BY_TYPE, {
+      variables: {
+        type: 'goals',
+      },
+    }),
+    //Clean suplements query
+    context.storefront.query(GET_METAOBJECTS_BY_TYPE, {
+      variables: {
+        type: 'clean_sumplements',
+      },
+    }),
+    //Social media query
+    context.storefront.query(GET_LIST_IMAGES, {
+      variables: {
+        handle: 'instagram-media',
+      },
+    }),
+
+    //get Brand List
+    context.storefront.query(GET_LIST_IMAGES, {
+      variables: {
+        handle: 'brands-icons',
+      },
+    }),
+  ]);
 
   return {
     trendingProducts: trendingProducts.products.nodes,
     bundles: bundlesProducts.collection.products.nodes,
     goals: goals,
     cleanSuplements,
-    socialMedia
+    socialMedia,
+    brandIcons
   };
 }
 
@@ -165,7 +184,7 @@ export default function Homepage() {
   return (
     <div className="home">
       <Hero />
-      <BrandBanner />
+      <BrandBanner brandIcons={data.brandIcons} />
       <GoalsSection goals={data.goals} />
       <TrendingProducts products={data.trendingProducts} />
       <About cleanSuplements={data.cleanSuplements} />
@@ -174,7 +193,7 @@ export default function Homepage() {
       <CustomProducts />
       <News />
       {/* <Blog blogs={data.articles} />   */}
-      <SocialMedia media={data.socialMedia}/>
+      <SocialMedia media={data.socialMedia} />
     </div>
   );
 }

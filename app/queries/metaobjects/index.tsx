@@ -47,3 +47,24 @@ query getInstagramMedia($country: CountryCode, $language: LanguageCode)
   }
   }
 ` as const;
+
+
+export const GET_LIST_IMAGES = `#graphql
+query getListImages($country: CountryCode, $language: LanguageCode,$handle: String!)
+@inContext(country: $country, language: $language){
+  metaobject(handle: {handle: $handle, type: "instagram_media"}) {
+    fields {
+      references(first: 50) {
+        nodes {
+          ... on MediaImage {
+            id
+            image {
+              url
+            }
+          }
+        }
+      }
+    }
+  }
+  }
+` as const;

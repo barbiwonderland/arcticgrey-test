@@ -350,6 +350,26 @@ export type GetInstagramMediaQuery = {
   }>;
 };
 
+export type GetListImagesQueryVariables = StorefrontAPI.Exact<{
+  country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
+  language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
+  handle: StorefrontAPI.Scalars['String']['input'];
+}>;
+
+export type GetListImagesQuery = {
+  metaobject?: StorefrontAPI.Maybe<{
+    fields: Array<{
+      references?: StorefrontAPI.Maybe<{
+        nodes: Array<
+          Pick<StorefrontAPI.MediaImage, 'id'> & {
+            image?: StorefrontAPI.Maybe<Pick<StorefrontAPI.Image, 'url'>>;
+          }
+        >;
+      }>;
+    }>;
+  }>;
+};
+
 export type StoreRobotsQueryVariables = StorefrontAPI.Exact<{
   country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
   language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
@@ -1175,6 +1195,10 @@ interface GeneratedQueryTypes {
   '#graphql\nquery getInstagramMedia($country: CountryCode, $language: LanguageCode)\n@inContext(country: $country, language: $language){\n  metaobject(handle: {handle: "instagram-media", type: "instagram_media"}) {\n    fields {\n      references(first: 50) {\n        nodes {\n          ... on MediaImage {\n            id\n            image {\n              url\n            }\n          }\n        }\n      }\n    }\n  }\n  }\n': {
     return: GetInstagramMediaQuery;
     variables: GetInstagramMediaQueryVariables;
+  };
+  '#graphql\nquery getListImages($country: CountryCode, $language: LanguageCode,$handle: String!)\n@inContext(country: $country, language: $language){\n  metaobject(handle: {handle: $handle, type: "instagram_media"}) {\n    fields {\n      references(first: 50) {\n        nodes {\n          ... on MediaImage {\n            id\n            image {\n              url\n            }\n          }\n        }\n      }\n    }\n  }\n  }\n': {
+    return: GetListImagesQuery;
+    variables: GetListImagesQueryVariables;
   };
   '#graphql\n  query StoreRobots($country: CountryCode, $language: LanguageCode)\n   @inContext(country: $country, language: $language) {\n    shop {\n      id\n    }\n  }\n': {
     return: StoreRobotsQuery;
