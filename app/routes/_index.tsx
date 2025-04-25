@@ -13,7 +13,7 @@ import Bundles from '~/components/Bundles/Bundles';
 import News from '~/components/News/News';
 import Blog from '~/components/Blog/Blog';
 import SocialMedia from '~/components/SocialMedia/SocialMedia';
-import {GET_ARTICLES} from '~/graphql/blogs';
+import {GET_ARTICLES} from '~/queries/blogs';
 import {
   ALL_PRODUCTS_QUERY,
   COLLECTION_BUNDLES_QUERY,
@@ -23,10 +23,11 @@ import {
   GET_PRODUCTS_QUERY,
   RECOMMENDED_PRODUCTS_QUERY,
 } from '~/graphql/products-queries/products';
-import {GET_HOME_MEDIA} from '~/graphql/files';
+import {GET_HOME_MEDIA} from '~/queries/files';
 import {CartProvider} from '@shopify/hydrogen-react';
 import Hero from '~/components/Hero/Index';
 import CustomProducts from '~/components/CustomProducts/CustomProducts';
+import {GET_METAOBJECTS_BY_TYPE} from '~/queries/metaobjects';
 
 export const meta: MetaFunction = () => {
   return [
@@ -95,18 +96,26 @@ export async function loader(args: LoaderFunctionArgs) {
 // }
 
 async function loadCriticalData({context}: LoaderFunctionArgs) {
-  const [{collections}, trendingProducts, bundlesProducts] = await Promise.all([
-    context.storefront.query(FEATURED_COLLECTION_QUERY),
-    //products query
-    context.storefront.query(ALL_PRODUCTS_QUERY),
-    //Bundles query
-    context.storefront.query(COLLECTION_BUNDLES_QUERY),
-  ]);
+  const [{collections}, trendingProducts, bundlesProducts, goals] =
+    await Promise.all([
+      context.storefront.query(FEATURED_COLLECTION_QUERY),
+      //products query
+      context.storefront.query(ALL_PRODUCTS_QUERY),
+      //Bundles query
+      context.storefront.query(COLLECTION_BUNDLES_QUERY),
+      //Goals query
+      context.storefront.query(GET_METAOBJECTS_BY_TYPE, {
+        variables: {
+          type: 'goals',
+        },
+      }),
+    ]);
 
   return {
     featuredCollection: collections.nodes[0],
     trendingProducts: trendingProducts.products.nodes,
     bundles: bundlesProducts.collection.products.nodes,
+    goals:goals.metaobjects,
   };
 }
 
@@ -145,7 +154,7 @@ export default function Homepage() {
     <div className="home">
       <Hero />
       <BrandBanner />
-      <GoalsSection />
+      <GoalsSection   />
       <TrendingProducts products={data.trendingProducts} />
       <About />
       <Testimonials />
@@ -157,7 +166,6 @@ export default function Homepage() {
     </div>
   );
 }
-
 
 // function RecommendedProducts({
 //   products,
