@@ -18,6 +18,7 @@ export default async function handleRequest(
     },
   });
 
+  const extendedHeader = `${header}; font-src 'self' data:;`;
   const body = await renderToReadableStream(
     <NonceProvider>
       <RemixServer context={remixContext} url={request.url} nonce={nonce} />
@@ -37,7 +38,7 @@ export default async function handleRequest(
   }
 
   responseHeaders.set('Content-Type', 'text/html');
-  responseHeaders.set('Content-Security-Policy', header);
+  responseHeaders.set('Content-Security-Policy', extendedHeader);
 
   return new Response(body, {
     headers: responseHeaders,
