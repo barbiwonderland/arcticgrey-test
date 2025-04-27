@@ -346,6 +346,10 @@ const PRODUCT_VARIANT_FRAGMENT = `#graphql
       amount
       currencyCode
     }
+    metafield(key: "description", namespace: "custom") {
+      value
+      key
+    }
   }
 ` as const;
 

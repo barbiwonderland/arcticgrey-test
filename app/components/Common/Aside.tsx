@@ -1,4 +1,5 @@
-import { CgClose } from "react-icons/cg"; 
+import {CgClose} from 'react-icons/cg';
+
 import {
   createContext,
   type ReactNode,
@@ -6,11 +7,13 @@ import {
   useEffect,
   useState,
 } from 'react';
+import {Product} from '@shopify/hydrogen/storefront-api-types';
 
 type AsideType = 'search' | 'cart' | 'mobile' | 'closed' | 'product-detail';
 type AsideContextValue = {
   type: AsideType;
-  open: (mode: AsideType) => void;
+  product?: Partial<Product>;
+  open: (mode: AsideType, product?: Partial<Product>) => void; //get data optional
   close: () => void;
 };
 
@@ -24,6 +27,8 @@ type AsideContextValue = {
  * </Aside>
  * ```
  */
+
+/**Property width its not using by props now, it was set on css */
 export function Aside({
   children,
   heading,
@@ -33,7 +38,7 @@ export function Aside({
   children?: React.ReactNode;
   type: AsideType;
   heading: React.ReactNode;
-  width: number;
+  width: number | string;
 }) {
   const {type: activeType, close} = useAside();
   const expanded = type === activeType;
@@ -61,7 +66,7 @@ export function Aside({
       role="dialog"
     >
       <button className="close-outside " onClick={close} />
-      <aside style={{ ['--aside-width' as any]: `${width}px` }}>
+      <aside>
         <header
           className={
             expanded && type === 'product-detail'
@@ -71,7 +76,7 @@ export function Aside({
         >
           <h3>{heading}</h3>
           <button className="close reset " onClick={close} aria-label="Close">
-           <CgClose size={24} />
+            <CgClose size={24} />
           </button>
         </header>
         <main className="h-full">{children}</main>
@@ -84,13 +89,24 @@ const AsideContext = createContext<AsideContextValue | null>(null);
 
 Aside.Provider = function AsideProvider({children}: {children: ReactNode}) {
   const [type, setType] = useState<AsideType>('closed');
+  const [product, setProduct] = useState<Partial<Product> | undefined>();
 
+  const open = (mode: AsideType, product?: Partial<Product>) => {
+    setType(mode);
+    /**Allow passing by props product details on aside when click a product */
+    setProduct(mode === 'product-detail' ? product : undefined);
+  };
+  const close = () => {
+    setType('closed');
+    setProduct(undefined);
+  };
   return (
     <AsideContext.Provider
       value={{
         type,
-        open: setType,
-        close: () => setType('closed'),
+        product,
+        open,
+        close,
       }}
     >
       {children}

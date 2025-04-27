@@ -1,22 +1,14 @@
-import ProductDetails from './ProductDetails';
-import { Suspense } from 'react';
-import { Await } from '@remix-run/react';
-import { Aside, useAside } from '../Common/Aside';
-import { PageLayoutProps } from '../Layout/PageLayout';
+import ProductDetails from './productDetails/ProductDetails';
 
-function ProductAside({cart}: {cart: PageLayoutProps['cart']}) {
-  const {type, close} = useAside();
+import {Aside, useAside} from '../Common/Aside';
+import {Product} from '@shopify/hydrogen/storefront-api-types';
+
+function ProductAside() {
+  const {type, close, product} = useAside();
   if (type !== 'product-detail') return null;
-
   return (
-    <Aside type="product-detail" heading="" width={540}>
-       <Suspense fallback={<p>Loading cart ...</p>}>
-        <Await resolve={cart}>
-          {(cart) => {
-            return <ProductDetails cart={cart} layout="aside" />;
-          }}
-        </Await>
-      </Suspense>
+    <Aside type="product-detail" heading="" width={'100%'}>
+      <ProductDetails layout="aside" product={product as Product} />
     </Aside>
   );
 }

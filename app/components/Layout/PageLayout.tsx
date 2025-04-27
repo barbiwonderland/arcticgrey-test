@@ -38,7 +38,7 @@ export function PageLayout({
     <Aside.Provider>
       <CartAside cart={cart} />
       <SearchAside />
-      <ProductAside cart={cart} />
+      <ProductAside />
       <MobileMenuAside header={header} publicStoreDomain={publicStoreDomain} />
       {header && (
         <Header
@@ -61,7 +61,7 @@ export function PageLayout({
 
 function CartAside({cart}: {cart: PageLayoutProps['cart']}) {
   return (
-    <Aside type="cart" heading="CART" width={"350px"}>
+    <Aside type="cart" heading="CART" width={'350px'}>
       <Suspense fallback={<p>Loading cart ...</p>}>
         <Await resolve={cart}>
           {(cart) => {
@@ -165,7 +165,7 @@ function MobileMenuAside({
   return (
     header.menu &&
     header.shop.primaryDomain?.url && (
-      <Aside type="mobile" heading="MENU" width='350px'>
+      <Aside type="mobile" heading="MENU" width="350px">
         <HeaderMenu
           menu={header.menu}
           viewport="mobile"

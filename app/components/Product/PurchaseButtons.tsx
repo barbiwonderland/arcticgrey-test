@@ -2,19 +2,24 @@ import {useState} from 'react';
 import {useAside} from '../Common/Aside';
 
 function PurchaseButtons({
-
-
+  productTotal,
+  productQuantity,
+  item,
   active,
   quantityButton,
 }: {
+  productTotal?: number;
+  productQuantity?: number;
   item?: any;
-  index?: number;
-  price?: boolean;
   active: boolean;
   quantityButton: boolean;
 }) {
   const [selectedOption, setSelectedOption] = useState('one');
   const {open} = useAside();
+
+  const itemPrice =
+    item?.options?.[0]?.optionValues?.[0]?.firstSelectableVariant?.price
+      ?.amount;
   return (
     <div
       className={`${active ? 'flex' : 'hidden'} font-main group-hover:flex flex-col items-center w-full group-hover:visible transition-all duration-200 ease-in-out`}
@@ -74,19 +79,21 @@ function PurchaseButtons({
       </div>
       <div
         className={`add-btn w-[90%] h-[65px] bg-black text-white text-[14px] rounded-lg flex content-center flex-wrap mb-2 ${quantityButton ? 'justify-around' : 'justify-center'}`}
-        onClick={() => open('product-detail')}
+        onClick={() => open('product-detail', item)}
       >
         {quantityButton && (
           <div className="quantity-button bg-white w-[140px] h-[53px] font-main text-[18px] rounded-xl flex flex-row text-black justify-center gap-9 font-light items-center">
             <div className="decrease ">-</div>
-            <div>1</div>
+            <div>{productQuantity}</div>
             <div className="increase">+</div>
           </div>
         )}
 
         <span className="flex items-center font-normal text-[16px]">
-          {' '}
-          Add to Cart - $55
+          Add to Cart -{' '}
+          {productTotal !== undefined && productTotal !== null
+            ? productTotal.toFixed(2)
+            : itemPrice}
         </span>
         <div className=""></div>
       </div>

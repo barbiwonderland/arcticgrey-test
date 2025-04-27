@@ -1,10 +1,10 @@
 import {Await, Link} from '@remix-run/react';
 import {AiOutlineArrowLeft, AiOutlineArrowRight} from 'react-icons/ai';
-import Card from '../Common/ProductCard';
 import {Suspense, useRef} from 'react';
 import {Product} from '@shopify/hydrogen/storefront-api-types';
 import {ProductProvider} from '@shopify/hydrogen-react';
 import {Swiper, SwiperSlide} from 'swiper/react';
+import ProductCard from '../Common/ProductCard';
 
 function Bundles({bundles}: {bundles: Promise<Product[]>}) {
   const menuItems = [
@@ -98,7 +98,7 @@ function Bundles({bundles}: {bundles: Promise<Product[]>}) {
                     {result.map((bundle, key) => (
                       <SwiperSlide key={key}>
                         <ProductProvider data={bundle}>
-                          <Card price={true} />
+                          <ProductCard price={true} />
                         </ProductProvider>
                       </SwiperSlide>
                     ))}
