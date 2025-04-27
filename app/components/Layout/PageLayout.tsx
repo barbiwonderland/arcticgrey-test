@@ -13,10 +13,9 @@ import {
   SearchFormPredictive,
 } from '~/components/Search/SearchFormPredictive';
 import {SearchResultsPredictive} from '~/components/Search/SearchResultsPredictive';
-import Footer from "../Footer/Footer"
+import Footer from '../Footer/Footer';
 import ProductAside from '../Product/ProductAside';
-import { Header, HeaderMenu } from '../Header/Header';
-
+import {Header, HeaderMenu} from '../Header/Header';
 
 export interface PageLayoutProps {
   cart: Promise<CartApiQueryFragment | null>;
@@ -39,8 +38,8 @@ export function PageLayout({
     <Aside.Provider>
       <CartAside cart={cart} />
       <SearchAside />
-      <ProductAside cart={cart}/>
-      <MobileMenuAside header={header} publicStoreDomain={publicStoreDomain}  />
+      <ProductAside cart={cart} />
+      <MobileMenuAside header={header} publicStoreDomain={publicStoreDomain} />
       {header && (
         <Header
           header={header}
@@ -55,14 +54,14 @@ export function PageLayout({
         header={header}
         publicStoreDomain={publicStoreDomain}
       /> */}
-      <Footer/>
+      <Footer />
     </Aside.Provider>
   );
 }
 
 function CartAside({cart}: {cart: PageLayoutProps['cart']}) {
   return (
-    <Aside type="cart" heading="CART" width={500}>
+    <Aside type="cart" heading="CART" width={"350px"}>
       <Suspense fallback={<p>Loading cart ...</p>}>
         <Await resolve={cart}>
           {(cart) => {
@@ -166,7 +165,7 @@ function MobileMenuAside({
   return (
     header.menu &&
     header.shop.primaryDomain?.url && (
-      <Aside type="mobile" heading="MENU" width={350}>
+      <Aside type="mobile" heading="MENU" width='350px'>
         <HeaderMenu
           menu={header.menu}
           viewport="mobile"
@@ -177,6 +176,3 @@ function MobileMenuAside({
     )
   );
 }
-
-
-
