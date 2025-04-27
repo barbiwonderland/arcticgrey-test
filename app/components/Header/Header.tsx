@@ -11,6 +11,7 @@ import {HiMiniMagnifyingGlass} from 'react-icons/hi2';
 import {HiOutlineShoppingBag} from 'react-icons/hi';
 import {BsPerson} from 'react-icons/bs';
 import {Link} from '@remix-run/react';
+import {CartProvider, useCart} from '@shopify/hydrogen-react';
 
 import EmployeeIcon from '../../assets/icons/employee.svg';
 
@@ -155,7 +156,8 @@ function SearchToggle() {
 function CartBadge({count}: {count: number | null}) {
   const {open} = useAside();
   const {publish, shop, cart, prevCart} = useAnalytics();
-
+  const {totalQuantity} = useCart();
+  
   return (
     <Link
       to="/cart"
@@ -175,7 +177,7 @@ function CartBadge({count}: {count: number | null}) {
           <HiOutlineShoppingBag size={16} />
         </span>
         <div className="cart-badge flex  bg-black px-1.5  rounded-xl text-white justify-center content-center flex-wrap absolute top-0 right-0 text-xs ">
-          0
+          {totalQuantity ?? 0}
         </div>
       </div>
     </Link>
