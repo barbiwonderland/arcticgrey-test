@@ -23,6 +23,22 @@ export const VariantItem = ({
   const productVariant = optionValue.firstSelectableVariant?.id;
 
   const [quantity, setQuantity] = useState(itemLine?.quantity ?? 0);
+  const [disccount, setDiscount] = useState(0);
+
+  //update disccount value
+  const updateDiscount = () => {
+    if (itemLine) {
+      if (itemLine?.quantity >= 15) {
+        setDiscount(15);
+      } else if (itemLine.quantity >= 10) {
+        setDiscount(10);
+      } else if (itemLine.quantity >= 5) {
+        setDiscount(5);
+      }
+    } else {
+      setDiscount(0);
+    }
+  };
 
   //update of variant individual quantities
   useEffect(() => {
@@ -33,8 +49,21 @@ export const VariantItem = ({
       newQuantity = 0;
     }
     setQuantity(newQuantity);
+    updateDiscount();
   }, [itemLine?.quantity]);
 
+  let unitPrice =
+    disccount > 0
+      ? (
+          parseFloat(optionValue.firstSelectableVariant?.price.amount || '0') *
+          quantity *
+          (1 - disccount / 100)
+        ).toFixed(2)
+      : (
+          parseFloat(optionValue.firstSelectableVariant?.price.amount || '0') *
+          quantity
+        ).toFixed(2);
+        
   return (
     <tr key={optionValue.id} className="align-top text-center">
       <td className="lg:p-3 p-1">
@@ -104,15 +133,13 @@ export const VariantItem = ({
         </div>
       </td>
       <td className="lg:p-3 p-1">
-        <div className="discount font-main lg:text-[12px] text-[10px]">10%</div>
+        <div className="discount font-main lg:text-[12px] text-[10px]">
+          {disccount}%
+        </div>
       </td>
       <td className="lg:p-3 p-1">
         <div className="unit-total font-main lg:text-[12px] text-[10px] text-right">
-          {(
-            parseFloat(
-              optionValue.firstSelectableVariant?.price.amount || '0',
-            ) * quantity
-          ).toFixed(2)}
+          {unitPrice}
         </div>
       </td>
     </tr>

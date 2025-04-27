@@ -6,7 +6,7 @@ import {FaInstagram} from 'react-icons/fa';
 export default function Footer() {
   return (
     <footer className="bg-[#F6F6F5] w-screen text-sm text-[#1B1F23] py-10 px-6 h-auto">
-      <div className="w-full mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 justify-items-end">
+      <div className="w-full mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 justify-items-center">
         <div>
           <h3 className="font-bold mb-2 md:text-[24px] text-[18px]">
             Be a Part of Our Journey
