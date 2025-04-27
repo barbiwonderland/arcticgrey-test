@@ -1,6 +1,5 @@
 import {AiOutlineArrowRight} from 'react-icons/ai';
 import {AiOutlineArrowLeft} from 'react-icons/ai';
-import Card from '../Common/ProductCard';
 import {Product} from '@shopify/hydrogen/storefront-api-types';
 import {ProductProvider} from '@shopify/hydrogen-react';
 // Import Swiper React components
@@ -8,6 +7,7 @@ import {Swiper, SwiperSlide} from 'swiper/react';
 // Import Swiper styles
 import 'swiper/css';
 import {useEffect, useRef} from 'react';
+import ProductCard from '../Common/ProductCard';
 
 function TrendingProducts({products}: {products: Product[]}) {
   //Swipper
@@ -73,7 +73,7 @@ function TrendingProducts({products}: {products: Product[]}) {
            {products.map((product, key) => (
             <SwiperSlide key={key}>
               <ProductProvider data={product}>
-                <Card price={true} />
+                <ProductCard price={true} />
               </ProductProvider>
             </SwiperSlide>
           ))} 
