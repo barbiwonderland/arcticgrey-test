@@ -15,7 +15,6 @@ import {Suspense, useEffect, useRef, useState} from 'react';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {AiOutlineArrowLeft, AiOutlineArrowRight} from 'react-icons/ai';
 import CartRecomendations from './CartRecommendations';
-import {progress, Progress} from '@material-tailwind/react';
 export type CartLayout = 'page' | 'aside';
 
 export type CartMainProps = {
@@ -38,7 +37,6 @@ export function CartMain({
   const cart = useOptimisticCart(originalCart);
   const {lines, cost} = useCart();
 
-  const linesCount = Boolean(cart?.lines?.nodes?.length || 0);
   const withDiscount =
     cart &&
     Boolean(cart?.discountCodes?.filter((code) => code.applicable)?.length);
@@ -69,15 +67,15 @@ export function CartMain({
   useEffect(() => {}, [lines]);
 
   return (
-    <div className="h-full overflow-y-auto w-full ">
-      <CartEmpty hidden={linesCount} layout={layout} />
+    <div className="h-full w-full ">
+     {!lines &&  <CartEmpty hidden={true} layout={layout} />}
       <div className="freeshiping flex justify-around my-4 items-center flex-wrap">
         <div className="">$0</div>
         <ProgressBar />
         <div className="">$80</div>
       </div>
 
-      <div className="cart-details flex flex-col bg-[#F6F6F5] gap-2 p-2 max-h-[370px] overflow-y-auto">
+      <div className="cart-details flex flex-col bg-[#F6F6F5] gap-2 p-2 max-h-[350px] overflow-y-auto">
         <div aria-labelledby="cart-lines   ">
           <ul>
             {lines &&
@@ -110,9 +108,9 @@ export function CartMain({
               };
               return (
                 <>
-                  <div className="carousel w-full py-7  ">
+                  <div className="carousel w-full pt-4  ">
                     {/* <div className="cards w-full flex flex-row flex-nowrap overflow-x-auto  md:gap-8 md:px-0"> */}
-                    <div className="titles flex flex-row justify-between text-center">
+                    <div className="titles flex flex-row justify-between  items-center text-center">
                       <div className="text font-main text-[18px]">
                         <div className="font-normal font-main ">
                           Enhance Your Performance
@@ -149,7 +147,7 @@ export function CartMain({
                         </SwiperSlide>
                       ))}
                     </Swiper>
-                    <div className="cart-total flex justify-around mt-10 w-full mx-4 font-main">
+                    <div className="cart-total flex justify-around mt-5 w-full mx-4 font-main">
                       <div className="subtotal-title  ">
                         <h3 className=" font-medium text-[14px}!">Subtotal</h3>
                         <p className="text-gray-500 text-[14px]">
