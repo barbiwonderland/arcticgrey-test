@@ -57,7 +57,7 @@ export function CartLineItem({
         </div>
         <div className="flex justify-between items-center  ">
           <CartLineQuantity line={line} />
-          <div className="suscribe border-1 flex gap-1.5 items-center   border-gray-400 border-dashed py-1 px-3">
+          <div className="suscribe border-1 flex gap-1.5 items-center text-xs  border-gray-400 border-dashed py-1 px-3">
             <IoReloadOutline color="#1B1F23" /> Suscribe & Save 10%
           </div>
         </div>
@@ -73,13 +73,13 @@ export function CartLineItem({
  */
 function CartLineQuantity({line}: {line: CartLine}) {
   return (
-    <div className="cart-line-quantity rounded-sm text-gray-400 px-2  gap-1.5 border-gray-400 w-auto h-auto inline-flex py-1.5  items-center border-1">
+    <div className="cart-line-quantity rounded-sm text-gray-400 md:px-2 px-1  md:gap-1.5 gap-0.5 border-gray-400 w-auto h-auto inline-flex md:py-1.5 py-1 items-center border-1">
       {line && (
         <CartLineProvider line={line}>
           <CartLineQuantityAdjustButton
             adjust={line.quantity > 1 ? 'decrease' : 'remove'}
           >
-            <div className="px-2 py-1 hover:bg-gray-300 text-xs flex items-center gap-2 border-1 border-gray-200 rounded-xs text-[#1B1F23] text-[10px] font-main justify-center text-center">
+            <div className="md:px-2 px-1 md:py-1.5 py-1 hover:bg-gray-300 text-xs flex items-center gap-2 border-1 border-gray-200 rounded-xs text-[#1B1F23] text-[10px] font-main justify-center text-center">
               -
             </div>
           </CartLineQuantityAdjustButton>
@@ -87,16 +87,15 @@ function CartLineQuantity({line}: {line: CartLine}) {
       )}
 
       <small className="font-bold!"> {line.quantity} &nbsp;&nbsp;</small>
-   {line && 
-          <CartLineProvider line={line}>
-            <CartLineQuantityAdjustButton adjust="increase">
-              <div className="px-2 py-1 hover:bg-gray-300 text-xs flex items-center gap-2 border-1 border-gray-200 rounded-xs text-[#1B1F23] text-[10px] font-main justify-center text-center">
-                +
-              </div>
-            </CartLineQuantityAdjustButton>
-          </CartLineProvider>
-}
-
+      {line && (
+        <CartLineProvider line={line}>
+          <CartLineQuantityAdjustButton adjust="increase">
+            <div className="md:py-1.5 py-1 md:px-2 px-1 hover:bg-gray-300 text-xs flex items-center gap-2 border-1 border-gray-200 rounded-xs text-[#1B1F23] text-[10px] font-main justify-center text-center">
+              +
+            </div>
+          </CartLineQuantityAdjustButton>
+        </CartLineProvider>
+      )}
     </div>
   );
 }

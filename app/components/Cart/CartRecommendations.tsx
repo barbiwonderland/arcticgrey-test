@@ -6,7 +6,7 @@ function CartRecomendations() {
 
   return (
     <div
-      className={`group card bg-[#F6F6F5] rounded-lg font-main flex flex-col justify-center mx-auto w-[220px] h-[270px] p-2.5 `}
+      className={`group card bg-[#F6F6F5] rounded-lg font-main flex flex-col justify-center mx-auto w-[90%] md:w-[220px] h-[270px] p-2.5 `}
     >
       {/* its appears on the image */}
       {/* {true && (

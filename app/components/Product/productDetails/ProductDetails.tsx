@@ -130,22 +130,22 @@ function ProductDetails({product, layout}: {product: Product; layout: string}) {
         </div>
       </div>
 
-      <table className="table-auto h-[210px] mb-1   ">
+      <table className="table-auto md:h-[210px] md:mb-1 my-6   ">
         <thead>
           <tr className="font-bold  pb-2 mb-2 text-[12px] ">
-            <th className="text-left p-4">Variant</th>
-            <th className="text-center p-4">
+            <th className="text-left md:p-4 p-2">Variant</th>
+            <th className="text-center md:p-4 p-2">
               <div className="flex flex-row relative group justify-center">
                 Quantity <AiOutlineInfoCircle color="gray" />
                 <Tooltip />
               </div>
             </th>
-            <th className="text-center p-4">Price</th>
-            <th className="text-center p-4">Discount</th>
-            <th className="text-right p-4">Total</th>
+            <th className="text-center md:p-4 p-2">Price</th>
+            <th className="text-center md:p-4 p-2">Discount</th>
+            <th className="text-right md:p-4 p-2">Total</th>
           </tr>
         </thead>
-        <tbody className="border-y border-slate-300 overflow-y-auto">
+        <tbody className="border-y border-slate-300 overflow-y-auto gap-2">
           {product.options[0].optionValues.map((optionValue, index) => {
             const productVariantId = optionValue.firstSelectableVariant?.id;
             // console.log(optionValue, 'info of variants');

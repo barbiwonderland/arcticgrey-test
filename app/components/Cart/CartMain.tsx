@@ -88,7 +88,7 @@ export function CartMain({
         <div className="">$80</div>
       </div>
 
-      <div className="cart-details flex flex-col bg-[#F6F6F5] gap-2 p-2 max-h-[350px] overflow-y-auto">
+      <div className="cart-details flex flex-col bg-[#F6F6F5] gap-2 p-2 md:max-h-[350px] max-h-[250px] overflow-y-auto">
         <div aria-labelledby="cart-lines   ">
           <ul>
             {lines &&
@@ -151,6 +151,21 @@ export function CartMain({
                       className="w-full"
                       slidesPerView={2.5}
                       spaceBetween={20}
+                      breakpoints={{
+                        375: {
+                          slidesPerView: 1.5,
+                          spaceBetween: 5,
+                        },
+                        640: {
+                          slidesPerView: 2,
+                          spaceBetween: 10,
+                        },
+                        1024: {
+                          slidesPerView: 3,
+                          spaceBetween: 40,
+                        },
+                       
+                      }}
                     >
                       {result?.map((product, key) => (
                         <SwiperSlide key={key}>
@@ -171,7 +186,7 @@ export function CartMain({
                         {cost?.totalAmount?.amount}
                       </div>
                     </div>
-                    <div className="bg-black mt-3 text-white py-6 flex items-center justify-center rounded-xl w-[90%] mx-auto mb-5">
+                    <div className="bg-black mt-3 text-white md:py-6 py-2 flex items-center justify-center rounded-xl w-[90%] mx-auto mb-5">
                       Checkout
                     </div>
                   </div>
