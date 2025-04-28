@@ -10,6 +10,10 @@ import {useAside} from '../Common/Aside';
 import type {CartApiQueryFragment} from 'storefrontapi.generated';
 import {CartLayout} from './CartMain';
 import {IoReloadOutline} from 'react-icons/io5';
+import {
+  CartLineProvider,
+  CartLineQuantityAdjustButton,
+} from '@shopify/hydrogen-react';
 
 type CartLine = OptimisticCartLine<CartApiQueryFragment>;
 
@@ -69,37 +73,31 @@ export function CartLineItem({
  * hasn't yet responded that it was successfully added to the cart.
  */
 function CartLineQuantity({line}: {line: CartLine}) {
-  if (!line || typeof line?.quantity === 'undefined') return null;
-  const {id: lineId, quantity, isOptimistic} = line;
-  const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0));
-  const nextQuantity = Number((quantity + 1).toFixed(0));
-
   return (
     <div className="cart-line-quantity rounded-sm text-gray-400 px-2  gap-1.5 border-gray-400 w-auto h-auto inline-flex py-1.5  items-center border-1">
-      <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
-        <button
-          aria-label="Decrease quantity"
-          disabled={quantity <= 1 || !!isOptimistic}
-          name="decrease-quantity"
-          value={prevQuantity}
-        >
-          <span>&#8722; </span>
-        </button>
-      </CartLineUpdateButton>
-      &nbsp;
-      <small className="font-bold!"> {quantity} &nbsp;&nbsp;</small>
-      <CartLineUpdateButton lines={[{id: lineId, quantity: nextQuantity}]}>
-        <button
-          aria-label="Increase quantity"
-          name="increase-quantity"
-          value={nextQuantity}
-          disabled={!!isOptimistic}
-        >
-          <span>&#43;</span>
-        </button>
-      </CartLineUpdateButton>
-      &nbsp;
-      {/* <CartLineRemoveButton lineIds={[lineId]} disabled={!!isOptimistic} /> */}
+      {line && (
+        <CartLineProvider line={line}>
+          <CartLineQuantityAdjustButton
+            adjust={line.quantity > 1 ? 'decrease' : 'remove'}
+          >
+            <div className="px-2 py-1 hover:bg-gray-300 text-xs flex items-center gap-2 border-1 border-gray-200 rounded-xs text-[#1B1F23] text-[10px] font-main justify-center text-center">
+              -
+            </div>
+          </CartLineQuantityAdjustButton>
+        </CartLineProvider>
+      )}
+
+      <small className="font-bold!"> {line.quantity} &nbsp;&nbsp;</small>
+   {line && 
+          <CartLineProvider line={line}>
+            <CartLineQuantityAdjustButton adjust="increase">
+              <div className="px-2 py-1 hover:bg-gray-300 text-xs flex items-center gap-2 border-1 border-gray-200 rounded-xs text-[#1B1F23] text-[10px] font-main justify-center text-center">
+                +
+              </div>
+            </CartLineQuantityAdjustButton>
+          </CartLineProvider>
+}
+
     </div>
   );
 }

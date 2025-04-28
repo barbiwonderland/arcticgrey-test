@@ -68,7 +68,7 @@ export function CartMain({
 
   return (
     <div className="h-full w-full ">
-     {!lines &&  <CartEmpty hidden={true} layout={layout} />}
+     {(lines!.length<1) &&  <CartEmpty hidden={false} layout={layout} />}
       <div className="freeshiping flex justify-around my-4 items-center flex-wrap">
         <div className="">$0</div>
         <ProgressBar />
