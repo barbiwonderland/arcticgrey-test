@@ -18,7 +18,13 @@ export default async function handleRequest(
     },
   });
 
-  const extendedHeader = `${header}; font-src 'self' data:;`;
+  const connectSrcExtension = ' https://arctic-greytest.myshopify.com';
+  const extendedHeader =
+    header.replace(
+      /(connect-src [^;]+)/,
+      (match) => `${match}${connectSrcExtension}`,
+    ) + "; font-src 'self' data:;";
+
   const body = await renderToReadableStream(
     <NonceProvider>
       <RemixServer context={remixContext} url={request.url} nonce={nonce} />
