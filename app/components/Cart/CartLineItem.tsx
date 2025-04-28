@@ -1,11 +1,15 @@
-import type {CartLineUpdateInput} from '@shopify/hydrogen/storefront-api-types';
+import type {
+  CartLineUpdateInput,
+  ComponentizableCartLine,
+} from '@shopify/hydrogen/storefront-api-types';
 import {CartForm, Image, type OptimisticCartLine} from '@shopify/hydrogen';
 import {useVariantUrl} from '~/lib/variants';
 import {Link} from '@remix-run/react';
 import {ProductPrice} from '../Product/ProductPrice';
 import {useAside} from '../Common/Aside';
 import type {CartApiQueryFragment} from 'storefrontapi.generated';
-import { CartLayout } from './CartMain';
+import {CartLayout} from './CartMain';
+import {IoReloadOutline} from 'react-icons/io5';
 
 type CartLine = OptimisticCartLine<CartApiQueryFragment>;
 
@@ -18,51 +22,42 @@ export function CartLineItem({
   line,
 }: {
   layout: CartLayout;
-  line: CartLine;
+  line: CartLine | ComponentizableCartLine;
 }) {
   const {id, merchandise} = line;
   const {product, title, image, selectedOptions} = merchandise;
   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
   const {close} = useAside();
 
+  console.log(line, 'line desde cartlineitem');
+
   return (
-    <li key={id} className="cart-line">
+    <li
+      key={id}
+      className="cart-line bg-white rounded-xl flex w-full text-[#1B1F23] my-3  "
+    >
       {image && (
         <Image
           alt={title}
           aspectRatio="1/1"
           data={image}
-          height={100}
+          height={80}
           loading="lazy"
-          width={100}
+          width={80}
         />
       )}
 
-      <div>
-        <Link
-          prefetch="intent"
-          to={lineItemUrl}
-          onClick={() => {
-            if (layout === 'aside') {
-              close();
-            }
-          }}
-        >
-          <p>
-            <strong>{product.title}</strong>
-          </p>
-        </Link>
-        <ProductPrice price={line?.cost?.totalAmount} />
-        <ul>
-          {selectedOptions.map((option) => (
-            <li key={option.name}>
-              <small>
-                {option.name}: {option.value}
-              </small>
-            </li>
-          ))}
-        </ul>
-        <CartLineQuantity line={line} />
+      <div className="mx-2 product-detail-cart flex flex-col items-between justify-center w-full gap-2 ">
+        <div className="totals w-full justify-between flex">
+          <strong className="text-[15px]">{product.title}</strong>
+          <strong>{line?.cost?.totalAmount.amount}</strong>
+        </div>
+        <div className="flex justify-between items-center  ">
+          <CartLineQuantity line={line} />
+          <div className="suscribe border-1 flex gap-1.5 items-center   border-gray-400 border-dashed py-1 px-3">
+            <IoReloadOutline color="#1B1F23" /> Suscribe & Save 10%
+          </div>
+        </div>
       </div>
     </li>
   );
@@ -80,8 +75,7 @@ function CartLineQuantity({line}: {line: CartLine}) {
   const nextQuantity = Number((quantity + 1).toFixed(0));
 
   return (
-    <div className="cart-line-quantity">
-      <small>Quantity: {quantity} &nbsp;&nbsp;</small>
+    <div className="cart-line-quantity rounded-sm text-gray-400 px-2  gap-1.5 border-gray-400 w-auto h-auto inline-flex py-1.5  items-center border-1">
       <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
         <button
           aria-label="Decrease quantity"
@@ -93,6 +87,7 @@ function CartLineQuantity({line}: {line: CartLine}) {
         </button>
       </CartLineUpdateButton>
       &nbsp;
+      <small className="font-bold!"> {quantity} &nbsp;&nbsp;</small>
       <CartLineUpdateButton lines={[{id: lineId, quantity: nextQuantity}]}>
         <button
           aria-label="Increase quantity"
@@ -104,7 +99,7 @@ function CartLineQuantity({line}: {line: CartLine}) {
         </button>
       </CartLineUpdateButton>
       &nbsp;
-      <CartLineRemoveButton lineIds={[lineId]} disabled={!!isOptimistic} />
+      {/* <CartLineRemoveButton lineIds={[lineId]} disabled={!!isOptimistic} /> */}
     </div>
   );
 }

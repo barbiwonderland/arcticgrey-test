@@ -8,6 +8,7 @@ import {
   useState,
 } from 'react';
 import {Product} from '@shopify/hydrogen/storefront-api-types';
+import {useCart} from '@shopify/hydrogen-react';
 
 type AsideType = 'search' | 'cart' | 'mobile' | 'closed' | 'product-detail';
 type AsideContextValue = {
@@ -42,6 +43,7 @@ export function Aside({
 }) {
   const {type: activeType, close} = useAside();
   const expanded = type === activeType;
+  const {totalQuantity} = useCart();
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -74,7 +76,21 @@ export function Aside({
               : ''
           }
         >
-          <h3>{heading}</h3>
+          <div className="flex items-center ">
+            <h3
+              className={
+                expanded && type === 'cart' ? 'font-medium text-[34px] font-main' : ''
+              }
+            >
+              {heading}
+            </h3>
+            {expanded && type === 'cart' && (
+              <div className="ml-5 cart-badge flex  bg-black px-1.5  rounded-full text-white justify-center content-center flex-wrap w-9 h-9 text-xl font-medium ">
+                {totalQuantity ?? 0}
+              </div>
+            )}
+          </div>
+
           <button className="close reset " onClick={close} aria-label="Close">
             <CgClose size={24} />
           </button>

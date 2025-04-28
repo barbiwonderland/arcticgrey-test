@@ -10,7 +10,7 @@ function ProductCard(price: {price: boolean}) {
 
   return (
     <div
-      className={`group card w-[80%]! shrink-0 md:shrink-1 md:w-[365px] h-[350px] md:h-[560px] m-2 p-5 md:pd-0 bg-white rounded-lg font-main flex flex-col justify-center mx-auto `}
+      className={`group card w-[80%]! shrink-0 md:shrink-1 md:w-[365px] h-[350px] md:h-[560px]  md:pd-0 bg-white rounded-lg font-main flex flex-col justify-center mx-auto `}
     >
       {/* its appears on the image */}
       {/* {true && (
@@ -73,8 +73,6 @@ function ProductCard(price: {price: boolean}) {
       <PurchaseButtons
         active={false}
         item={product}
-        index={Number(product?.id)}
-        price={true}
         quantityButton={false}
       />
     </div>

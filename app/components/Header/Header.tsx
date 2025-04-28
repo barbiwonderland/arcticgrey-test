@@ -11,7 +11,7 @@ import {HiMiniMagnifyingGlass} from 'react-icons/hi2';
 import {HiOutlineShoppingBag} from 'react-icons/hi';
 import {BsPerson} from 'react-icons/bs';
 import {Link} from '@remix-run/react';
-import {CartProvider, useCart} from '@shopify/hydrogen-react';
+import { useCart} from '@shopify/hydrogen-react';
 
 import EmployeeIcon from '../../assets/icons/employee.svg';
 

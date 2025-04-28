@@ -8,7 +8,9 @@ import {
 } from '@remix-run/react';
 import favicon from '~/assets/favicon.svg';
 import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
-import { ShopifyProvider, CartProvider } from '@shopify/hydrogen-react';
+import {ShopifyProvider, CartProvider} from '@shopify/hydrogen-react';
+import {COLLECTION_HANDLE_QUERY} from './graphql/products-queries/products';
+import {Product} from '@shopify/hydrogen-react/storefront-api-types';
 
 export type RootLoader = typeof loader;
 
@@ -127,27 +129,50 @@ function loadDeferredData({context}: LoaderFunctionArgs) {
       console.error(error);
       return null;
     });
+
+  type CollectionHandleQueryResponse = {
+    collection: {
+      id: string;
+      title: string;
+      description: string;
+      products: {
+        nodes: Product[];
+      };
+    };
+  };
+
+  //featuredCollection query
+  const featuredCollection: Promise<Product[] | null> | undefined  =
+    context.storefront
+      .query<CollectionHandleQueryResponse>(COLLECTION_HANDLE_QUERY)
+      .then((res) => res.collection?.products.nodes ?? [])
+      .catch((error) => {
+        console.error(error);
+        return [];
+      });
+
   return {
     cart: cart.get(),
     isLoggedIn: customerAccount.isLoggedIn(),
     footer,
+    featuredCollection,
   };
 }
 
 export default function App() {
   return (
     <ShopifyProvider
-    storeDomain="arctic-greytest.myshopify.com"
-    storefrontToken="091797e8a0d63511007f2cb9dad8ee00"
-    storefrontApiVersion="2025-01"
-    countryIsoCode="CA"
-    languageIsoCode="EN"
+      storeDomain="arctic-greytest.myshopify.com"
+      storefrontToken="091797e8a0d63511007f2cb9dad8ee00"
+      storefrontApiVersion="2025-01"
+      countryIsoCode="CA"
+      languageIsoCode="EN"
     >
       <CartProvider>
         <Outlet />
       </CartProvider>
     </ShopifyProvider>
-  ); 
+  );
 }
 
 export function ErrorBoundary() {

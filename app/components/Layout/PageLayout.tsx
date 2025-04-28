@@ -1,11 +1,11 @@
-import {Await, Link} from '@remix-run/react';
+import {Await, Link, useRouteLoaderData} from '@remix-run/react';
 import {Suspense, useId} from 'react';
 import type {
   CartApiQueryFragment,
   FooterQuery,
   HeaderQuery,
 } from 'storefrontapi.generated';
-import {Aside, useAside} from '~/components/Common/Aside';
+import {Aside} from '~/components/Common/Aside';
 
 import {CartMain} from '~/components/Cart/CartMain';
 import {
@@ -16,6 +16,8 @@ import {SearchResultsPredictive} from '~/components/Search/SearchResultsPredicti
 import Footer from '../Footer/Footer';
 import ProductAside from '../Product/ProductAside';
 import {Header, HeaderMenu} from '../Header/Header';
+import {Product} from '@shopify/hydrogen/storefront-api-types';
+import {RootLoader} from '~/root';
 
 export interface PageLayoutProps {
   cart: Promise<CartApiQueryFragment | null>;
@@ -24,10 +26,12 @@ export interface PageLayoutProps {
   isLoggedIn: Promise<boolean>;
   publicStoreDomain: string;
   children?: React.ReactNode;
+  featuredCollection?: Promise<Product[] | null > | undefined ;
 }
 
 export function PageLayout({
   cart,
+  featuredCollection,
   children = null,
   footer,
   header,
@@ -36,7 +40,7 @@ export function PageLayout({
 }: PageLayoutProps) {
   return (
     <Aside.Provider>
-      <CartAside cart={cart} />
+      <CartAside cart={cart} featuredCollection={featuredCollection} />
       <SearchAside />
       <ProductAside />
       <MobileMenuAside header={header} publicStoreDomain={publicStoreDomain} />
@@ -59,13 +63,26 @@ export function PageLayout({
   );
 }
 
-function CartAside({cart}: {cart: PageLayoutProps['cart']}) {
+function CartAside({
+  cart,
+  featuredCollection,
+}: {
+  cart: PageLayoutProps['cart'];
+  featuredCollection: PageLayoutProps['featuredCollection'];
+}) {
+  const rootData = useRouteLoaderData<RootLoader>('root');
   return (
-    <Aside type="cart" heading="CART" width={'350px'}>
+    <Aside type="cart" heading="Your bag" width={'350px'}>
       <Suspense fallback={<p>Loading cart ...</p>}>
         <Await resolve={cart}>
           {(cart) => {
-            return <CartMain cart={cart} layout="aside" />;
+            return (
+              <CartMain
+                cart={cart}
+                featuredProducts={featuredCollection}
+                layout="aside"
+              />
+            );
           }}
         </Await>
       </Suspense>
