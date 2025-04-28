@@ -33,7 +33,6 @@ export function CartLineItem({
   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
   const {close} = useAside();
 
-  console.log(line, 'line desde cartlineitem');
 
   return (
     <li

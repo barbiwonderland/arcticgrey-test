@@ -43,7 +43,9 @@ export function CartMain({
   // const className = `cart-main ${withDiscount ? 'with-discount' : ''}`;
   const cartHasItems = cart?.totalQuantity && cart?.totalQuantity > 0;
 
-  const [freeShippingProgress, setFreeShipingProgress] = useState(0);
+  const [freeShippingProgress, setFreeShipingProgress] = useState(
+    Number(cost?.subtotalAmount?.amount),
+  );
   //price to get for free shipping
   const shippingAmount = 80;
   const getProgressDiference = () => {
@@ -56,22 +58,33 @@ export function CartMain({
 
   //function tu update progress
   const getProgress = () => {
-    if (freeShippingProgress < 100) {
-      let costCart = Number(cost?.subtotalAmount?.amount);
-      let newProgress = costCart && (costCart / 80) * 100;
-      setFreeShipingProgress(newProgress);
-      getProgressDiference();
+    if (lines!.length>0) {
+      if (freeShippingProgress < 80) {
+        let costCart = Number(cost?.subtotalAmount?.amount);
+        let newProgress = costCart && (costCart / 80) * 100;
+        setFreeShipingProgress(newProgress);
+      }
+    } else {
+      setFreeShipingProgress(0);
     }
+       getProgressDiference();
   };
 
-  useEffect(() => {}, [lines]);
+  useEffect(() => {
+    getProgress();
+  }, [lines]);
 
   return (
     <div className="h-full w-full ">
-     {(lines!.length<1) &&  <CartEmpty hidden={false} layout={layout} />}
+      {lines!.length < 1 && <CartEmpty hidden={false} layout={layout} />}
+      <div className="text-center mt-2 text-black font-bold">
+        {freeShippingProgress < shippingAmount
+          ? `You are ${progressDiference} away from eligible for free shipping`
+          : 'Congratulations! You have free shipping'}
+      </div>
       <div className="freeshiping flex justify-around my-4 items-center flex-wrap">
         <div className="">$0</div>
-        <ProgressBar />
+        <ProgressBar value={freeShippingProgress} />
         <div className="">$80</div>
       </div>
 
@@ -194,15 +207,15 @@ function CartEmpty({
   );
 }
 
-export function ProgressBar() {
-  const value = 50; // valor dinámico si quieres
-
+export function ProgressBar({value}: {value: number}) {
   return (
-    <div className="w-[80%] bg-gray-300 rounded-full h-1.5 overflow-hidden">
-      <div
-        className="bg-gray-900 h-full transition-all duration-300"
-        style={{width: `${value}%`}}
-      />
-    </div>
+    <>
+      <div className="w-[80%] bg-gray-300 rounded-full h-1.5 overflow-hidden">
+        <div
+          className={`bg-gray-900 h-full transition-all duration-300 ${value === 0 ? 'hidden' : ''}`}
+          style={{width: `${value}%`}}
+        />
+      </div>
+    </>
   );
 }
