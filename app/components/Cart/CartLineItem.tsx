@@ -33,11 +33,10 @@ export function CartLineItem({
   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
   const {close} = useAside();
 
-
   return (
     <li
       key={id}
-      className="cart-line bg-white rounded-xl flex w-full text-[#1B1F23] my-3  "
+      className="cart-line bg-white rounded-xl flex w-full text-[#1B1F23] my-3 items-center  "
     >
       {image && (
         <Image
@@ -47,6 +46,7 @@ export function CartLineItem({
           height={80}
           loading="lazy"
           width={80}
+          className="w-12 md:w-20 h-12 md:h-20"
         />
       )}
 
