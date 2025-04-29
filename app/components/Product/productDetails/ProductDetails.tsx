@@ -2,11 +2,7 @@ import {AiOutlineInfoCircle} from 'react-icons/ai';
 import {AiFillStar} from 'react-icons/ai';
 import img from '../../assets/images/products/product1.png';
 import {
-  AddToCartButton,
   CartCost,
-  CartLineProvider,
-  CartLineQuantityAdjustButton,
-  ProductProvider,
   useCart,
 } from '@shopify/hydrogen-react';
 
@@ -15,7 +11,6 @@ import {OptimisticCartLine, useOptimisticCart} from '@shopify/hydrogen';
 import Tooltip from '../Tooltip';
 import PurchaseButtons from '../PurchaseButtons';
 import {Product} from '@shopify/hydrogen/storefront-api-types';
-import {useState} from 'react';
 import {VariantItem} from './VariantItem';
 
 export interface VariantItemType {
