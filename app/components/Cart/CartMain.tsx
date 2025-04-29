@@ -180,7 +180,7 @@ export function CartMain({
                         ${cost?.totalAmount?.amount}
                       </div>
                     </div>
-                    <div className="bg-black mt-3 text-white md:py-6 py-2 flex items-center justify-center rounded-xl w-[90%] mx-auto mb-26">
+                    <div className="bg-black mt-3 text-white md:py-6 py-3.5 flex items-center justify-center rounded-xl w-[90%] mx-auto mb-26">
                       <a className='text-white! font-medium text-xs md:text-[18px] hover:no-underline! hover:font-bold' href={checkoutUrl}>Checkout</a>
 
                     </div>
