@@ -8,6 +8,8 @@ import {Swiper, SwiperSlide} from 'swiper/react';
 import 'swiper/css';
 import {useEffect, useRef} from 'react';
 import ProductCard from '../Common/ProductCard';
+import ArrowLeft from '../Common/ArrowLeft';
+import ArrowRight from '../Common/ArrowRight';
 
 function TrendingProducts({products}: {products: Product[]}) {
   //Swipper
@@ -26,23 +28,14 @@ function TrendingProducts({products}: {products: Product[]}) {
   return (
     <div className="trending-section h-auto w-full max-h-[950px] bg-[#F6F6F5] md:p-10 p-0">
       <div className="titles flex flex-row justify-center text-center">
-        <div
-          className="left-arrow h-10 w-10 border-2 border-gray-300 rounded-lg text-center flex justify-center items-center"
-           onClick={handleScrollLeft}
-        >
-          <AiOutlineArrowLeft />
-        </div>
+        <ArrowLeft action={() => handleScrollLeft()} />
+
         <div className="text font-main text-[16px]">
           <div className="Trending ">🌟 Trending</div>
           <h1 className="text-[40px] font-medium">Supplements</h1>
           <div className="underline">View all</div>
         </div>
-        <div
-          className="right-arrow h-10 w-10 border-2 border-gray-300 rounded-lg text-center flex justify-center items-center"
-           onClick={handleScrollRight}
-        >
-          <AiOutlineArrowRight />
-        </div>
+        <ArrowRight action={() => handleScrollRight()} />
       </div>
       <div className="carousel w-full py-7 ">
         {/* <div className="cards w-full flex flex-row flex-nowrap overflow-x-auto  md:gap-8 md:px-0"> */}
@@ -70,13 +63,13 @@ function TrendingProducts({products}: {products: Product[]}) {
             },
           }}
         >
-           {products.map((product, key) => (
+          {products.map((product, key) => (
             <SwiperSlide key={key}>
               <ProductProvider data={product}>
                 <ProductCard price={true} />
               </ProductProvider>
             </SwiperSlide>
-          ))} 
+          ))}
         </Swiper>
       </div>
     </div>

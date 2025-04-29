@@ -11,7 +11,7 @@ import {HiMiniMagnifyingGlass} from 'react-icons/hi2';
 import {HiOutlineShoppingBag} from 'react-icons/hi';
 import {BsPerson} from 'react-icons/bs';
 import {Link} from '@remix-run/react';
-import { useCart} from '@shopify/hydrogen-react';
+import {useCart} from '@shopify/hydrogen-react';
 
 import EmployeeIcon from '../../assets/icons/employee.svg';
 
@@ -96,7 +96,7 @@ export function HeaderMenu({
             onClick={close}
             prefetch="intent"
             // style={activeLinkStyle}
-            to={url}
+            to="#"
           >
             {item.title}
           </NavLink>
@@ -147,7 +147,7 @@ function HeaderMenuMobileToggle() {
 function SearchToggle() {
   const {open} = useAside();
   return (
-    <button className="reset" onClick={() => open('search')}>
+    <button className="reset">
       <HiMiniMagnifyingGlass />
     </button>
   );
@@ -157,19 +157,19 @@ function CartBadge({count}: {count: number | null}) {
   const {open} = useAside();
   const {publish, shop, cart, prevCart} = useAnalytics();
   const {totalQuantity} = useCart();
-  
-  return (
 
-    
-      <div className="cart-container relative   w-10 h-10  inline-flex items-center justify-center " onClick={()=>open('cart')}>
-        <span className="">
-          <HiOutlineShoppingBag size={16} />
-        </span>
-        <div className="cart-badge flex  bg-black px-1.5  rounded-xl text-white justify-center content-center flex-wrap absolute top-0 right-0 text-xs ">
-          {totalQuantity ?? 0}
-        </div>
+  return (
+    <div
+      className="cart-container relative   w-10 h-10  inline-flex items-center justify-center "
+      onClick={() => open('cart')}
+    >
+      <span className="">
+        <HiOutlineShoppingBag size={16} />
+      </span>
+      <div className="cart-badge flex  bg-black px-1.5  rounded-xl text-white justify-center content-center flex-wrap absolute top-0 right-0 text-xs ">
+        {totalQuantity ?? 0}
       </div>
-   
+    </div>
   );
 }
 
@@ -240,6 +240,6 @@ function activeLinkStyle({
 }) {
   return {
     fontWeight: isActive ? 'bold' : undefined,
-    color: isPending ? 'grey' : 'black',
+    color: isPending ? 'black' : 'black',
   };
 }

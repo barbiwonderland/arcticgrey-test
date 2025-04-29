@@ -363,6 +363,7 @@ const PRODUCT_FRAGMENT = `#graphql
     description
     encodedVariantExistence
     encodedVariantAvailability
+    tags
     options {
       name
       optionValues {

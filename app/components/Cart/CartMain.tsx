@@ -3,7 +3,6 @@ import {Await, Link} from '@remix-run/react';
 import type {CartApiQueryFragment} from 'storefrontapi.generated';
 import {useAside} from '~/components/Common/Aside';
 import {CartLineItem} from '~/components/Cart/CartLineItem';
-import {CartSummary} from './CartSummary';
 import {ProductProvider, useCart} from '@shopify/hydrogen-react';
 import {
   CartLine,
@@ -35,7 +34,7 @@ export function CartMain({
   // The useOptimisticCart hook applies pending actions to the cart
   // so the user immediately sees feedback when they modify the cart.
   const cart = useOptimisticCart(originalCart);
-  const {lines, cost} = useCart();
+  const {lines, cost, checkoutUrl} = useCart();
 
   //progress to get free shipping to pass props to progress component
   const [freeShippingProgress, setFreeShipingProgress] = useState(0);
@@ -120,7 +119,7 @@ export function CartMain({
                 <>
                   <div className="carousel w-full pt-4  ">
                     {/* <div className="cards w-full flex flex-row flex-nowrap overflow-x-auto  md:gap-8 md:px-0"> */}
-                    <div className="titles flex flex-row justify-between  items-center text-center">
+                    <div className="titles flex flex-row justify-between  items-center text-center py-2.5">
                       <div className="text font-main text-[18px]">
                         <div className="font-normal font-main ">
                           Enhance Your Performance
@@ -128,13 +127,13 @@ export function CartMain({
                       </div>
                       <div className="arrows flex">
                         <div
-                          className="left-arrow h-10 w-10 border-2 border-gray-300 rounded-lg text-center flex justify-center items-center mr-5"
+                          className="left-arrow h-10 w-10 border-2 border-gray-300 rounded-lg text-center flex justify-center items-center mr-5 hover:bg-black hover:text-white"
                           onClick={handleScrollLeft}
                         >
                           <AiOutlineArrowLeft />
                         </div>
                         <div
-                          className="right-arrow h-10 w-10 border-2 border-gray-300 rounded-lg text-center flex justify-center items-center"
+                          className="right-arrow h-10 w-10 border-2 border-gray-300 rounded-lg text-center flex justify-center items-center hover:bg-black hover:text-white"
                           onClick={handleScrollRight}
                         >
                           <AiOutlineArrowRight />
@@ -181,8 +180,9 @@ export function CartMain({
                         ${cost?.totalAmount?.amount}
                       </div>
                     </div>
-                    <div className="bg-black mt-3 text-white md:py-6 py-2 flex items-center justify-center rounded-xl w-[90%] mx-auto mb-5">
-                      Checkout
+                    <div className="bg-black mt-3 text-white md:py-6 py-2 flex items-center justify-center rounded-xl w-[90%] mx-auto mb-26">
+                      <a className='text-white! font-medium text-xs md:text-[18px] hover:no-underline! hover:font-bold' href={checkoutUrl}>Checkout</a>
+
                     </div>
                   </div>
                 </>
@@ -205,14 +205,12 @@ function CartEmpty({
   return (
     <div hidden={hidden}>
       <br />
-      <p>
+      <p className='text-center'>
         Looks like you haven&rsquo;t added anything yet, let&rsquo;s get you
         started!
       </p>
       <br />
-      <Link to="/collections" onClick={close} prefetch="viewport">
-        Continue shopping →
-      </Link>
+      
     </div>
   );
 }
