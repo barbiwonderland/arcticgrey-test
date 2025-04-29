@@ -166,7 +166,7 @@ function CartBadge({count}: {count: number | null}) {
       <span className="">
         <HiOutlineShoppingBag size={16} />
       </span>
-      <div className="cart-badge flex  bg-black px-1.5  rounded-xl text-white justify-center content-center flex-wrap absolute top-0 right-0 text-xs ">
+      <div className="cart-badge flex  bg-[#0d0e10] px-1.5  rounded-xl text-white justify-center content-center flex-wrap absolute top-0 right-0 text-xs ">
         {totalQuantity ?? 0}
       </div>
     </div>
