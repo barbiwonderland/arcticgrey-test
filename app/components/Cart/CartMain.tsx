@@ -75,7 +75,7 @@ export function CartMain({
       {lines!.length < 1 && <CartEmpty hidden={false} layout={layout} />}
       <div className="text-center mt-2 text-black font-bold">
         {freeShippingProgress < shippingAmount
-          ? `You are ${remainderFreeShipping} away from eligible for free shipping`
+          ? `You are $${remainderFreeShipping.toFixed(2)} away from eligible for free shipping`
           : 'Congratulations! You have free shipping'}
       </div>
       <div className="freeshiping flex justify-around my-4 items-center flex-wrap">
@@ -181,8 +181,12 @@ export function CartMain({
                       </div>
                     </div>
                     <div className="bg-[#0d0e10] mt-3 text-white md:py-6 py-3.5 flex items-center justify-center rounded-xl w-[90%] mx-auto mb-26">
-                      <a className='text-white! font-medium text-xs md:text-[18px] hover:no-underline! hover:font-bold' href={checkoutUrl}>Checkout</a>
-
+                      <a
+                        className="text-white! font-medium text-xs md:text-[18px] hover:no-underline! hover:font-bold"
+                        href={checkoutUrl}
+                      >
+                        Checkout
+                      </a>
                     </div>
                   </div>
                 </>
@@ -205,12 +209,11 @@ function CartEmpty({
   return (
     <div hidden={hidden}>
       <br />
-      <p className='text-center'>
+      <p className="text-center">
         Looks like you haven&rsquo;t added anything yet, let&rsquo;s get you
         started!
       </p>
       <br />
-      
     </div>
   );
 }
