@@ -35,7 +35,7 @@ function SocialMedia({media}: {media: Promise<GetInstagramMediaQuery | null>}) {
                           className="relative group w-[150px] h-[150px] md:w-[245px] md:h-[255px] "
                         >
                           <img src={item?.image?.url} alt="" />
-                          <div className="absolute hidden inset-0 bg-black opacity-50 group-hover:flex"></div>
+                          <div className="absolute hidden inset-0 bg-black opacity-50 group-hover:flex group-active:flex"></div>
 
                           <div className="absolute hidden inset-0 group-hover:flex items-center justify-center text-white text-xl">
                             <CgInstagram size={30} />
