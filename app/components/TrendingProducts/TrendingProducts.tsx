@@ -6,7 +6,7 @@ import {ProductProvider} from '@shopify/hydrogen-react';
 import {Swiper, SwiperSlide} from 'swiper/react';
 // Import Swiper styles
 import 'swiper/css';
-import {useEffect, useRef} from 'react';
+import { useRef} from 'react';
 import ProductCard from '../Common/ProductCard';
 import ArrowLeft from '../Common/ArrowLeft';
 import ArrowRight from '../Common/ArrowRight';

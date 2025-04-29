@@ -1,3 +1,5 @@
+import { PRODUCT_VARIANT_FRAGMENT } from "~/graphql/products-queries/products";
+
 export const GET_METAOBJECTS_BY_TYPE = `#graphql
 query GetMetaobjects($country: CountryCode, $language: LanguageCode,$type: String!)
 @inContext(country: $country, language: $language){
@@ -80,15 +82,27 @@ query getTestimonials{
           ... on Product {
             id
             title
+            description
             images(first: 10) {
               nodes {
                 url
               }
             }
-            variants(first: 10)  {
-              nodes {
-                price {
-                  amount
+        
+            options {
+              name
+              optionValues {
+                name
+                firstSelectableVariant {
+                  ...ProductVariant
+                }
+                swatch {
+                  color
+                  image {
+                    previewImage {
+                      url
+                    }
+                  }
                 }
               }
             }
@@ -104,4 +118,5 @@ query getTestimonials{
     }
   }
 }
+${PRODUCT_VARIANT_FRAGMENT}
 ` as const;
