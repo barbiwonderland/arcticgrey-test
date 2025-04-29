@@ -68,7 +68,7 @@ function Bundles({bundles}: {bundles: Promise<Product[]>}) {
                 </div>
                 <div className="flex flex-row flex-wrap gap-3 items-center w-full justify-center py-2 md:w-auto">
                   <div
-                    className=" underline-offset-4 underline text-[18px] "
+                    className=" underline-offset-4 underline text-[14px] md:text-[18px] "
                     onClick={() => setActiveFilter(null)}
                   >
                     View All Bundles
