@@ -6,7 +6,7 @@ import {ProductProvider} from '@shopify/hydrogen-react';
 import {Swiper, SwiperSlide} from 'swiper/react';
 // Import Swiper styles
 import 'swiper/css';
-import { useRef} from 'react';
+import {useRef} from 'react';
 import ProductCard from '../Common/ProductCard';
 import ArrowLeft from '../Common/ArrowLeft';
 import ArrowRight from '../Common/ArrowRight';
@@ -26,7 +26,10 @@ function TrendingProducts({products}: {products: Product[]}) {
   const middleSlide = Math.floor(products.length / 2);
 
   return (
-    <div className="trending-section h-auto w-full max-h-[950px] bg-[#F6F6F5] md:p-10 pt-8">
+    <div
+      id="trending-products"
+      className="trending-section h-auto w-full max-h-[950px] bg-[#F6F6F5] md:p-10 pt-8"
+    >
       <div className="titles flex flex-row justify-center text-center">
         <ArrowLeft action={() => handleScrollLeft()} />
 
