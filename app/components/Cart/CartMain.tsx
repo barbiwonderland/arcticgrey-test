@@ -84,7 +84,7 @@ export function CartMain({
         <div className="">$80</div>
       </div>
 
-      <div className="cart-details flex flex-col bg-[#F6F6F5] gap-2 p-2 md:max-h-[350px] max-h-[250px] overflow-y-auto">
+      <div className="cart-details flex flex-col bg-[#F6F6F5] gap-2 p-2  max-h-[250px] overflow-y-auto">
         <div aria-labelledby="cart-lines   ">
           <ul>
             {lines &&
