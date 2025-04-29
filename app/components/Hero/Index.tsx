@@ -5,14 +5,14 @@ function Hero() {
     <div className="w-full">
       {/* {image && ( */}
 
-      <div className="relative !min-h-[100svh] h-screen w-screen ">
+      <div className="relative !min-h-[100svh] md:h-screen w-screen ">
         {/* <Image data={image} sizes="100vw" /> */}
         <video
           width="100%"
           autoPlay
           muted
           loop
-          className="!min-h-[100svh] h-screen! object-cover"
+          className="!min-h-[100svh] ms:h-screen! object-cover"
           src="https://cdn.shopify.com/videos/c/o/v/00895dae9f1948d08c6d42b6cf20e338.mp4"
           typeof="video/mp4"
         ></video>
