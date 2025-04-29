@@ -205,14 +205,12 @@ function CartEmpty({
   return (
     <div hidden={hidden}>
       <br />
-      <p>
+      <p className='text-center'>
         Looks like you haven&rsquo;t added anything yet, let&rsquo;s get you
         started!
       </p>
       <br />
-      <Link to="/collections" onClick={close} prefetch="viewport">
-        Continue shopping →
-      </Link>
+      
     </div>
   );
 }
