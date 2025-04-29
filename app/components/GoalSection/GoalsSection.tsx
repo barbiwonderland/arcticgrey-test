@@ -46,7 +46,7 @@ const GoalsSection = (goals: {goals: GetMetaobjectsQuery}) => {
                  <img
                   src={item.image}
                   alt={item.title}
-                  className="max-h-[392px] object-contain rounded-lg transition-transform duration-300 ease-in-out transform hover:scale-102"
+                  className="max-h-[392px] object-contain rounded-lg transition-transform duration-300 ease-in-out transform hover:scale-102 active:scale-102"
                 /> 
                 <div>
                   <div className="flex flex-row justify-between flex-no-wrap">

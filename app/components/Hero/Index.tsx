@@ -21,7 +21,7 @@ function Hero() {
         <h1 className="font-main text-white font-semibold w-full lg:!text-[70px] md:!text-[60px] sm:!text-[50px] !m-0 !leading-none sm:!text-xs">
           Great things never came from comfort zones.ss
         </h1>
-        <div className="bg-white h-[50px] w-[160px] rounded-lg flex justify-center items-center ">
+        <div className="bg-white h-[50px] w-[160px] rounded-lg flex justify-center items-center  hover:bg-black hover:text-white active:bg-black active:text-white ">
           Shop Now
         </div>
       </div>
