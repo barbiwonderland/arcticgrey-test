@@ -12,7 +12,7 @@ function Hero() {
           autoPlay
           muted
           loop
-          className="!min-h-[100svh] ms:h-screen! object-cover"
+          className="!min-h-[100svh] md:h-screen! object-cover"
           src="https://cdn.shopify.com/videos/c/o/v/00895dae9f1948d08c6d42b6cf20e338.mp4"
           typeof="video/mp4"
         ></video>
