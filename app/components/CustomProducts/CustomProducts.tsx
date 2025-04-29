@@ -5,6 +5,7 @@ import ArrowRight from '../Common/ArrowRight';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {useRef} from 'react';
 
+
 //in the future i can add metaobjet of customproduct instead of mocked data
 function CustomProducts() {
   interface Ingredient {

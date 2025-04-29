@@ -312,7 +312,7 @@ export const GET_PRODUCT_DESCRIPTION = `#graphql
   }
 ` as const;
 
-const PRODUCT_VARIANT_FRAGMENT = `#graphql
+export const PRODUCT_VARIANT_FRAGMENT = `#graphql
   fragment ProductVariant on ProductVariant {
     availableForSale
     compareAtPrice {
