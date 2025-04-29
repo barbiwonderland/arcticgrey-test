@@ -10,7 +10,7 @@ import {
 import resetStyles from '~/styles/reset.css?url';
 import appStyles from '~/styles/app.css?url';
 import tailwindCss from './styles/tailwind.css?url';
-import {PageLayout} from '~/components/PageLayout';
+import {PageLayout} from '~/components/Layout/PageLayout';
 import {RootLoader} from './root';
 
 export default function Layout() {

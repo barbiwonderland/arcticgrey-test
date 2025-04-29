@@ -1,45 +1,65 @@
-# Hydrogen template: Skeleton
+# 🐺 Hydrogen Challenge – Arctic Grey 
 
-Hydrogen is Shopify’s stack for headless commerce. Hydrogen is designed to dovetail with [Remix](https://remix.run/), Shopify’s full stack web framework. This template contains a **minimal setup** of components, queries and tooling to get started with Hydrogen.
+This project is a **technical challenge** built with [Hydrogen](https://shopify.dev/custom-storefronts/hydrogen), Shopify’s stack for headless commerce. It's designed as part of a technical interview process.
 
-[Check out Hydrogen docs](https://shopify.dev/custom-storefronts/hydrogen)
-[Get familiar with Remix](https://remix.run/docs/en/v1)
+The repository features a minimal yet functional implementation using modern tools from the Shopify and Remix ecosystem — an ideal foundation for building customized e-commerce experiences.
 
-## What's included
 
-- Remix
-- Hydrogen
-- Oxygen
-- Vite
-- Shopify CLI
-- ESLint
-- Prettier
-- GraphQL generator
-- TypeScript and JavaScript flavors
-- Minimal setup of components and routes
 
-## Getting started
+---
+
+## 🚀 Tech Stack
+
+- [Hydrogen](https://shopify.dev/custom-storefronts/hydrogen)
+- [Remix](https://remix.run/)
+- [Oxygen](https://shopify.dev/docs/custom-storefronts/hosting/oxygen)
+- [Vite](https://vitejs.dev/)
+- [Shopify CLI](https://shopify.dev/docs/tools/cli)
+- [GraphQL Codegen](https://www.graphql-code-generator.com/)
+- [TypeScript](https://www.typescriptlang.org/)
+- ESLint & Prettier
+
+---
+
+## ⚠️ Environment Variables
+
+Before running the application, make sure to set your environment variables in a `.env` file at the root of the project.
+
+Here's an example of what your `.env` file might look like:
+
+```env
+SESSION_SECRET="foobar"
+PRIVATE_STOREFRONT_API_TOKEN=shpat_****************************
+PUBLIC_CUSTOMER_ACCOUNT_API_CLIENT_ID=shp_*************************
+PUBLIC_CUSTOMER_ACCOUNT_API_URL=https://shopify.com/724**********
+PUBLIC_STORE_DOMAIN=store-name.myshopify.com
+PUBLIC_STOREFRONT_API_TOKEN=4bc1******************************
+PUBLIC_STOREFRONT_ID=29***
+SHOP_ID=724**********
+```
+
+
+
+## 📦 Installation & Local Development
 
 **Requirements:**
 
-- Node.js version 18.0.0 or higher
+- Node.js v18.0.0 or higher
+
+**Clone the repository ( Main branch ):**
 
 ```bash
-npm create @shopify/hydrogen@latest
+git clone https://github.com/barbiwonderland/artictgrey-test
+cd artictgrey-test
 ```
-
-## Building for production
-
+**Install npm dependencies**
 ```bash
-npm run build
+npm install
 ```
-
-## Local development
-
+**▶️ Run the application locally**
 ```bash
 npm run dev
 ```
 
-## Setup for using Customer Account API (`/account` section)
-
-Follow step 1 and 2 of <https://shopify.dev/docs/custom-storefronts/building-with-the-customer-account-api/hydrogen#step-1-set-up-a-public-domain-for-local-development>
+**Live version**
+- [https://artic-grey-test.netlify.app/](https://artic-grey-test.netlify.app/)

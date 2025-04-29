@@ -4,13 +4,13 @@ import {
 } from '@shopify/remix-oxygen';
 import {useLoaderData, type MetaFunction} from '@remix-run/react';
 import {getPaginationVariables, Analytics} from '@shopify/hydrogen';
-import {SearchForm} from '~/components/SearchForm';
-import {SearchResults} from '~/components/SearchResults';
+import {SearchResults} from '~/components/Search/SearchResults';
 import {
   type RegularSearchReturn,
   type PredictiveSearchReturn,
   getEmptyPredictiveSearchResult,
 } from '~/lib/search';
+import { SearchForm } from '~/components/Search/SearchForm';
 
 export const meta: MetaFunction = () => {
   return [{title: `Hydrogen | Search`}];

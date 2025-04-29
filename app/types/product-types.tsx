@@ -34,7 +34,6 @@ export type SimpleProduct_ROMPE = {
   };
 };
 
-
 export type SimpleProduct = {
   id: string;
   title: string;
@@ -55,5 +54,64 @@ export type SimpleProduct = {
         amount: string;
       };
     }[];
+  };
+};
+
+export type ProductDetails = {
+  id?: string | null;
+  title?: string | null;
+  vendor?: string | null;
+  handle?: string | null;
+  descriptionHtml?: string | null;
+  description?: string | null;
+  encodedVariantExistence?: string | null;
+  encodedVariantAvailability?: string | null;
+  options?: {
+    name?: string | null;
+    optionValues?: {
+      name?: string | null;
+      firstSelectableVariant?: {
+        availableForSale?: boolean | null;
+        compareAtPrice?: any;
+        id?: string | null;
+        image?: {
+          __typename?: string | null;
+          id?: string | null;
+          url?: string | null;
+          altText?: string | null;
+          width?: number | null;
+          height?: number | null;
+        };
+        price?: {
+          amount?: string | null;
+          currencyCode?: string | null;
+        };
+        product?: {
+          title?: string | null;
+          handle?: string | null;
+        };
+        selectedOptions?: {
+          name?: string | null;
+          value?: string | null;
+        }[];
+        sku?: string | null;
+        title?: string | null;
+        unitPrice?: any;
+      };
+      swatch?: any;
+    }[];
+  }[];
+  images?: {
+    nodes?: {
+      id?: string | null;
+      url?: string | null;
+      altText?: string | null;
+      width?: number | null;
+      height?: number | null;
+    }[];
+  };
+  seo?: {
+    description?: string | null;
+    title?: string | null;
   };
 };

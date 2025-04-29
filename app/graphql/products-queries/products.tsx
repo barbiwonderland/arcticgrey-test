@@ -346,6 +346,10 @@ const PRODUCT_VARIANT_FRAGMENT = `#graphql
       amount
       currencyCode
     }
+    metafield(key: "description", namespace: "custom") {
+      value
+      key
+    }
   }
 ` as const;
 
@@ -395,9 +399,20 @@ const PRODUCT_FRAGMENT = `#graphql
 ` as const;
 
 
+export const ALL_PRODUCTS_QUERY = `#graphql
+  query AllProducts @inContext(country: US, language: EN) {
+    products(first: 50) {
+      nodes {
+        ...Product
+      }
+    }
+  }
+  ${PRODUCT_FRAGMENT}
+` as const;
+
 export const COLLECTION_PRODUCTS_QUERY = `#graphql
   query CollectionProducts @inContext(country: US, language: EN) {
-    collection(handle: "products") {
+    collection(handle: "products or Bundles") {
       id
       title
       description
@@ -411,7 +426,7 @@ export const COLLECTION_PRODUCTS_QUERY = `#graphql
   ${PRODUCT_FRAGMENT}
 ` as const;
 
-export const COLLECTION_BUNDLES_QUERY = `#graphql
+export const COLLECTION_HANDLE_QUERY = `#graphql
   query CollectionProducts @inContext(country: US, language: EN) {
     collection(handle: "Bundles") {
       id

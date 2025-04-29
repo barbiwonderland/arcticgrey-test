@@ -18,6 +18,27 @@ export default async function handleRequest(
     },
   });
 
+  const connectSrcExtension = ' https://arctic-greytest.myshopify.com';
+  let extendedHeader = header.replace(
+    /(connect-src [^;]+)/,
+    (match) => `${match}${connectSrcExtension}`,
+  );
+
+  // Aquí agregas ambos dominios permitidos en media-src
+  const mediaSrcExtension =
+    "; media-src 'self' https://arctic-greytest.myshopify.com https://cdn.shopify.com";
+
+  if (/media-src\s/.test(header)) {
+    extendedHeader = extendedHeader.replace(
+      /(media-src [^;]+)/,
+      (match) => `${match} https://cdn.shopify.com`,
+    );
+  } else {
+    extendedHeader += mediaSrcExtension;
+  }
+
+  extendedHeader += "; font-src 'self' data:;";
+
   const body = await renderToReadableStream(
     <NonceProvider>
       <RemixServer context={remixContext} url={request.url} nonce={nonce} />
@@ -37,7 +58,7 @@ export default async function handleRequest(
   }
 
   responseHeaders.set('Content-Type', 'text/html');
-  responseHeaders.set('Content-Security-Policy', header);
+  responseHeaders.set('Content-Security-Policy', extendedHeader);
 
   return new Response(body, {
     headers: responseHeaders,
