@@ -85,7 +85,7 @@ export function Aside({
               {heading}
             </h3>
             {expanded && type === 'cart' && (
-              <div className="ml-5 cart-badge flex  bg-black px-1.5  rounded-full text-white justify-center content-center flex-wrap w-9 h-9 text-xl font-medium ">
+              <div className="ml-5 cart-badge flex  bg-[#0d0e10] px-1.5  rounded-full text-white justify-center content-center flex-wrap w-9 h-9 text-xl font-medium ">
                 {totalQuantity ?? 0}
               </div>
             )}
