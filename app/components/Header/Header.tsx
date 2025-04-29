@@ -159,20 +159,9 @@ function CartBadge({count}: {count: number | null}) {
   const {totalQuantity} = useCart();
   
   return (
-    <Link
-      to="/cart"
-      onClick={(e) => {
-        e.preventDefault();
-        open('cart');
-        publish('cart_viewed', {
-          cart,
-          prevCart,
-          shop,
-          url: window.location.href || '',
-        } as CartViewPayload);
-      }}
-    >
-      <div className="cart-container relative   w-10 h-10  inline-flex items-center justify-center ">
+
+    
+      <div className="cart-container relative   w-10 h-10  inline-flex items-center justify-center " onClick={()=>open('cart')}>
         <span className="">
           <HiOutlineShoppingBag size={16} />
         </span>
@@ -180,7 +169,7 @@ function CartBadge({count}: {count: number | null}) {
           {totalQuantity ?? 0}
         </div>
       </div>
-    </Link>
+   
   );
 }
 

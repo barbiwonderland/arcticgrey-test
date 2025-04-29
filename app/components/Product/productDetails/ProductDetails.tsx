@@ -2,11 +2,7 @@ import {AiOutlineInfoCircle} from 'react-icons/ai';
 import {AiFillStar} from 'react-icons/ai';
 import img from '../../assets/images/products/product1.png';
 import {
-  AddToCartButton,
   CartCost,
-  CartLineProvider,
-  CartLineQuantityAdjustButton,
-  ProductProvider,
   useCart,
 } from '@shopify/hydrogen-react';
 
@@ -15,7 +11,6 @@ import {OptimisticCartLine, useOptimisticCart} from '@shopify/hydrogen';
 import Tooltip from '../Tooltip';
 import PurchaseButtons from '../PurchaseButtons';
 import {Product} from '@shopify/hydrogen/storefront-api-types';
-import {useState} from 'react';
 import {VariantItem} from './VariantItem';
 
 export interface VariantItemType {
@@ -100,7 +95,7 @@ function ProductDetails({product, layout}: {product: Product; layout: string}) {
 
   if (!product) return <h1>Oops, error loading product</h1>;
   return (
-    <div className="product-detail container flex flex-col w-auto h-auto  font-main justify-around  py-9 ">
+    <div className="product-detail container flex flex-col w-auto md:h-auto h-[90%] font-main justify-around  py-9 ">
       <img
         src={product.images.nodes[0].url}
         className=" w-[150px] h-[150px] md:h-[250px] md:w-[250px] object-cover flex self-center align-center flex-wrap"

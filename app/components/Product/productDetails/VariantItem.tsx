@@ -66,7 +66,7 @@ export const VariantItem = ({
         
   return (
     <tr key={optionValue.id} className="align-top text-center">
-      <td className="lg:p-3 p-1">
+      <td className="lg:p-3 py-2">
         <div className="flex items-center gap-3 text-[10px] text-[#1B1F23] text-left">
           <div className="md:w-[44px] md:h-[44px] w-[25px] h-[25px] border-gray-300 border-1 rounded-xl flex justify-center">
             <img
@@ -83,7 +83,7 @@ export const VariantItem = ({
           </div>
         </div>
       </td>
-      <td className="lg:p-3 p-1 flex gap-1.5">
+      <td className="lg:p-3 py-2 flex gap-1.5">
         {/* subtraction logic */}
 
         {itemLine ? (
@@ -104,7 +104,7 @@ export const VariantItem = ({
           </div>
         )}
 
-        <span>{quantity}</span>
+        <span className='text-xs my-auto'>{quantity}</span>
 
         {/**Sum render logic */}
         {/**If the product variants is in the cart as a line */}
@@ -128,16 +128,16 @@ export const VariantItem = ({
         )}
       </td>
       <td>
-        <div className="font-main lg:text-[12px] text-[10px] lg:p-2 p-1">
+        <div className="font-main lg:text-[12px] text-[10px] lg:p-2 py-2">
           ${optionValue.firstSelectableVariant?.price.amount} / Each
         </div>
       </td>
-      <td className="lg:p-3 p-1">
+      <td className="lg:p-3 py-2">
         <div className="discount font-main lg:text-[12px] text-[10px]">
           {disccount}%
         </div>
       </td>
-      <td className="lg:p-3 p-1">
+      <td className="lg:p-3 py-2">
         <div className="unit-total font-main lg:text-[12px] text-[10px] text-right">
           {unitPrice}
         </div>

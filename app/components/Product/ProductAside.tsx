@@ -5,10 +5,12 @@ import {Product} from '@shopify/hydrogen/storefront-api-types';
 
 function ProductAside() {
   const {type, close, product} = useAside();
-  if (type !== 'product-detail') return null;
+  const isExpanded = type === 'product-detail' && product != null;
   return (
     <Aside type="product-detail" heading="" width={'100%'}>
-      <ProductDetails layout="aside" product={product as Product} />
+      {isExpanded && (
+        <ProductDetails layout="aside" product={product as Product} />
+      )}
     </Aside>
   );
 }
