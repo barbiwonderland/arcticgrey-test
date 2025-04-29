@@ -381,13 +381,67 @@ export type GetTestimonialsQuery = {
         fields: Array<
           Pick<StorefrontAPI.MetaobjectField, 'value' | 'key'> & {
             reference?: StorefrontAPI.Maybe<
-              | (Pick<StorefrontAPI.Product, 'id' | 'title'> & {
+              | (Pick<StorefrontAPI.Product, 'id' | 'title' | 'description'> & {
                   images: {nodes: Array<Pick<StorefrontAPI.Image, 'url'>>};
-                  variants: {
-                    nodes: Array<{
-                      price: Pick<StorefrontAPI.MoneyV2, 'amount'>;
-                    }>;
-                  };
+                  options: Array<
+                    Pick<StorefrontAPI.ProductOption, 'name'> & {
+                      optionValues: Array<
+                        Pick<StorefrontAPI.ProductOptionValue, 'name'> & {
+                          firstSelectableVariant?: StorefrontAPI.Maybe<
+                            Pick<
+                              StorefrontAPI.ProductVariant,
+                              'availableForSale' | 'id' | 'sku' | 'title'
+                            > & {
+                              compareAtPrice?: StorefrontAPI.Maybe<
+                                Pick<
+                                  StorefrontAPI.MoneyV2,
+                                  'amount' | 'currencyCode'
+                                >
+                              >;
+                              image?: StorefrontAPI.Maybe<
+                                {__typename: 'Image'} & Pick<
+                                  StorefrontAPI.Image,
+                                  'id' | 'url' | 'altText' | 'width' | 'height'
+                                >
+                              >;
+                              price: Pick<
+                                StorefrontAPI.MoneyV2,
+                                'amount' | 'currencyCode'
+                              >;
+                              product: Pick<
+                                StorefrontAPI.Product,
+                                'title' | 'handle'
+                              >;
+                              selectedOptions: Array<
+                                Pick<
+                                  StorefrontAPI.SelectedOption,
+                                  'name' | 'value'
+                                >
+                              >;
+                              unitPrice?: StorefrontAPI.Maybe<
+                                Pick<
+                                  StorefrontAPI.MoneyV2,
+                                  'amount' | 'currencyCode'
+                                >
+                              >;
+                            }
+                          >;
+                          swatch?: StorefrontAPI.Maybe<
+                            Pick<
+                              StorefrontAPI.ProductOptionValueSwatch,
+                              'color'
+                            > & {
+                              image?: StorefrontAPI.Maybe<{
+                                previewImage?: StorefrontAPI.Maybe<
+                                  Pick<StorefrontAPI.Image, 'url'>
+                                >;
+                              }>;
+                            }
+                          >;
+                        }
+                      >;
+                    }
+                  >;
                 })
               | (Pick<StorefrontAPI.Video, 'id'> & {
                   sources: Array<Pick<StorefrontAPI.VideoSource, 'url'>>;
@@ -1230,7 +1284,7 @@ interface GeneratedQueryTypes {
     return: GetListImagesQuery;
     variables: GetListImagesQueryVariables;
   };
-  '#graphql\nquery getTestimonials{\n  metaobjects(type: "testimonials", first: 10) {\n  \n    nodes {\n\t\t\tid\n      fields {\n        value\n        key\n        reference {\n          ... on Product {\n            id\n            title\n            images(first: 10) {\n              nodes {\n                url\n              }\n            }\n            variants(first: 10)  {\n              nodes {\n                price {\n                  amount\n                }\n              }\n            }\n          }\n          ... on Video {\n            id\n            sources {\n              url\n            }\n          }\n        }\n      }\n    }\n  }\n}\n': {
+  '#graphql\nquery getTestimonials{\n  metaobjects(type: "testimonials", first: 10) {\n  \n    nodes {\n\t\t\tid\n      fields {\n        value\n        key\n        reference {\n          ... on Product {\n            id\n            title\n            description\n            images(first: 10) {\n              nodes {\n                url\n              }\n            }\n        \n            options {\n              name\n              optionValues {\n                name\n                firstSelectableVariant {\n                  ...ProductVariant\n                }\n                swatch {\n                  color\n                  image {\n                    previewImage {\n                      url\n                    }\n                  }\n                }\n              }\n            }\n          }\n          ... on Video {\n            id\n            sources {\n              url\n            }\n          }\n        }\n      }\n    }\n  }\n}\n#graphql\n  fragment ProductVariant on ProductVariant {\n    availableForSale\n    compareAtPrice {\n      amount\n      currencyCode\n    }\n    id\n    image {\n      __typename\n      id\n      url\n      altText\n      width\n      height\n    }\n    price {\n      amount\n      currencyCode\n    }\n    product {\n      title\n      handle\n    }\n    selectedOptions {\n      name\n      value\n    }\n    sku\n    title\n    unitPrice {\n      amount\n      currencyCode\n    }\n  }\n\n': {
     return: GetTestimonialsQuery;
     variables: GetTestimonialsQueryVariables;
   };
