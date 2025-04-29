@@ -19,74 +19,7 @@ type Product = {
   icon: string;
 };
 
-export const sampleProducts: Product[] = [
-  {
-    image: Testimonial1,
-    title: 'Magnesium L-Threonate',
-    price: '$49.95',
-    icon: Product,
-  },
-  {
-    image: Testimonial2,
-    title: 'Magnesium L-Threonate',
-    price: '$49.95',
-    icon: Product,
-  },
-  {
-    image: Testimonial3,
-    title: 'Magnesium L-Threonate',
-    price: '$49.95',
-    icon: Product,
-  },
-  {
-    image: Testimonial4,
-    title: 'Magnesium L-Threonate',
-    price: '$49.95',
-    icon: Product,
-  },
-  {
-    image: Testimonial5,
-    title: 'Magnesium L-Threonate',
-    price: '$49.95',
-    icon: Product,
-  },
-  {
-    image: Testimonial1,
-    title: 'Magnesium L-Threonate',
-    price: '$49.95',
-    icon: Product,
-  },
-  {
-    image: Testimonial1,
-    title: 'Magnesium L-Threonate',
-    price: '$49.95',
-    icon: Product,
-  },
-  {
-    image: Testimonial2,
-    title: 'Magnesium L-Threonate',
-    price: '$49.95',
-    icon: Product,
-  },
-  {
-    image: Testimonial3,
-    title: 'Magnesium L-Threonate',
-    price: '$49.95',
-    icon: Product,
-  },
-  {
-    image: Testimonial4,
-    title: 'Magnesium L-Threonate',
-    price: '$49.95',
-    icon: Product,
-  },
-  {
-    image: Testimonial5,
-    title: 'Magnesium L-Threonate',
-    price: '$49.95',
-    icon: Product,
-  },
-];
+
 
 function Testimonials({
   testimonials,

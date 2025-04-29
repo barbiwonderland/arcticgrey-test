@@ -37,32 +37,30 @@ export function CartMain({
   const cart = useOptimisticCart(originalCart);
   const {lines, cost} = useCart();
 
-  const withDiscount =
-    cart &&
-    Boolean(cart?.discountCodes?.filter((code) => code.applicable)?.length);
-  // const className = `cart-main ${withDiscount ? 'with-discount' : ''}`;
-  const cartHasItems = cart?.totalQuantity && cart?.totalQuantity > 0;
+  //progress to get free shipping to pass props to progress component
+  const [freeShippingProgress, setFreeShipingProgress] = useState(0);
 
-  const [freeShippingProgress, setFreeShipingProgress] = useState(
-    Number(cost?.subtotalAmount?.amount),
-  );
   //price to get for free shipping
   const shippingAmount = 80;
-  const getProgressDiference = () => {
-    setProgressDiference(shippingAmount - Number(cost?.subtotalAmount?.amount));
-  };
-  //percent to get free shipping
-  const [progressDiference, setProgressDiference] = useState(
-    shippingAmount - Number(cost?.subtotalAmount?.amount),
-  );
 
+  //cost remainder to get free shipping
+  const [remainderFreeShipping, setRemainderFreeShipping] = useState(0);
+
+  const getRemainder = () => {
+    if (lines?.length) {
+      setRemainderFreeShipping(
+        shippingAmount - Number(cost?.subtotalAmount?.amount),
+      );
+    } else {
+      setRemainderFreeShipping(shippingAmount);
+    }
+  };
   //function tu update progress
   const getProgress = () => {
     if (lines!.length > 0) {
       let costCart = Number(cost?.subtotalAmount?.amount);
       let newProgress = costCart && (costCart / 80) * 100;
       setFreeShipingProgress(newProgress);
-      getProgressDiference();
     } else {
       setFreeShipingProgress(0);
     }
@@ -70,6 +68,7 @@ export function CartMain({
 
   useEffect(() => {
     getProgress();
+    getRemainder();
   }, [lines]);
 
   return (
@@ -77,7 +76,7 @@ export function CartMain({
       {lines!.length < 1 && <CartEmpty hidden={false} layout={layout} />}
       <div className="text-center mt-2 text-black font-bold">
         {freeShippingProgress < shippingAmount
-          ? `You are ${progressDiference} away from eligible for free shipping`
+          ? `You are ${remainderFreeShipping} away from eligible for free shipping`
           : 'Congratulations! You have free shipping'}
       </div>
       <div className="freeshiping flex justify-around my-4 items-center flex-wrap">
