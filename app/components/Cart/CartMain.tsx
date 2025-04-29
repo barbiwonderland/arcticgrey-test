@@ -58,16 +58,14 @@ export function CartMain({
 
   //function tu update progress
   const getProgress = () => {
-    if (lines!.length>0) {
-      if (freeShippingProgress < 80) {
-        let costCart = Number(cost?.subtotalAmount?.amount);
-        let newProgress = costCart && (costCart / 80) * 100;
-        setFreeShipingProgress(newProgress);
-      }
+    if (lines!.length > 0) {
+      let costCart = Number(cost?.subtotalAmount?.amount);
+      let newProgress = costCart && (costCart / 80) * 100;
+      setFreeShipingProgress(newProgress);
+      getProgressDiference();
     } else {
       setFreeShipingProgress(0);
     }
-       getProgressDiference();
   };
 
   useEffect(() => {
@@ -75,7 +73,7 @@ export function CartMain({
   }, [lines]);
 
   return (
-    <div className="h-full w-full ">
+    <div className="h-full w-full overflow-y-auto ">
       {lines!.length < 1 && <CartEmpty hidden={false} layout={layout} />}
       <div className="text-center mt-2 text-black font-bold">
         {freeShippingProgress < shippingAmount
@@ -149,8 +147,7 @@ export function CartMain({
                       onSwiper={(swiper) => (swiperRef.current = swiper)}
                       simulateTouch={true}
                       className="w-full"
-                      slidesPerView={2.5}
-                      spaceBetween={20}
+                      direction="horizontal"
                       breakpoints={{
                         375: {
                           slidesPerView: 1.5,
@@ -161,10 +158,9 @@ export function CartMain({
                           spaceBetween: 10,
                         },
                         1024: {
-                          slidesPerView: 3,
-                          spaceBetween: 40,
+                          slidesPerView: 2,
+                          spaceBetween: 5,
                         },
-                       
                       }}
                     >
                       {result?.map((product, key) => (
@@ -175,15 +171,15 @@ export function CartMain({
                         </SwiperSlide>
                       ))}
                     </Swiper>
-                    <div className="cart-total flex justify-around mt-5 w-full mx-4 font-main">
+                    <div className="cart-total flex justify-around mt-5 w-full md:mx-4 mx-0 font-main">
                       <div className="subtotal-title  ">
                         <h3 className=" font-medium text-[14px}!">Subtotal</h3>
-                        <p className="text-gray-500 text-[14px]">
+                        <p className="text-gray-500 text-xs md:text-[14px]">
                           Tax included. Shipping calculated at checkout.
                         </p>
                       </div>
-                      <div className="subtotal-price font-medium text-[17px]">
-                        {cost?.totalAmount?.amount}
+                      <div className="subtotal-price font-medium text-xs md:text-[17px]">
+                        ${cost?.totalAmount?.amount}
                       </div>
                     </div>
                     <div className="bg-black mt-3 text-white md:py-6 py-2 flex items-center justify-center rounded-xl w-[90%] mx-auto mb-5">

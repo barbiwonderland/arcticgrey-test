@@ -370,6 +370,36 @@ export type GetListImagesQuery = {
   }>;
 };
 
+export type GetTestimonialsQueryVariables = StorefrontAPI.Exact<{
+  [key: string]: never;
+}>;
+
+export type GetTestimonialsQuery = {
+  metaobjects: {
+    nodes: Array<
+      Pick<StorefrontAPI.Metaobject, 'id'> & {
+        fields: Array<
+          Pick<StorefrontAPI.MetaobjectField, 'value' | 'key'> & {
+            reference?: StorefrontAPI.Maybe<
+              | (Pick<StorefrontAPI.Product, 'id' | 'title'> & {
+                  images: {nodes: Array<Pick<StorefrontAPI.Image, 'url'>>};
+                  variants: {
+                    nodes: Array<{
+                      price: Pick<StorefrontAPI.MoneyV2, 'amount'>;
+                    }>;
+                  };
+                })
+              | (Pick<StorefrontAPI.Video, 'id'> & {
+                  sources: Array<Pick<StorefrontAPI.VideoSource, 'url'>>;
+                })
+            >;
+          }
+        >;
+      }
+    >;
+  };
+};
+
 export type StoreRobotsQueryVariables = StorefrontAPI.Exact<{
   country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
   language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
@@ -1199,6 +1229,10 @@ interface GeneratedQueryTypes {
   '#graphql\nquery getListImages($country: CountryCode, $language: LanguageCode,$handle: String!)\n@inContext(country: $country, language: $language){\n  metaobject(handle: {handle: $handle, type: "instagram_media"}) {\n    fields {\n      references(first: 50) {\n        nodes {\n          ... on MediaImage {\n            id\n            image {\n              url\n            }\n          }\n        }\n      }\n    }\n  }\n  }\n': {
     return: GetListImagesQuery;
     variables: GetListImagesQueryVariables;
+  };
+  '#graphql\nquery getTestimonials{\n  metaobjects(type: "testimonials", first: 10) {\n  \n    nodes {\n\t\t\tid\n      fields {\n        value\n        key\n        reference {\n          ... on Product {\n            id\n            title\n            images(first: 10) {\n              nodes {\n                url\n              }\n            }\n            variants(first: 10)  {\n              nodes {\n                price {\n                  amount\n                }\n              }\n            }\n          }\n          ... on Video {\n            id\n            sources {\n              url\n            }\n          }\n        }\n      }\n    }\n  }\n}\n': {
+    return: GetTestimonialsQuery;
+    variables: GetTestimonialsQueryVariables;
   };
   '#graphql\n  query StoreRobots($country: CountryCode, $language: LanguageCode)\n   @inContext(country: $country, language: $language) {\n    shop {\n      id\n    }\n  }\n': {
     return: StoreRobotsQuery;

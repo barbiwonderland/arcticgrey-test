@@ -19,11 +19,25 @@ export default async function handleRequest(
   });
 
   const connectSrcExtension = ' https://arctic-greytest.myshopify.com';
-  const extendedHeader =
-    header.replace(
-      /(connect-src [^;]+)/,
-      (match) => `${match}${connectSrcExtension}`,
-    ) + "; font-src 'self' data:;";
+  let extendedHeader = header.replace(
+    /(connect-src [^;]+)/,
+    (match) => `${match}${connectSrcExtension}`,
+  );
+
+  // Aquí agregas ambos dominios permitidos en media-src
+  const mediaSrcExtension =
+    "; media-src 'self' https://arctic-greytest.myshopify.com https://cdn.shopify.com";
+
+  if (/media-src\s/.test(header)) {
+    extendedHeader = extendedHeader.replace(
+      /(media-src [^;]+)/,
+      (match) => `${match} https://cdn.shopify.com`,
+    );
+  } else {
+    extendedHeader += mediaSrcExtension;
+  }
+
+  extendedHeader += "; font-src 'self' data:;";
 
   const body = await renderToReadableStream(
     <NonceProvider>

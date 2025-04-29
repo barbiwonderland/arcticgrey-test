@@ -1,7 +1,5 @@
-import {
-  type LoaderFunctionArgs,
-} from '@shopify/remix-oxygen';
-import { useLoaderData, type MetaFunction} from '@remix-run/react';
+import {type LoaderFunctionArgs} from '@shopify/remix-oxygen';
+import {useLoaderData, type MetaFunction} from '@remix-run/react';
 import BrandBanner from '~/components/BrandsBanner/BrandsBanner';
 import GoalsSection from '~/components/GoalSection/GoalsSection';
 import TrendingProducts from '~/components/TrendingProducts/TrendingProducts';
@@ -21,6 +19,7 @@ import CustomProducts from '~/components/CustomProducts/CustomProducts';
 import {
   GET_LIST_IMAGES,
   GET_METAOBJECTS_BY_TYPE,
+  GET_TESTIMONIALS,
 } from '~/queries/metaobjects';
 // import { GET_HOME_MEDIA } from '~/queries/files';
 import {GET_ARTICLES} from '~/queries/blogs';
@@ -86,7 +85,6 @@ async function loadCriticalData({context}: LoaderFunctionArgs) {
   };
 }
 
-
 /**
  * Load data for rendering content below the fold. This data is deferred and will be
  * fetched after the initial page load. If it's unavailable, the page should still 200.
@@ -122,10 +120,20 @@ function loadDeferredData({context}: LoaderFunctionArgs) {
       return null;
     });
 
+  //Testimonials query
+  const testimonials = context.storefront
+    .query(GET_TESTIMONIALS)
+    .catch((error) => {
+      // Log query errors, but don't throw them so the page can still render
+      console.error(error);
+      return null;
+    });
+
   return {
     articles,
     bundlesProducts: bundlesProducts,
     socialMedia,
+    testimonials,
   };
 }
 
@@ -139,7 +147,7 @@ export default function Homepage() {
       <GoalsSection goals={data.goals} />
       <TrendingProducts products={data.trendingProducts} />
       <About cleanSuplements={data.cleanSuplements} />
-      <Testimonials />
+      <Testimonials testimonials={data.testimonials} />
       <Bundles bundles={data.bundlesProducts} />
       <CustomProducts />
       <News />

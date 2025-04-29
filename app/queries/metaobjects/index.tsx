@@ -27,7 +27,6 @@ query GetMetaobjects($country: CountryCode, $language: LanguageCode,$type: Strin
   }
 ` as const;
 
-
 export const GET_SOCIAL_MEDIA_QUERY = `#graphql
 query getInstagramMedia($country: CountryCode, $language: LanguageCode)
 @inContext(country: $country, language: $language){
@@ -48,7 +47,6 @@ query getInstagramMedia($country: CountryCode, $language: LanguageCode)
   }
 ` as const;
 
-
 export const GET_LIST_IMAGES = `#graphql
 query getListImages($country: CountryCode, $language: LanguageCode,$handle: String!)
 @inContext(country: $country, language: $language){
@@ -67,4 +65,43 @@ query getListImages($country: CountryCode, $language: LanguageCode,$handle: Stri
     }
   }
   }
+` as const;
+
+export const GET_TESTIMONIALS = `#graphql
+query getTestimonials{
+  metaobjects(type: "testimonials", first: 10) {
+  
+    nodes {
+			id
+      fields {
+        value
+        key
+        reference {
+          ... on Product {
+            id
+            title
+            images(first: 10) {
+              nodes {
+                url
+              }
+            }
+            variants(first: 10)  {
+              nodes {
+                price {
+                  amount
+                }
+              }
+            }
+          }
+          ... on Video {
+            id
+            sources {
+              url
+            }
+          }
+        }
+      }
+    }
+  }
+}
 ` as const;
