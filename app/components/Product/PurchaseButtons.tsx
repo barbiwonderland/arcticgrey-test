@@ -79,7 +79,7 @@ function PurchaseButtons({
       </div>
       <div
         className={`add-btn w-[90%] h-[65px] bg-black text-white text-[14px] rounded-lg flex content-center flex-wrap mb-2 ${quantityButton ? 'justify-around' : 'justify-center'}`}
-        onClick={() => open('product-detail', item)}
+        onClick={() => !active && open('product-detail', item)}
       >
         {quantityButton && (
           <div className="quantity-button bg-white w-[140px] h-[53px] font-main text-[18px] rounded-xl flex flex-row text-black justify-center gap-9 font-light items-center">
@@ -92,8 +92,8 @@ function PurchaseButtons({
         <span className="flex items-center font-normal text-[16px]">
           Add to Cart -{' '}
           {productTotal !== undefined && productTotal !== null
-            ? productTotal.toFixed(2)
-            : itemPrice}
+            ? `$${productTotal.toFixed(2)}`
+            : `$${itemPrice}`}
         </span>
         <div className=""></div>
       </div>
