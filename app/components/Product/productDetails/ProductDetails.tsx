@@ -95,7 +95,7 @@ function ProductDetails({product, layout}: {product: Product; layout: string}) {
 
   if (!product) return <h1>Oops, error loading product</h1>;
   return (
-    <div className="product-detail container flex flex-col w-auto h-auto  font-main justify-around  py-9 ">
+    <div className="product-detail container flex flex-col w-auto md:h-auto h-[90%] font-main justify-around  py-9 ">
       <img
         src={product.images.nodes[0].url}
         className=" w-[150px] h-[150px] md:h-[250px] md:w-[250px] object-cover flex self-center align-center flex-wrap"
