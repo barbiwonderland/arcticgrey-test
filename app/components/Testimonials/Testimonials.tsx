@@ -169,7 +169,7 @@ function Testimonials({
                                     src={productImageUrl}
                                   />
                                   <div className="text flex flex-col">
-                                    <div className="title text[13px]">
+                                    <div className="title text[13px] max-w-[200px] ">
                                       {productTitle}
                                     </div>
                                     <div className="price text-xs font-medium">
