@@ -53,7 +53,7 @@ function Bundles({bundles}: {bundles: Promise<Product[]>}) {
                       <button
                         key={item.path}
                         onClick={() => setActiveFilter(item.name)}
-                        className={`text-sm mb-4 ${
+                        className={`md:text-sm text-[10px] mb-4 ${
                           activeFilter === item.name
                             ? 'underline decoration-2 decoration-black underline-offset-4'
                             : 'hover:underline hover:underline-offset-2 hover:decoration-black'
