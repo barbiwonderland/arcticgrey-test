@@ -12,6 +12,8 @@ import 'swiper/css';
 import {Navigation} from 'swiper/modules';
 import {GetTestimonialsQuery} from 'storefrontapi.generated';
 import {Await} from '@remix-run/react';
+import ArrowRight from '../Common/ArrowRight';
+import ArrowLeft from '../Common/ArrowLeft';
 type Product = {
   image: string;
   title: string;
@@ -58,16 +60,14 @@ function Testimonials({
                         Real People. Real Results.
                       </h1>
                       <div
-                        className="absolute top-0 left-3 md:top-15 md:left-[-80px] left-arrow h-10 w-10 border-2 border-gray-300 rounded-lg text-center flex justify-center items-center"
-                        onClick={handleScrollLeft}
+                        className="absolute top-0 left-3 md:top-15 md:left-[-80px] left-arrow h-10"
                       >
-                        <AiOutlineArrowLeft />
+                         <ArrowLeft action={() => handleScrollLeft()} />
                       </div>
                       <div
-                        className="absolute md:right-[-80px] md:top-15 top-0 right-3 right-arrow h-10 w-10 border-2 border-gray-300 rounded-lg text-center flex justify-center items-center"
-                        onClick={handleScrollRight}
+                        className="absolute md:right-[-80px] md:top-15 top-0 right-3 "
                       >
-                        <AiOutlineArrowRight />
+                     <ArrowRight action={() => handleScrollRight()} />
                       </div>
                     </div>
                     <div className="underline">View all</div>

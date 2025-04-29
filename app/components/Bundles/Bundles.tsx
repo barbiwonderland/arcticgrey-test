@@ -5,6 +5,8 @@ import {Product} from '@shopify/hydrogen/storefront-api-types';
 import {ProductProvider} from '@shopify/hydrogen-react';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import ProductCard from '../Common/ProductCard';
+import ArrowLeft from '../Common/ArrowLeft';
+import ArrowRight from '../Common/ArrowRight';
 
 function Bundles({bundles}: {bundles: Promise<Product[]>}) {
   //it can be from the api, in the future i can update
@@ -47,13 +49,13 @@ function Bundles({bundles}: {bundles: Promise<Product[]>}) {
                     <div className="title text-[40px] font-medium">Bundles</div>
                   </div>
                 </div>
-                <div className="menu flex flex-row justify-center ">
+                <div className="menu flex flex-row justify-center py-2 ">
                   <nav className=" gap-5 flex">
                     {menuItems.map((item) => (
                       <button
                         key={item.path}
                         onClick={() => setActiveFilter(item.name)}
-                        className={`md:text-sm text-[10px] mb-4 ${
+                        className={`md:text-sm text-[10px] mb-4 transition-all duration-200 ease-in ${
                           activeFilter === item.name
                             ? 'underline decoration-2 decoration-black underline-offset-4'
                             : 'hover:underline hover:underline-offset-2 hover:decoration-black'
@@ -64,25 +66,16 @@ function Bundles({bundles}: {bundles: Promise<Product[]>}) {
                     ))}
                   </nav>
                 </div>
-                <div className="flex flex-row flex-wrap gap-3 items-center">
+                <div className="flex flex-row flex-wrap gap-3 items-center w-full justify-center py-2 md:w-auto">
                   <div
-                    className="underline text-[18px] "
+                    className=" underline-offset-4 underline text-[18px] "
                     onClick={() => setActiveFilter(null)}
                   >
                     View All Bundles
                   </div>
-                  <div
-                    className=" left-arrow h-10 w-10 border-2 border-gray-300 rounded-lg text-center flex justify-center items-center"
-                    onClick={handleScrollLeft}
-                  >
-                    <AiOutlineArrowLeft />
-                  </div>
-                  <div
-                    className="left-arrow h-10 w-10 border-2 border-gray-300 rounded-lg text-center flex justify-center items-center"
-                    onClick={handleScrollRight}
-                  >
-                    <AiOutlineArrowRight />
-                  </div>
+
+                  <ArrowLeft action={() => handleScrollLeft()} />
+                  <ArrowRight action={() => handleScrollRight()} />
                 </div>
               </div>
 

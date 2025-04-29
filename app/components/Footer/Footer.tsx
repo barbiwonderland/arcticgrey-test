@@ -71,9 +71,9 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="text-xs text-gray-500 mt-8 text-center flex flex-row justify-between">
+      <div className="text-xs text-gray-500 mt-8 text-center flex flex-row flex-wrap gap-1 md:justify-between justify-center">
         <p>© uncmfrt.com. All rights reserved.</p>
-        <p className="mt-1">Made with ❤️ and 🧊 by <Link className='text-gray-500!' to="https://github.com/barbiwonderland/">Barbara Bottazzi</Link>  for Arctic Grey Challenge</p>
+        <p className="mt-1">Made with ❤️  by <Link className='text-gray-500!' to="https://github.com/barbiwonderland/">Barbara Bottazzi</Link>  for Arctic Grey Challenge</p>
       </div>
     </footer>
   );

@@ -160,7 +160,6 @@ export default function Homepage() {
 // async function loadHomeVideo({context}: LoaderFunctionArgs) {
 //   const result = await Promise.all([
 //     context.storefront.query(GET_HOME_MEDIA),
-//     // Add other queries here, so that they are loaded in parallel
 //   ]);
 
 //   return {

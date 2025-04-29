@@ -124,6 +124,7 @@ function CustomProducts() {
         slidesPerView={1}
         spaceBetween={10}
         direction="horizontal"
+        
       >
         {productData.slice(0, 2).map((product, i) => (
           <SwiperSlide key={i}>
@@ -132,14 +133,14 @@ function CustomProducts() {
                 <div className="eyebrowtext[16px]">
                   {productData[0].eyebrow}
                 </div>
-                <div className="title text-[40px] font-medium">
+                <div className="title md:text-[40px] text-2xl font-medium">
                   {product.title}
                 </div>
               </div>
               <div className="product-container flex flex-row justify-around items-center">
-                <ArrowLeft action={() => handleScrollLeft} />
+                <ArrowLeft action={() => handleScrollLeft()} />
 
-                <div className="product-content  grid lg:grid-cols-2 lg:grid-rows-none   justify-items-center font-main mt-12 mb-12 lg:h-[548px] w-[85%] rounded-xl border-2 justify-center self-center border-gray-200  ">
+                <div className="product-content  grid lg:grid-cols-2 lg:grid-rows-none   justify-items-center font-main md:mt-12 my-6 md:mb-12 lg:h-[548px] w-[85%] rounded-xl border-2 justify-center self-center border-gray-200  ">
                   <div className="img-container bg-white w-full flex justify-center h-full mt-5 lg:mt-0">
                     <img
                       className=" object-contain"
@@ -203,7 +204,7 @@ function CustomProducts() {
                   </div>
                 </div>
 
-                <ArrowRight action={() => handleScrollRight} />
+                <ArrowRight action={() => handleScrollRight()} />
               </div>
             </div>
           </SwiperSlide>
